@@ -25,6 +25,7 @@
 ##  EORIGIN : Is of Hispanic, Latino, or Spanish origin
 ##  ERACE
 ##  ECITIZEN: Is ... a citizen of the United States?
+##  SPANEL: panel year
 
 ## weighting: monthly, yearly, multiple years
 ## https://www2.census.gov/programs-surveys/sipp/tech-documentation/methodology/2022_SIPP_Users_Guide_JUN23.pdf
@@ -57,13 +58,14 @@ for(p in packages){
 ## Load data -------------------------------------------------------------------
 
 ## Loop and download + clean data by year
-download_url <- "https://www2.census.gov/programs-surveys/sipp/data/datasets/2022/pu2022_csv.zip"
-
-download.file(download_url,
-              here("data_private", basename(download_url)))
-
-unzip(here("data_private", basename(download_url)),
-      exdir = here("data_private", "sipp_data"))
+# download_url <- "https://www2.census.gov/programs-surveys/sipp/data/datasets/2021/pu2022_csv.zip"
+# download_url <- "https://www2.census.gov/programs-surveys/sipp/data/datasets/2021/pu2021_csv.zip"
+# 
+# download.file(download_url,
+#               here("data_private", basename(download_url)))
+# 
+# unzip(here("data_private", basename(download_url)),
+#       exdir = here("data_private", "sipp_data"))
 
 ## get cols name
 # data <- read.table(
@@ -75,17 +77,22 @@ unzip(here("data_private", basename(download_url)),
 # names(data)[grep("FIN", names(data))]
 
 ## Need to select cols as the file is too big to be imported as is
-data <- fread(here("data_private", "sipp_data", "pu2022.csv"), 
+data <- fread(here("data_private", "sipp_data", "pu2021.csv"), 
               header = T,
               sep = "|",
               select = c("TAGE", "EBDAD", "EBMOM", "TBDADDODRAGE", 
                          "TBMOMDODRAGE", "TBDADDOB_Y", "TBDADDOD_Y",
                          "TBMOMDOB_Y", "TBMOMDOD_Y", "EORIGIN",
                          "ERACE", "ECITIZEN",
-                         "WPFINWGT")
+                         "WPFINWGT",
+                         "SPANEL", "SWAVE", "PNUM", "MONTHCODE",
+                         "TPTOTINC") # data check
               )
 
 file.remove(here("data_private", basename(download_url)))
+
+## Data check
+# mean(data$TPTOTINC, na.rm = TRUE)
 
 
 
@@ -94,45 +101,66 @@ file.remove(here("data_private", basename(download_url)))
 ## Tidy
 names(data) <- tolower(names(data)) 
 
-df <- data |> 
-    ## focus on individuals losing a mother (try reproducing plot)
-    filter(ebmom == 2 | ebdad == 2,
-           tbmomdodrage != 999,
-           tbdaddodrage != 999,
-           !is.na(tbmomdodrage),
-           !is.na(tbdaddodrage)) |> 
-    mutate(
-        ## tidy age in 5y age groups
-        age_loss_mom = cut(tbmomdodrage, 
-                  breaks = c(seq(0, 70, 5), Inf),
-                  right = FALSE),
-        age_loss_dad = cut(tbdaddodrage, 
-                           breaks = c(seq(0, 70, 5), Inf),
-                           right = FALSE),
-        ## rescale weights
-        w = wpfinwgt/10000
-        ) |> 
-    pivot_longer(age_loss_mom:age_loss_dad,
-                 names_to = "parent",
-                 values_to = "age_loss") |> 
-    mutate(parent = substr(parent, 10,12)) |> 
-    group_by(
-        ## Does not account for CoD 
-        ## neither age and sex for the moment
-        age_loss, parent
-    ) |> 
-    summarize(
-        N = sum(w)
-    ) |> 
-    group_by(parent) |> 
-    mutate(
-        ## age at mother death
-        perc = (N/sum(N))*100
-    )
-## Don't get the same percentages as here
+
+## Loss of mother
+df.loss.mom <- data |> 
+  filter(ebmom ==2, ## filter ind losing a mother
+         !is.na(tbmomdodrage),
+         tbmomdodrage != 999) |> ## having info on age when losing mother 
+  mutate(age_loss = cut(tbmomdodrage, 
+                        breaks = c(seq(0, 70, 5), Inf),
+                        right = FALSE),
+         ## rescale weights
+         w = wpfinwgt/10000
+         ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither age and sex for the moment
+    age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  ungroup() |> 
+  mutate(
+    ## age at mother death
+    perc = (N/sum(N))*100
+  )
+
+
+## Loss of father
+df.loss.dad <- data |> 
+  filter(ebdad ==2,
+         !is.na(tbdaddodrage),
+         tbdaddodrage != 999) |> 
+  mutate(age_loss = cut(tbdaddodrage, 
+                        breaks = c(seq(0, 70, 5), Inf),
+                        right = FALSE),
+         ## rescale weights
+         w = wpfinwgt/10000
+  ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither age and sex for the moment
+    age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  ungroup() |> 
+  mutate(
+    ## age at mother death
+    perc = (N/sum(N))*100
+  )
+
+## Get the same percentages as here
 # https://www.census.gov/library/visualizations/interactive/losing-our-parents.html
 
-
+## Bind the df
+df <- bind_rows(df.loss.mom |> 
+                  mutate(parent = "mom"),
+                df.loss.dad |> 
+                  mutate(parent = "dad"))
 
 ## Visu ------------------------------------------------------------------------
 
@@ -142,3 +170,133 @@ df |>
     geom_point() +
     theme_bw()
 
+
+
+## Compute rates for Monica ----------------------------------------------------
+
+## Losing mother
+df.rates.loss.mom <- data |> 
+  filter(!is.na(ebmom)) |> 
+  mutate(
+    ## For ind not having lost their mother,
+    ## set tage = tbmomdodrage
+    tbmomdodrage = ifelse(ebmom == 1, tage, tbmomdodrage)
+    ) |> 
+  mutate(
+    ## Categorise age in 5-year bands
+    age_loss = cut(tbmomdodrage, 
+                        breaks = c(seq(0, 70, 5), Inf),
+                        right = FALSE),
+         ## rescale weights
+         w = wpfinwgt/10000,
+    ebmom = ifelse(ebmom == 1, "m_alive", "m_dead")
+    ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither age and sex for the moment
+    ebmom, age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  pivot_wider(names_from = "ebmom", values_from = "N") |> 
+  mutate(
+    ## compute rates
+    rate = m_dead/(m_alive+m_dead)
+  )
+
+## Losing father
+df.rates.loss.dad <- data |> 
+  filter(!is.na(ebdad)) |> 
+  mutate(
+    ## For ind not having lost their mother,
+    ## set tage = tbmomdodrage
+    tbdaddodrage = ifelse(ebdad == 1, tage, tbdaddodrage)
+  ) |> 
+  mutate(
+    ## Categorise age in 5-year bands
+    age_loss = cut(tbdaddodrage, 
+                   breaks = c(seq(0, 70, 5), Inf),
+                   right = FALSE),
+    ## rescale weights
+    w = wpfinwgt/10000,
+    ebdad = ifelse(ebdad == 1, "d_alive", "d_dead")
+  ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither age and sex for the moment
+    ebdad, age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  pivot_wider(names_from = "ebdad", values_from = "N") |> 
+  mutate(
+    ## compute rates
+    rate = d_dead/(d_alive+d_dead)
+  )
+
+## Losing both
+df.rates.loss.both <- data |> 
+  filter(!is.na(ebdad),
+         !is.na(ebmom)) |> 
+  mutate(
+    eb = case_when(
+      ebdad == 2 & ebmom == 2 ~ "both_dead",
+      TRUE ~ "one_alive"
+    ),
+    tbdodrage = case_when(
+      ## If both parent are death, age when second died
+      ebdad == 2 & ebmom == 2 ~ pmap_int(list(tbdaddodrage, tbmomdodrage), max),
+      ## if only one parent died
+      TRUE ~ tage
+      )
+    ) |> 
+  mutate(
+    ## Categorise age in 5-year bands
+    age_loss = cut(tbdodrage, 
+                   breaks = c(seq(0, 70, 5), Inf),
+                   right = FALSE),
+    ## rescale weights
+    w = wpfinwgt/10000
+  ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither age and sex for the moment
+    eb, age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  pivot_wider(names_from = "eb", values_from = "N") |> 
+  mutate(
+    ## compute rates
+    rate = both_dead/(both_dead+one_alive)
+  )
+## Combine
+df.rates <- bind_rows(
+  df.rates.loss.mom |> 
+    dplyr::select(age_loss, rate) |> 
+    mutate(parent = "mom") ,
+  df.rates.loss.dad |> 
+      dplyr::select(age_loss, rate) |> 
+    mutate(parent = "dad"),
+  df.rates.loss.both |> 
+      dplyr::select(age_loss, rate) |> 
+    mutate(parent = "both")
+)
+
+## Store df
+saveRDS(df.rates,
+        here("data", "df_rates.rda"))
+
+
+
+## Visu ------------------------------------------------------------------------
+
+df.rates |> 
+  ggplot(aes(x = age_loss, y = rate, group = parent, col = parent)) +
+  geom_line() +
+  geom_point() +
+  theme_bw() +
+  labs(x = "Age at loss")
