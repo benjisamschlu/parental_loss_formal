@@ -89,7 +89,7 @@ data <- fread(here("data_private", "sipp_data", "pu2021.csv"),
                          "TPTOTINC") # data check
               )
 
-file.remove(here("data_private", basename(download_url)))
+# file.remove(here("data_private", basename(download_url)))
 
 ## Data check
 # mean(data$TPTOTINC, na.rm = TRUE)
@@ -162,6 +162,8 @@ df <- bind_rows(df.loss.mom |>
                 df.loss.dad |> 
                   mutate(parent = "dad"))
 
+
+
 ## Visu ------------------------------------------------------------------------
 
 df |> 
@@ -173,6 +175,11 @@ df |>
 
 
 ## Compute rates for Monica ----------------------------------------------------
+
+## Need to remove missing age 
+## but filter (tbdaddodrage != 999) remove the NA
+## while NA means no age because no parent death
+## -> Maybe see "neither" for best practice
 
 ## Losing mother
 df.rates.loss.mom <- data |> 
@@ -262,7 +269,7 @@ df.rates.loss.both <- data |>
   ) |> 
   group_by(
     ## Does not account for race
-    ## neither age and sex for the moment
+    ## neither sex for the moment
     eb, age_loss
   ) |> 
   summarize(
@@ -273,6 +280,53 @@ df.rates.loss.both <- data |>
     ## compute rates
     rate = both_dead/(both_dead+one_alive)
   )
+
+## Losing neither
+df.rates.loss.neither <- data |> 
+  filter(!is.na(ebdad),
+         !is.na(ebmom)) |> 
+  ## Need to have this info
+  mutate(
+    eb = case_when(
+      (ebdad == 1) & (ebmom == 1) ~ "none_dead",
+      (ebdad == 2) | (ebmom == 2) ~ "other"
+    ),
+    tbdodrage = case_when(
+      ## If both parent are death, age when second died
+      (ebdad == 1) & (ebmom == 1) ~ tage,
+      ## as soon as one parent dies, at this age not "neither" anymore
+      (ebdad == 2) & (ebmom == 2) ~ min(c(tbdaddodrage, tbmomdodrage)),
+      (ebdad == 1) & (ebmom == 2) ~ tbmomdodrage,
+      (ebdad == 2) & (ebmom == 1) ~ tbdaddodrage
+      )
+    ) |> 
+  ## remove observations where age at 
+  ## parent death is required but unknown
+  filter(tbdodrage != 999) |> 
+  mutate(
+    ## Categorise age in 5-year bands
+    age_loss = cut(tbdodrage, 
+                   breaks = c(seq(0, 70, 5), Inf),
+                   right = FALSE),
+    ## rescale weights
+    w = wpfinwgt/10000
+  ) |> 
+  group_by(
+    ## Does not account for race
+    ## neither sex for the moment
+    eb, age_loss
+  ) |> 
+  summarize(
+    N = sum(w)
+  ) |> 
+  pivot_wider(names_from = "eb", values_from = "N") |> 
+  mutate(
+    ## compute rates
+    rate = none_dead/(none_dead+other)
+  )
+
+
+
 ## Combine
 df.rates <- bind_rows(
   df.rates.loss.mom |> 
@@ -283,7 +337,10 @@ df.rates <- bind_rows(
     mutate(parent = "dad"),
   df.rates.loss.both |> 
       dplyr::select(age_loss, rate) |> 
-    mutate(parent = "both")
+    mutate(parent = "both"),
+  df.rates.loss.neither |> 
+    dplyr::select(age_loss, rate) |> 
+    mutate(parent = "neither")
 )
 
 ## Store df
