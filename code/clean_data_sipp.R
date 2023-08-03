@@ -80,12 +80,15 @@ for(p in packages){
 data <- fread(here("data_private", "sipp_data", "pu2021.csv"), 
               header = T,
               sep = "|",
-              select = c("TAGE", "EBDAD", "EBMOM", "TBDADDODRAGE", 
-                         "TBMOMDODRAGE", "TBDADDOB_Y", "TBDADDOD_Y",
-                         "TBMOMDOB_Y", "TBMOMDOD_Y", "EORIGIN",
-                         "ERACE", "ECITIZEN",
-                         "WPFINWGT",
-                         "SPANEL", "SWAVE", "PNUM", "MONTHCODE",
+              select = c("TAGE", # age at itw
+                         "EBDAD", "EBMOM", # survival status of parent
+                         "TBDADDODRAGE", "TBMOMDODRAGE", # age when parent died
+                         "TBDADDOD_Y", "TBMOMDOD_Y",# year when parent died
+                         "TBMOMDOB_Y", "TBDADDOB_Y", # year of parent birth
+                         "EORIGIN", "ECITIZEN",
+                         "ERACE", # ethnicity
+                         "WPFINWGT", # weight
+                         "SPANEL", "SWAVE", "PNUM", "MONTHCODE", 
                          "TPTOTINC") # data check
               )
 
@@ -189,10 +192,15 @@ df.rates.loss.mom <- data |>
     ## set tage = tbmomdodrage
     tbmomdodrage = ifelse(ebmom == 1, tage, tbmomdodrage)
     ) |> 
+  filter(
+    ## rm unknown age age death
+    tbmomdodrage != 999,
+    ## avoid stochasticity at old ages
+    tbmomdodrage < 65) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbmomdodrage, 
-                        breaks = c(seq(0, 70, 5), Inf),
+                        breaks = c(seq(0, 65, 5)),
                         right = FALSE),
          ## rescale weights
          w = wpfinwgt/10000,
@@ -200,7 +208,7 @@ df.rates.loss.mom <- data |>
     ) |> 
   group_by(
     ## Does not account for race
-    ## neither age and sex for the moment
+    ## and sex for the moment
     ebmom, age_loss
   ) |> 
   summarize(
@@ -220,10 +228,12 @@ df.rates.loss.dad <- data |>
     ## set tage = tbmomdodrage
     tbdaddodrage = ifelse(ebdad == 1, tage, tbdaddodrage)
   ) |> 
+  filter(tbdaddodrage != 999,
+         tbdaddodrage < 65) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdaddodrage, 
-                   breaks = c(seq(0, 70, 5), Inf),
+                   breaks = c(seq(0, 65, 5)),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000,
@@ -249,20 +259,22 @@ df.rates.loss.both <- data |>
          !is.na(ebmom)) |> 
   mutate(
     eb = case_when(
-      ebdad == 2 & ebmom == 2 ~ "both_dead",
-      TRUE ~ "one_alive"
+      (ebdad == 2) & (ebmom == 2) ~ "both_dead",
+      (ebdad == 1) | (ebmom == 1) ~ "at_least_one_alive"
     ),
     tbdodrage = case_when(
       ## If both parent are death, age when second died
-      ebdad == 2 & ebmom == 2 ~ pmap_int(list(tbdaddodrage, tbmomdodrage), max),
+      eb == "both_dead" ~ pmax(tbdaddodrage, tbmomdodrage),
       ## if only one parent died
       TRUE ~ tage
       )
     ) |> 
+  filter(tbdodrage != 999,
+         tbdodrage < 65) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdodrage, 
-                   breaks = c(seq(0, 70, 5), Inf),
+                   breaks = c(seq(0, 65, 5)),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000
@@ -278,7 +290,7 @@ df.rates.loss.both <- data |>
   pivot_wider(names_from = "eb", values_from = "N") |> 
   mutate(
     ## compute rates
-    rate = both_dead/(both_dead+one_alive)
+    rate = both_dead/(both_dead+at_least_one_alive)
   )
 
 ## Losing neither
@@ -288,25 +300,23 @@ df.rates.loss.neither <- data |>
   ## Need to have this info
   mutate(
     eb = case_when(
-      (ebdad == 1) & (ebmom == 1) ~ "none_dead",
-      (ebdad == 2) | (ebmom == 2) ~ "other"
+      (ebdad == 1) & (ebmom == 1) ~ "neither_dead",
+      (ebdad == 2) | (ebmom == 2) ~ "at_least_one_loss"
     ),
     tbdodrage = case_when(
       ## If both parent are death, age when second died
-      (ebdad == 1) & (ebmom == 1) ~ tage,
-      ## as soon as one parent dies, at this age not "neither" anymore
-      (ebdad == 2) & (ebmom == 2) ~ min(c(tbdaddodrage, tbmomdodrage)),
-      (ebdad == 1) & (ebmom == 2) ~ tbmomdodrage,
-      (ebdad == 2) & (ebmom == 1) ~ tbdaddodrage
+      eb == "neither_dead" ~ tage,
+      ## if both parent death, earlier age -> pmin
+      ## if only one, NA will be ignored and min is the only age considered
+      eb == "at_least_one_loss" ~ pmin(tbmomdodrage, tbdaddodrage, na.rm = TRUE)
       )
     ) |> 
-  ## remove observations where age at 
-  ## parent death is required but unknown
-  filter(tbdodrage != 999) |> 
+  filter(tbdodrage != 999,
+         tbdodrage < 65) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdodrage, 
-                   breaks = c(seq(0, 70, 5), Inf),
+                   breaks = c(seq(0, 65, 5)),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000
@@ -322,7 +332,7 @@ df.rates.loss.neither <- data |>
   pivot_wider(names_from = "eb", values_from = "N") |> 
   mutate(
     ## compute rates
-    rate = none_dead/(none_dead+other)
+    rate = neither_dead/(neither_dead+at_least_one_loss)
   )
 
 
@@ -347,7 +357,7 @@ df.rates <- bind_rows(
 saveRDS(df.rates,
         here("data", "df_rates.rda"))
 
-
+# df.rates <- readRDS(here("data", "df_rates.rda"))
 
 ## Visu ------------------------------------------------------------------------
 
@@ -356,4 +366,7 @@ df.rates |>
   geom_line() +
   geom_point() +
   theme_bw() +
-  labs(x = "Age at loss")
+  scale_y_continuous(breaks = seq(0, 1, 0.2),
+                     limits = c(0, 1)) +
+  labs(x = "Age at loss",
+       col = "Parent death")
