@@ -156,7 +156,7 @@ df.loss.dad <- data |>
     perc = (N/sum(N))*100
   )
 
-## Get the same percentages as here
+## Check that it corresponds to the percentages shown here
 # https://www.census.gov/library/visualizations/interactive/losing-our-parents.html
 
 ## Bind the df
@@ -174,10 +174,11 @@ df |>
     geom_line() +
     geom_point() +
     theme_bw()
+## Similar figure as on census website
 
 
 
-## Compute rates for Monica ----------------------------------------------------
+## Compute rates for Michael Moon ----------------------------------------------
 
 ## Need to remove missing age 
 ## but filter (tbdaddodrage != 999) remove the NA
@@ -194,13 +195,11 @@ df.rates.loss.mom <- data |>
     ) |> 
   filter(
     ## rm unknown age age death
-    tbmomdodrage != 999,
-    ## avoid stochasticity at old ages
-    tbmomdodrage < 65) |>
+    tbmomdodrage != 999) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbmomdodrage, 
-                        breaks = c(seq(0, 65, 5)),
+                        breaks = c(seq(0, 65, 5), Inf),
                         right = FALSE),
          ## rescale weights
          w = wpfinwgt/10000,
@@ -228,12 +227,11 @@ df.rates.loss.dad <- data |>
     ## set tage = tbmomdodrage
     tbdaddodrage = ifelse(ebdad == 1, tage, tbdaddodrage)
   ) |> 
-  filter(tbdaddodrage != 999,
-         tbdaddodrage < 65) |>
+  filter(tbdaddodrage != 999) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdaddodrage, 
-                   breaks = c(seq(0, 65, 5)),
+                   breaks = c(seq(0, 65, 5), Inf),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000,
@@ -269,12 +267,11 @@ df.rates.loss.both <- data |>
       TRUE ~ tage
       )
     ) |> 
-  filter(tbdodrage != 999,
-         tbdodrage < 65) |>
+  filter(tbdodrage != 999) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdodrage, 
-                   breaks = c(seq(0, 65, 5)),
+                   breaks = c(seq(0, 65, 5), Inf),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000
@@ -311,12 +308,11 @@ df.rates.loss.neither <- data |>
       eb == "at_least_one_loss" ~ pmin(tbmomdodrage, tbdaddodrage, na.rm = TRUE)
       )
     ) |> 
-  filter(tbdodrage != 999,
-         tbdodrage < 65) |>
+  filter(tbdodrage != 999) |>
   mutate(
     ## Categorise age in 5-year bands
     age_loss = cut(tbdodrage, 
-                   breaks = c(seq(0, 65, 5)),
+                   breaks = c(seq(0, 65, 5), Inf),
                    right = FALSE),
     ## rescale weights
     w = wpfinwgt/10000
