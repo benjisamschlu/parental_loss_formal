@@ -85,7 +85,7 @@ data <- fread(here("data_private", "sipp_data", "pu2021.csv"),
                          "TBDADDODRAGE", "TBMOMDODRAGE", # age when parent died
                          "TBDADDOD_Y", "TBMOMDOD_Y",# year when parent died
                          "TBMOMDOB_Y", "TBDADDOB_Y", # year of parent birth
-                         "EORIGIN", "ECITIZEN",
+                         "EORIGIN", "ECITIZEN", # hispanic origin, citizen of US
                          "ERACE", # ethnicity
                          "WPFINWGT", # weight
                          "SPANEL", "SWAVE", "PNUM", "MONTHCODE", 
@@ -104,6 +104,9 @@ data <- fread(here("data_private", "sipp_data", "pu2021.csv"),
 ## Tidy
 names(data) <- tolower(names(data)) 
 
+
+
+## Check data by reproducing results from US Census ----------------------------
 
 ## Loss of mother
 df.loss.mom <- data |> 
@@ -164,17 +167,13 @@ df <- bind_rows(df.loss.mom |>
                   mutate(parent = "mom"),
                 df.loss.dad |> 
                   mutate(parent = "dad"))
-
-
-
-## Visu ------------------------------------------------------------------------
-
+## Vizu
 df |> 
     ggplot(aes(x = age_loss, y = perc, group = parent, col = parent)) +
     geom_line() +
     geom_point() +
     theme_bw()
-## Similar figure as on census website
+## Same percentages and figs, YEAH!
 
 
 
@@ -184,6 +183,12 @@ df |>
 ## but filter (tbdaddodrage != 999) remove the NA
 ## while NA means no age because no parent death
 ## -> Maybe see "neither" for best practice
+
+data |> 
+  filter(
+    !is.na(ebmom),
+    !is.na(ebdad),
+    tbdaddodrage < tage )
 
 ## Losing mother
 df.rates.loss.mom <- data |> 
