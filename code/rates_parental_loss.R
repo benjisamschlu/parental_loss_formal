@@ -121,7 +121,7 @@ df |>
 ## Example to develop code
 ind <- df |> 
     filter(
-        id == 11481646521101
+        id == 41811411621101 
     )
 
 ## Created data to test function with all possible code
@@ -131,6 +131,23 @@ ind <- tibble(tage = 39,
               tbdaddodrage = 30,
               tbmomdodrage = 29,
               monthcode = 3)
+## Test function
+convert_data(ind)
+
+## Debugging
+
+ids <- unique(df$id)
+
+for (i in ids) {
+    
+    cat(i, "\n")
+    
+    temp = df |> 
+        filter(id == i)
+    
+    convert_data(temp)
+}
+
 
 convert_data <- function(ind, ...) {
     
@@ -170,7 +187,11 @@ convert_data <- function(ind, ...) {
                 status = "father",
                 w = row$wpfinwgt/1000
             )
-            df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
+            ## Father not dead in 1st age interval
+            if (row$tbdaddodrage >= 5) {
+                
+                df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
+            }
         }
     ## only mother dead    
     } else if (row$ebdad == 1 & row$ebmom == 2) {
@@ -192,7 +213,12 @@ convert_data <- function(ind, ...) {
                 status = "mother",
                 w = row$wpfinwgt/1000
             )
-            df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+            
+            ## Mother not dead in 1st age interval
+            if (row$tbmomdodrage >= 5) {
+                
+                df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+            }
         }
     ## both parents are dead    
     } else {
@@ -215,7 +241,12 @@ convert_data <- function(ind, ...) {
                 status = "mother",
                 w = row$wpfinwgt/1000
             )
-            df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+            ## Mother not dead in 1st age interval
+            if (row$tbmomdodrage >= 5) {
+                
+                df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+            }
+            
             
         ## missing info on age when mother died    
         } else if (row$tbmomdodrage == 999) {
@@ -226,7 +257,12 @@ convert_data <- function(ind, ...) {
                 status = "father",
                 w = row$wpfinwgt/1000
             )
-            df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
+            
+            ## Father not dead in 1st age interval
+            if (row$tbdaddodrage >= 5) {
+                
+                df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
+            }
             
         ## both ages when parents died are known    
         } else {
@@ -245,7 +281,12 @@ convert_data <- function(ind, ...) {
                     status = "both",
                     w = row$wpfinwgt/1000
                 )
-                df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+                ## Parents did not die in 1st age interval
+                if (agegps_at_parent_death[1] != "[0,5)") {
+                    
+                    df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+                    
+                }
                 
             ## parent died at different ages    
             } else {
@@ -259,10 +300,19 @@ convert_data <- function(ind, ...) {
                         status = "both",
                         w = row$wpfinwgt/1000
                     )
-                    df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
                     
-                    df.exp$status[df.exp$age %in% seq((row$tbmomdodrage - (row$tbmomdodrage%%5)), (row$tbdaddodrage - 5), 5)] <- "mother"
-                 
+                    ## if father was not lost in 1st age interval
+                    if (row$tbmomdodrage >= 5) {
+                        
+                        df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
+                        
+                        df.exp$status[df.exp$age %in% seq((row$tbmomdodrage - (row$tbmomdodrage%%5)), (row$tbdaddodrage - 5), 5)] <- "mother"
+                        
+                    } else {
+                        
+                        df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "mother"
+                        
+                    }
                 ## father died first       
                 } else {
                     
@@ -272,9 +322,21 @@ convert_data <- function(ind, ...) {
                         status = "both",
                         w = row$wpfinwgt/1000
                     )
-                    df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
                     
-                    df.exp$status[df.exp$age %in% seq((row$tbdaddodrage - (row$tbdaddodrage%%5)), (row$tbmomdodrage - 5), 5)] <- "father"
+                    ## if father was not lost in 1st age interval
+                    if (row$tbdaddodrage >= 5) {
+                        
+                        df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
+                        
+                        df.exp$status[df.exp$age %in% seq((row$tbdaddodrage - (row$tbdaddodrage%%5)), (row$tbmomdodrage - 5), 5)] <- "father"
+                        
+                    } else {
+                        
+                        df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "father"
+                        
+                    }
+                    
+                    
                     
                 }
             }
@@ -283,23 +345,66 @@ convert_data <- function(ind, ...) {
     return(df.exp)
 }
 
-test <- df[1:10000, ]
-
-## Still issue with seq, likely due to similar age at mom and dad death
-
-test <- test |> 
+df.rates <- df |> 
     group_by(id) |> 
     group_modify(convert_data)
 
-convert_data(ind)
+## Compute rates accounting for weights
+test <- df.rates |> 
+    ## not needed to consider ages > 70 
+    ## (interested in death of parents)
+    mutate(age = ifelse(age >= 70, 70, age)) |> 
+    group_by(
+        ## Does not account for race
+        ## neither sex for the moment
+        age, status
+    ) |> 
+    summarize(
+        N = sum(w)
+    ) |> 
+    pivot_wider(names_from = "status", values_from = "N") |> 
+    mutate(
+        ## compute rates
+        tot = sum(c_across(both:neither)),
+        across(.cols = both:neither, .fns= ~.x/tot)
+    ) |> 
+    dplyr::select(!tot) |> 
+    pivot_longer(both:neither, names_to = "status", values_to = "rate")
 
-## Need to remove missing age 
-## but filter (tbdaddodrage != 999) remove the NA
-## while NA means no age because no parent death
-## -> Maybe see "neither" for best practice
 
-data |> 
-    filter(
-        !is.na(ebmom),
-        !is.na(ebdad),
-        tbdaddodrage < tage )
+## Check: sum == 1
+df.rates |> 
+    ## not needed to consider ages > 70 
+    ## (interested in death of parents)
+    mutate(age = ifelse(age >= 70, 70, age)) |> 
+    group_by(
+        ## Does not account for race
+        ## neither sex for the moment
+        age, status
+    ) |> 
+    summarize(
+        N = sum(w)
+    ) |> 
+    pivot_wider(names_from = "status", values_from = "N") |> 
+    mutate(
+        ## compute rates
+        tot = sum(c_across(both:neither)),
+        across(.cols = both:neither, .fns= ~.x/tot)
+    ) |> 
+    dplyr::select(!tot) |> 
+    mutate(sum = sum(c_across(both:neither)))
+
+
+
+## Visu ------------------------------------------------------------------------
+
+test |> 
+    ggplot(aes(x = age, y = rate, group = status, col = status)) +
+    geom_line() +
+    geom_point() +
+    theme_bw() +
+    scale_y_continuous(breaks = seq(0, 1, 0.2),
+                       limits = c(0, 1)) +
+    labs(x = "Age at loss",
+         col = "Parent death")
+
