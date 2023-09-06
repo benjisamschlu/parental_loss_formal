@@ -5,8 +5,9 @@
 ## Required improvements:
 # 1. Exposure not precise: parent dying at 23, individual
 #    supposed to be exposed from [0, 25)
-# 2. Right now, use December weight for all years. This might
-#    be incorrect.
+# 2. Right now, use December weight for all years. This 
+#    ~~might be incorrect~~ 
+#    is correct. (confirmed in the SIPP documentation)
 
 convert_to_fplh <- function(ind, ...) {
     

@@ -1,0 +1,161 @@
+"sex","race","x","n_i_lost_mom_first","n_i_lost_mom_last","n_i_lost_dad_first","n_i_lost_dad_last","n_i_lost_both","n_s_lost_none","n_s_lost_mom","n_s_lost_dad","n_s_lost_both"
+"male","non-hispanic black","[0,1)",3,0,5,0,0,1957,0,0,0
+"male","hispanic","[0,1)",2,0,10,0,0,4015,0,0,0
+"female","hispanic","[0,1)",2,0,6,0,1,4275,0,0,0
+"male","non-hispanic white","[0,1)",7,0,17,0,1,15201,0,0,0
+"female","non-hispanic black","[0,1)",1,0,8,0,1,2527,0,0,0
+"male","non-hispanic asian","[0,1)",0,0,1,0,0,1249,0,0,0
+"female","non-hispanic white","[0,1)",10,0,18,0,0,15511,0,0,0
+"female","non-hispanic other","[0,1)",1,0,3,0,0,805,0,0,0
+"male","non-hispanic other","[0,1)",1,0,2,0,0,818,0,0,0
+"female","non-hispanic asian","[0,1)",0,0,1,0,1,1339,0,0,0
+"male","non-hispanic black","[1,5)",9,0,29,0,1,7582,29,77,1
+"male","hispanic","[1,5)",10,0,28,0,2,15513,24,88,2
+"female","hispanic","[1,5)",22,0,50,1,1,16485,46,98,6
+"male","non-hispanic white","[1,5)",49,1,99,0,5,59430,97,217,20
+"female","non-hispanic black","[1,5)",9,0,36,0,2,9774,20,96,6
+"male","non-hispanic asian","[1,5)",6,0,10,1,0,4857,9,14,1
+"female","non-hispanic white","[1,5)",47,0,119,1,9,60622,106,262,26
+"female","non-hispanic other","[1,5)",5,0,3,0,0,3066,12,19,0
+"male","non-hispanic other","[1,5)",2,1,18,0,0,3087,9,32,1
+"female","non-hispanic asian","[1,5)",6,1,10,0,1,5209,11,20,6
+"male","non-hispanic black","[5,10)",19,1,32,0,1,8675,96,223,7
+"male","hispanic","[5,10)",18,1,43,2,0,17501,91,268,18
+"female","hispanic","[5,10)",21,0,56,0,0,18694,146,389,10
+"male","non-hispanic white","[5,10)",49,3,136,2,2,70067,375,815,48
+"female","non-hispanic black","[5,10)",22,3,56,1,0,11190,102,317,25
+"male","non-hispanic asian","[5,10)",3,0,16,0,0,5605,31,84,5
+"female","non-hispanic white","[5,10)",74,5,163,6,1,71900,391,977,75
+"female","non-hispanic other","[5,10)",2,0,7,0,0,3445,34,46,0
+"male","non-hispanic other","[5,10)",3,0,12,0,1,3379,23,112,6
+"female","non-hispanic asian","[5,10)",8,0,12,1,0,6027,40,79,18
+"male","non-hispanic black","[10,15)",25,2,36,1,1,7679,196,367,22
+"male","hispanic","[10,15)",15,1,37,0,0,15086,173,456,20
+"female","hispanic","[10,15)",24,1,52,2,2,16346,250,613,20
+"male","non-hispanic white","[10,15)",68,5,186,7,2,64936,612,1521,87
+"female","non-hispanic black","[10,15)",25,3,48,2,1,10110,187,534,34
+"male","non-hispanic asian","[10,15)",6,2,12,0,0,5030,60,154,11
+"female","non-hispanic white","[10,15)",76,3,232,3,2,66981,730,1900,118
+"female","non-hispanic other","[10,15)",9,0,8,2,0,2994,45,52,4
+"male","non-hispanic other","[10,15)",6,3,13,1,0,2900,37,152,11
+"female","non-hispanic asian","[10,15)",11,0,20,1,0,5477,80,151,23
+"male","non-hispanic black","[15,20)",19,2,38,7,2,6662,262,513,58
+"male","hispanic","[15,20)",23,3,48,8,1,12574,213,630,37
+"female","hispanic","[15,20)",28,4,78,6,2,13905,325,887,55
+"male","non-hispanic white","[15,20)",114,13,283,9,3,59131,962,2476,174
+"female","non-hispanic black","[15,20)",29,3,79,5,2,8854,290,805,73
+"male","non-hispanic asian","[15,20)",15,1,16,2,0,4494,96,203,17
+"female","non-hispanic white","[15,20)",115,8,291,21,3,61579,1105,3034,196
+"female","non-hispanic other","[15,20)",6,3,10,1,0,2496,60,85,15
+"male","non-hispanic other","[15,20)",3,1,16,2,0,2365,43,186,32
+"female","non-hispanic asian","[15,20)",6,0,19,1,0,4946,130,240,26
+"male","non-hispanic black","[20,25)",30,10,38,6,2,5613,328,664,117
+"male","hispanic","[20,25)",25,5,52,6,1,10563,260,798,100
+"female","hispanic","[20,25)",31,4,70,7,3,11600,445,1168,113
+"male","non-hispanic white","[20,25)",113,33,310,21,3,53060,1453,3766,354
+"female","non-hispanic black","[20,25)",35,11,58,8,2,7601,385,1078,139
+"male","non-hispanic asian","[20,25)",9,0,21,4,1,3939,140,299,33
+"female","non-hispanic white","[20,25)",154,24,393,25,7,55509,1663,4623,393
+"female","non-hispanic other","[20,25)",5,1,21,2,0,2045,86,137,33
+"male","non-hispanic other","[20,25)",2,2,19,1,0,1922,43,246,45
+"female","non-hispanic asian","[20,25)",8,1,25,6,0,4404,142,351,45
+"male","non-hispanic black","[25,30)",19,2,49,10,2,4640,408,799,214
+"male","hispanic","[25,30)",41,8,51,4,0,8607,356,935,167
+"male","non-hispanic white","[25,30)",126,39,358,36,3,46885,1840,5126,701
+"female","hispanic","[25,30)",44,14,73,10,0,9567,547,1409,197
+"female","non-hispanic black","[25,30)",20,16,70,7,3,6496,478,1283,248
+"male","non-hispanic asian","[25,30)",5,7,26,2,0,3374,149,392,73
+"female","non-hispanic white","[25,30)",183,44,401,39,11,49111,2175,6224,777
+"female","non-hispanic other","[25,30)",6,2,14,0,0,1677,94,200,43
+"male","non-hispanic other","[25,30)",4,1,9,1,0,1570,53,278,55
+"female","non-hispanic asian","[25,30)",8,3,36,3,1,3817,150,478,80
+"male","non-hispanic black","[30,35)",21,10,53,16,0,3780,420,967,315
+"male","hispanic","[30,35)",33,7,49,11,1,6817,472,1052,252
+"male","non-hispanic white","[30,35)",197,77,427,52,7,40132,2315,6586,1174
+"female","hispanic","[30,35)",44,14,86,20,2,7561,631,1610,361
+"female","non-hispanic black","[30,35)",40,18,82,24,4,5323,491,1501,420
+"female","non-hispanic white","[30,35)",212,110,511,69,11,42118,2799,7889,1379
+"female","non-hispanic other","[30,35)",12,2,19,1,0,1356,118,238,54
+"male","non-hispanic other","[30,35)",7,5,17,0,0,1244,69,318,65
+"male","non-hispanic asian","[30,35)",11,3,19,4,0,2795,154,458,119
+"female","non-hispanic asian","[30,35)",13,5,39,4,1,3028,166,603,119
+"male","hispanic","[35,40)",32,11,74,15,3,5187,544,1165,338
+"male","non-hispanic white","[35,40)",213,105,486,77,14,32856,2829,7914,1910
+"female","hispanic","[35,40)",42,28,101,29,3,5728,664,1783,536
+"female","non-hispanic black","[35,40)",34,27,85,21,4,4202,543,1663,636
+"male","non-hispanic black","[35,40)",29,16,66,14,3,2959,416,1097,445
+"female","non-hispanic white","[35,40)",249,144,551,92,14,34527,3235,9491,2410
+"female","non-hispanic other","[35,40)",5,1,17,5,0,997,150,302,63
+"male","non-hispanic other","[35,40)",6,3,11,2,0,991,81,327,68
+"female","non-hispanic asian","[35,40)",10,12,29,8,0,2210,175,654,173
+"male","non-hispanic asian","[35,40)",19,10,31,6,3,2054,191,504,162
+"male","hispanic","[40,45)",31,27,78,20,1,3622,533,1307,471
+"male","non-hispanic white","[40,45)",254,210,590,133,15,24945,3240,9227,3189
+"female","hispanic","[40,45)",48,28,75,34,3,3935,657,1774,814
+"female","non-hispanic black","[40,45)",42,50,82,28,6,3075,566,1752,893
+"female","non-hispanic white","[40,45)",308,255,642,133,20,26607,3786,10897,3949
+"female","non-hispanic other","[40,45)",13,7,17,4,0,726,147,320,102
+"male","non-hispanic other","[40,45)",8,4,9,5,2,707,83,322,111
+"male","non-hispanic black","[40,45)",24,25,53,14,1,2117,434,1178,607
+"female","non-hispanic asian","[40,45)",19,18,29,10,7,1503,161,667,295
+"male","non-hispanic asian","[40,45)",10,15,20,12,1,1410,190,492,254
+"male","hispanic","[45,50)",29,33,69,22,4,2363,459,1245,654
+"male","non-hispanic white","[45,50)",248,321,548,190,32,17932,3397,9995,5129
+"female","hispanic","[45,50)",33,38,71,29,2,2556,598,1626,985
+"female","non-hispanic black","[45,50)",46,48,78,35,4,1974,543,1717,1254
+"female","non-hispanic white","[45,50)",247,358,652,224,25,19199,3996,11868,6089
+"female","non-hispanic other","[45,50)",11,11,16,6,0,453,166,330,162
+"male","non-hispanic other","[45,50)",7,11,11,2,1,492,100,309,138
+"male","non-hispanic black","[45,50)",17,30,46,23,3,1502,362,1139,791
+"female","non-hispanic asian","[45,50)",16,12,40,13,1,910,167,644,422
+"male","non-hispanic asian","[45,50)",6,10,27,11,3,945,145,486,345
+"male","hispanic","[50,55)",25,48,49,29,7,1317,380,1085,804
+"female","non-hispanic black","[50,55)",21,90,71,41,6,1045,450,1578,1667
+"male","non-hispanic white","[50,55)",260,460,551,259,44,11333,3160,9928,7897
+"female","non-hispanic white","[50,55)",270,564,614,280,43,12207,3625,11716,9286
+"female","non-hispanic other","[50,55)",9,19,14,11,0,273,146,292,243
+"male","non-hispanic other","[50,55)",4,15,13,7,2,304,72,269,225
+"female","hispanic","[50,55)",32,68,67,37,8,1417,485,1332,1227
+"male","non-hispanic black","[50,55)",21,49,44,29,3,886,286,1043,1044
+"male","non-hispanic asian","[50,55)",6,23,20,8,1,561,92,404,425
+"female","non-hispanic asian","[50,55)",9,28,17,13,2,477,134,532,521
+"male","hispanic","[55,60)",18,32,41,26,2,656,272,828,909
+"male","non-hispanic white","[55,60)",214,571,436,282,25,6003,2531,8673,10602
+"female","non-hispanic white","[55,60)",224,673,464,298,35,6555,2928,10074,12405
+"female","non-hispanic other","[55,60)",3,11,3,11,1,131,103,226,328
+"female","hispanic","[55,60)",15,57,40,28,3,650,334,1046,1341
+"male","non-hispanic other","[55,60)",8,14,12,7,2,159,58,215,279
+"female","non-hispanic black","[55,60)",17,64,42,24,5,511,301,1177,1914
+"male","non-hispanic black","[55,60)",12,48,29,27,4,438,206,760,1255
+"female","non-hispanic asian","[55,60)",6,18,15,10,0,241,79,383,596
+"male","non-hispanic asian","[55,60)",10,26,13,10,1,287,73,261,465
+"male","hispanic","[60,65)",11,47,13,19,2,277,167,528,884
+"male","non-hispanic white","[60,65)",135,612,257,253,28,2287,1557,5918,12593
+"female","non-hispanic white","[60,65)",113,714,265,281,35,2555,1855,6619,14947
+"female","non-hispanic other","[60,65)",2,14,8,3,2,66,60,141,349
+"female","hispanic","[60,65)",14,55,19,23,4,229,227,575,1360
+"male","non-hispanic other","[60,65)",2,10,3,3,3,73,31,119,303
+"female","non-hispanic black","[60,65)",11,63,10,20,1,182,179,707,1897
+"male","non-hispanic black","[60,65)",10,46,19,11,2,197,93,459,1196
+"female","non-hispanic asian","[60,65)",5,22,7,5,3,84,56,209,609
+"male","non-hispanic asian","[60,65)",5,15,7,10,3,105,45,121,540
+"male","non-hispanic white","[65,70)",41,420,78,132,10,573,669,3055,12216
+"female","non-hispanic white","[65,70)",48,459,90,147,20,773,755,3159,14441
+"female","non-hispanic other","[65,70)",0,9,6,7,1,17,30,90,319
+"female","hispanic","[65,70)",4,23,5,16,1,57,105,252,1142
+"male","hispanic","[65,70)",2,28,13,11,3,112,72,216,765
+"male","non-hispanic other","[65,70)",4,4,3,4,1,21,15,59,228
+"female","non-hispanic black","[65,70)",3,30,9,15,0,64,85,301,1565
+"male","non-hispanic black","[65,70)",7,31,4,10,0,63,64,254,968
+"male","non-hispanic asian","[65,70)",2,9,0,4,1,35,26,51,410
+"female","non-hispanic asian","[65,70)",2,10,2,6,0,22,27,101,499
+"female","non-hispanic white","[70,Inf)",14,284,28,70,10,198,343,1322,23437
+"male","non-hispanic white","[70,Inf)",7,268,23,55,9,156,227,1345,19066
+"female","hispanic","[70,Inf)",0,19,3,8,1,30,42,123,1583
+"female","non-hispanic other","[70,Inf)",0,8,0,2,0,0,12,38,429
+"male","hispanic","[70,Inf)",2,20,4,6,2,61,18,96,1189
+"male","non-hispanic other","[70,Inf)",0,6,0,2,0,0,2,17,284
+"female","non-hispanic black","[70,Inf)",3,24,0,7,2,15,49,160,1997
+"male","non-hispanic black","[70,Inf)",1,18,4,8,0,25,37,111,1269
+"male","non-hispanic asian","[70,Inf)",0,5,3,4,0,9,21,18,630
+"female","non-hispanic asian","[70,Inf)",0,6,1,2,0,18,6,29,628
