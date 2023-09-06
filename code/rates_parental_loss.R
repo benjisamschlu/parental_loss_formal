@@ -34,7 +34,7 @@ for(p in packages){
 
 ## Functions -------------------------------------------------------------------
 
-
+source(here("code", "functions", "convert_to_fplh.R"))
 
 ## Load data -------------------------------------------------------------------
 
@@ -83,7 +83,8 @@ df |>
 
 ## If info on mom or dad is missing, 
 ## or age at itw is missing -> rm
-## crucial as fct converting data depends on 
+## crucial as fct converting data into
+## full parent loss history depends on 
 ## these variables
 rm.inds <- df |> 
     filter(
@@ -112,252 +113,35 @@ df |>
 
 ## Compute rates of parental loss ----------------------------------------------
 
-## Required improvements:
-# 1. Exposure not precise: parent dying at 23, individual
-#    supposed to be exposed from [0, 25)
-# 2. Right now, use December weight for all years. This might
-#    be incorrect.
-
-## Example to develop code
-ind <- df |> 
-    filter(
-        id == 41811411621101 
-    )
-
-## Created data to test function with all possible code
-ind <- tibble(tage = 39,
-              ebdad = 2,
-              ebmom = 2,
-              tbdaddodrage = 30,
-              tbmomdodrage = 29,
-              monthcode = 3)
-## Test function
-convert_data(ind)
-
-## Debugging
-
-ids <- unique(df$id)
-
-for (i in ids) {
-    
-    cat(i, "\n")
-    
-    temp = df |> 
-        filter(id == i)
-    
-    convert_data(temp)
-}
-
-
-convert_data <- function(ind, ...) {
-    
-    ## select latest month (despite
-    ## it shouldn't change over the months)
-    max.month <- max(ind$monthcode)
-    
-    ## select one row
-    row <- ind[max.month == ind$monthcode, ]
-    
-    ## neither parent are dead
-    if (row$ebdad == 1 & row$ebmom == 1) {
-        
-        ## outputed dataframe of exposure
-        df.exp <- tibble(
-            age = seq(0, row$tage, 5),
-            status = "neither",
-            w = row$wpfinwgt/1000
+## Convert CPS data into full parental loss
+## history by age group and race/ethnicity
+df.fplh <- df |> 
+    mutate(
+        ## create race/ethnicity categories
+        race_eth = case_when(
+            eorigin == 2 & erace == 1 ~ "NH-White",
+            eorigin == 2 & erace == 2 ~ "NH-Black",
+            eorigin == 2 & erace %in% 3:4 ~ "NH-Other",
+            eorigin == 1 ~ "Hispanic"
             )
-    ## only father dead    
-    } else if (row$ebdad == 2 & row$ebmom == 1) {
-        
-        ## missing info on age when dad dies -> assume alive
-        if (row$tbdaddodrage == 999) {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "neither",
-                w = row$wpfinwgt/1000
-            )
-        } else {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "father",
-                w = row$wpfinwgt/1000
-            )
-            ## Father not dead in 1st age interval
-            if (row$tbdaddodrage >= 5) {
-                
-                df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
-            }
-        }
-    ## only mother dead    
-    } else if (row$ebdad == 1 & row$ebmom == 2) {
-        
-        ## missing info on age when mother dies -> assume alive
-        if (row$tbmomdodrage == 999) {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "neither",
-                w = row$wpfinwgt/1000
-            )
-        } else {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "mother",
-                w = row$wpfinwgt/1000
-            )
-            
-            ## Mother not dead in 1st age interval
-            if (row$tbmomdodrage >= 5) {
-                
-                df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
-            }
-        }
-    ## both parents are dead    
-    } else {
-        
-        ## missing info on age when both died
-        if (row$tbdaddodrage == 999 & row$tbmomdodrage == 999) {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "neither",
-                w = row$wpfinwgt/1000
-            )
-        ## missing info on age when father died    
-        } else if (row$tbdaddodrage == 999) {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "mother",
-                w = row$wpfinwgt/1000
-            )
-            ## Mother not dead in 1st age interval
-            if (row$tbmomdodrage >= 5) {
-                
-                df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
-            }
-            
-            
-        ## missing info on age when mother died    
-        } else if (row$tbmomdodrage == 999) {
-            
-            ## outputed dataframe of exposure
-            df.exp <- tibble(
-                age = seq(0, row$tage, 5),
-                status = "father",
-                w = row$wpfinwgt/1000
-            )
-            
-            ## Father not dead in 1st age interval
-            if (row$tbdaddodrage >= 5) {
-                
-                df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
-            }
-            
-        ## both ages when parents died are known    
-        } else {
-            
-            ## are death of mother and father in the same age interval?
-            agegps_at_parent_death <- cut(c(row$tbdaddodrage, row$tbmomdodrage),
-                                         seq(0,100, 5),
-                                         right = FALSE)
-            
-            ## if parent died at the same age
-            if (length(unique(agegps_at_parent_death)) == 1) {
-                
-                ## outputed dataframe of exposure
-                df.exp <- tibble(
-                    age = seq(0, row$tage, 5),
-                    status = "both",
-                    w = row$wpfinwgt/1000
-                )
-                ## Parents did not die in 1st age interval
-                if (agegps_at_parent_death[1] != "[0,5)") {
-                    
-                    df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
-                    
-                }
-                
-            ## parent died at different ages    
-            } else {
-                
-                ## mother died first
-                if (row$tbdaddodrage > row$tbmomdodrage) {
-                    
-                    ## outputed dataframe of exposure
-                    df.exp <- tibble(
-                        age = seq(0, row$tage, 5),
-                        status = "both",
-                        w = row$wpfinwgt/1000
-                    )
-                    
-                    ## if father was not lost in 1st age interval
-                    if (row$tbmomdodrage >= 5) {
-                        
-                        df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "neither"
-                        
-                        df.exp$status[df.exp$age %in% seq((row$tbmomdodrage - (row$tbmomdodrage%%5)), (row$tbdaddodrage - 5), 5)] <- "mother"
-                        
-                    } else {
-                        
-                        df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "mother"
-                        
-                    }
-                ## father died first       
-                } else {
-                    
-                    ## outputed dataframe of exposure
-                    df.exp <- tibble(
-                        age = seq(0, row$tage, 5),
-                        status = "both",
-                        w = row$wpfinwgt/1000
-                    )
-                    
-                    ## if father was not lost in 1st age interval
-                    if (row$tbdaddodrage >= 5) {
-                        
-                        df.exp$status[df.exp$age %in% seq(0, (row$tbdaddodrage - 5), 5)] <- "neither"
-                        
-                        df.exp$status[df.exp$age %in% seq((row$tbdaddodrage - (row$tbdaddodrage%%5)), (row$tbmomdodrage - 5), 5)] <- "father"
-                        
-                    } else {
-                        
-                        df.exp$status[df.exp$age %in% seq(0, (row$tbmomdodrage - 5), 5)] <- "father"
-                        
-                    }
-                    
-                    
-                    
-                }
-            }
-        }
-    } 
-    return(df.exp)
-}
-
-df.rates <- df |> 
-    group_by(id) |> 
-    group_modify(convert_data)
+    ) |> 
+    group_by(id, race_eth) |> 
+    ## Use own defined fct to convert
+    ## CPS data into FPLH data
+    group_modify(convert_to_fplh)
 
 ## Compute rates accounting for weights
-test <- df.rates |> 
-    ## not needed to consider ages > 70 
+df.rates <- df.fplh |> 
+    ## not needed to consider ages > 65 
     ## (interested in death of parents)
-    mutate(age = ifelse(age >= 70, 70, age)) |> 
+    ## and noisy above a certain age
+    mutate(
+        age = ifelse(age >= 65, 65, age)
+        ) |> 
     group_by(
         ## Does not account for race
         ## neither sex for the moment
-        age, status
+        age, race_eth, status
     ) |> 
     summarize(
         N = sum(w)
@@ -373,14 +157,14 @@ test <- df.rates |>
 
 
 ## Check: sum == 1
-df.rates |> 
-    ## not needed to consider ages > 70 
+df.fplh |> 
+    ## not needed to consider ages > 65 
     ## (interested in death of parents)
-    mutate(age = ifelse(age >= 70, 70, age)) |> 
+    mutate(age = ifelse(age >= 65, 65, age)) |> 
     group_by(
         ## Does not account for race
         ## neither sex for the moment
-        age, status
+        age, race_eth, status
     ) |> 
     summarize(
         N = sum(w)
@@ -398,13 +182,20 @@ df.rates |>
 
 ## Visu ------------------------------------------------------------------------
 
-test |> 
-    ggplot(aes(x = age, y = rate, group = status, col = status)) +
+df.rates |> 
+    ggplot(aes(x = age, y = rate, 
+               group = interaction(status, race_eth), 
+               col = status, 
+               linetype = race_eth, shape = race_eth)) +
     geom_line() +
     geom_point() +
     theme_bw() +
     scale_y_continuous(breaks = seq(0, 1, 0.2),
                        limits = c(0, 1)) +
     labs(x = "Age at loss",
-         col = "Parent death")
+         col = "Parent death",
+         linetype = "Race/ethnicity",
+         shape = "Race/ethnicity")
 
+ggsave(here("plots", 
+            "rates_parental_loss_by_race.jpeg"))
