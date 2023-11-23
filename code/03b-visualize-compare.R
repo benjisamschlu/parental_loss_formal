@@ -359,7 +359,7 @@ plot_mx_comparisons <- function(df, race_f, label) {
                            labels = c(0, 150, 300),
                            oob = scales::squish_infinite) +
         scale_color_brewer(name = "", palette = "Dark2") +
-        labs(x = "Age", y = "(per 1 000)", caption = "Lost dad last")
+        labs(x = "Age", y = "(per 1 000)", caption = "Lost father last")
     plt_dad_to_both <- df |> 
         filter(.data$state_from == "lost_dad", state_to == "lost_both") |>
         plot_line_comp(my_theme_no_legend) +
