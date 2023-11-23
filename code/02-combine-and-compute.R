@@ -81,7 +81,7 @@ compute_ex <- function(Lx, lx) {
 ## Load data -------------------------------------------------------------------
 races <- c("all", "non-hispanic white", "non-hispanic black", 
            "hispanic", "non-hispanic asian")
-age_cuts <- c(0, seq(5, 65, by = 5), Inf) # left closed breaks
+age_cuts <- c(0, seq(5, 60, by = 5), Inf) # left closed breaks
 # age_cuts <- c(0, seq(70), Inf) # left closed breaks
 sipp2021 <- read_csv(here("data", "sipp_2021.csv")) |>
     mutate(x = cut(age, breaks = age_cuts, right = FALSE))
