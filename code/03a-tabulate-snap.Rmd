@@ -1,0 +1,433 @@
+---
+title: "Tables"
+author: "Michael Jongho Moon"
+output: 
+    pdf_document:
+        keep_tex: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+rm(list = ls())
+packages <- c("tidyverse", "knitr", "kableExtra", "here", "testthat")
+for(p in packages){
+    if(!require(p,character.only = TRUE)) install.packages(p)
+    library(p,character.only = TRUE)
+}
+threshold <- 10
+sipp_n <- read_csv(here("data", "sipp_n_snap.csv"))
+us_mlt <- read_csv(here("data", "multistate-lt_snap.csv")) |>
+    left_join(sipp_n, by = c("race", "sex", "x")) |>
+    mutate(Age = if_else(
+        str_detect(x, "Inf"),
+        str_replace(x, "Inf", "$\\\\infty$"),
+        x
+    )) |>
+     mutate(
+        across(-c(race, sex, Age, x, starts_with("n_s_"), starts_with("n_i_")), 
+               ~ format(round(.x), big.mark = " ")),
+        Lx_lost_mom = case_when(
+            n_s_lost_mom < threshold ~ paste0(Lx_lost_mom, "smls"),
+            .default = Lx_lost_mom
+        ),
+        Lx_lost_dad = case_when(
+            n_s_lost_dad < threshold ~ paste0(Lx_lost_dad, "smls"),
+            .default = Lx_lost_dad
+        ),
+        Lx_lost_both = case_when(
+            n_s_lost_both < threshold ~ paste0(Lx_lost_both, "smls"),
+            .default = Lx_lost_both
+        ),
+        dx_lost_none_to_lost_mom = case_when(
+            n_i_lost_mom_first < threshold ~ 
+                paste0(dx_lost_none_to_lost_mom, "smli"),
+            .default = dx_lost_none_to_lost_mom
+        ),
+        dx_lost_none_to_lost_dad = case_when(
+            n_i_lost_dad_first < threshold ~ 
+                paste0(dx_lost_none_to_lost_dad, "smli"),
+            .default = dx_lost_none_to_lost_dad
+        ),
+        dx_lost_none_to_lost_both = case_when(
+            n_i_lost_both < threshold ~ 
+                paste0(dx_lost_none_to_lost_both, "smli"),
+            .default = dx_lost_none_to_lost_both
+        ),
+        dx_lost_mom_to_lost_both = case_when(
+            n_i_lost_dad_last < threshold ~ 
+                paste0(dx_lost_mom_to_lost_both, "smli"),
+            .default = dx_lost_mom_to_lost_both
+        ),
+        dx_lost_dad_to_lost_both = case_when(
+            n_i_lost_mom_last < threshold ~ 
+                paste0(dx_lost_dad_to_lost_both, "smli"),
+            .default = dx_lost_dad_to_lost_both
+        )
+    ) |>
+    select(
+        race, sex,
+        Age,
+        # total
+        # lx, Lx, ex, dx,
+        # (1) lost none
+        lx_lost_none, Lx_lost_none,
+        dx_lost_none_to_lost_dad,
+        dx_lost_none_to_lost_mom,
+        dx_lost_none_to_lost_both,
+        dx_lost_none_to_dead,
+        ex_lost_none,
+        # (2) lost dad
+        lx_lost_dad, Lx_lost_dad,
+        dx_lost_dad_to_lost_both,
+        dx_lost_dad_to_dead,
+        ex_lost_dad,
+        # (3) lost mom
+        lx_lost_mom, Lx_lost_mom,
+        dx_lost_mom_to_lost_both,
+        dx_lost_mom_to_dead,
+        ex_lost_mom,
+        # (4) lost both
+        lx_lost_both, Lx_lost_both,
+        dx_lost_both_to_dead,
+        ex_lost_both
+    )
+us_mlt_num <- read_csv(here("data", "multistate-lt_snap.csv")) |>
+    mutate(Age = if_else(
+        str_detect(x, "Inf"),
+        paste0(str_extract(x, "(?<=\\[)\\d+"), "+"),
+        x
+    )) |>
+    select(
+        race, sex,
+        Age,
+        # total
+        # lx, Lx, ex, dx,
+        # (1) lost none
+        lx_lost_none, Lx_lost_none,
+        dx_lost_none_to_lost_dad,
+        dx_lost_none_to_lost_mom,
+        dx_lost_none_to_lost_both,
+        dx_lost_none_to_dead,
+        ex_lost_none,
+        # (2) lost dad
+        lx_lost_dad, Lx_lost_dad,
+        dx_lost_dad_to_lost_both,
+        dx_lost_dad_to_dead,
+        ex_lost_dad,
+        # (3) lost mom
+        lx_lost_mom, Lx_lost_mom,
+        dx_lost_mom_to_lost_both,
+        dx_lost_mom_to_dead,
+        ex_lost_mom,
+        # (4) lost both
+        lx_lost_both, Lx_lost_both,
+        dx_lost_both_to_dead,
+        ex_lost_both
+    )
+```
+
+
+```{r column-names}
+col_names_age <- "Age"
+col_names_lost_none <- c(
+    "$\\ell_{1}(x)$",
+    "${}_nL_{1}(x)$",
+    "${}_nd_{1,2}(x)$",
+    "${}_nd_{1,3}(x)$",
+    "${}_nd_{1,4}(x)$",
+    "${}_nd_{1}(x)$",
+    "$e_{1}(x)$"
+)
+col_names_lost_dad <- c(
+    "$\\ell_{2}(x)$",
+    "${}_nL_{2}(x)$",
+    "${}_nd_{2,4}(x)$",
+    "${}_nd_{2}(x)$",
+    "$e_{2}(x)$"
+)
+col_names_lost_mom <- c(
+    "$\\ell_{3}(x)$",
+    "${}_nL_{3}(x)$",
+    "${}_nd_{3,4}(x)$",
+    "${}_nd_{3}(x)$",
+    "$e_{3}(x)$"
+)
+col_names_lost_both <- c(
+    "$\\ell_{4}(x)$",
+    "${}_nL_{4}(x)$",
+    "${}_nd_{4}(x)$",
+    "$e_{4}(x)$"
+)
+```
+
+
+```{r function}
+create_table <- function(df_lt, caption) {
+    tbl_none <- kable(
+        df_lt |> select(Age, lx_lost_none:ex_lost_none),
+        booktabs = TRUE, escape = FALSE, bottomrule = NULL,
+        align = c("l", rep("r", 7)), 
+        col.names = c(col_names_age, col_names_lost_none)
+    ) |>
+        add_header_above(
+            c(" ", "(1) Lost neither" = 7)
+    ) |>
+        column_spec(1, width = ".45in") |>
+        column_spec(2:8, width = ".65in")
+    tbl_one <- kable(
+        df_lt |> select(Age, lx_lost_mom:ex_lost_mom, lx_lost_dad:ex_lost_dad),
+        booktabs = TRUE, escape = FALSE, bottomrule = NULL,
+        align = c("l", rep("r", 10)), 
+        col.names = c(col_names_age, col_names_lost_mom, col_names_lost_dad)
+    ) |>
+        add_header_above(
+            c(" ", "(2) Lost mother only" = 5, "(3) Lost father only" = 5)
+    ) |>
+        column_spec(1, width = ".43in") |>
+        column_spec(2:11, width = ".42in")
+    tbl_both <- kable(
+        df_lt |> select(Age, lx_lost_both:ex_lost_both),
+        booktabs = TRUE, escape = FALSE, 
+        align = c("l", rep("r", 4)), 
+        col.names = c(col_names_age, col_names_lost_both)
+    ) |>
+        add_header_above(
+            c(" ", "(4) Lost both" = 4)
+    ) |>
+        column_spec(1, width = ".43in") |>
+        column_spec(2:5, width = "1.3in")
+    
+    has_smli <- (str_detect(tbl_none, "smli") 
+                 | str_detect(tbl_one, "smli") 
+                 |str_detect(tbl_both, "smli"))
+    has_smls <- (str_detect(tbl_none, "smls") 
+                 | str_detect(tbl_one, "smls") 
+                 |str_detect(tbl_both, "smls"))
+    if (has_smli | has_smls) {
+        tbl_both <- tbl_both |>
+            footnote(
+                symbol = c(
+                    paste(
+                        "Based on an estimated",
+                        "from SIPP with less than", 
+                        threshold, "respondents in the numerator."
+                    )
+                ),
+                symbol_manual = c("*")
+            )
+    }
+    tbl <- kable(
+        list(tbl_none, tbl_one, tbl_both),
+        escape = FALSE, col.names = NULL,
+        caption = caption, bottomrule = NULL,
+    ) |>
+        kable_styling(font_size = 9)
+        
+    asis_output(
+        str_replace_all(tbl, "smli", "$^{*}$") |>
+            str_replace_all("smls", "$^{*}$")
+    ) 
+}
+```
+
+
+```{r table-all, eval=TRUE}
+us_mlt |>
+    filter(sex == "all", race == "all") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "all", race == "all") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-all.csv"))
+```
+
+
+```{r table-female, eval=TRUE}
+us_mlt |>
+    filter(sex == "female", race == "all") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for females, U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "female", race == "all") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-female.csv"))
+```
+
+```{r table-male, eval=TRUE}
+us_mlt |>
+    filter(sex == "male", race == "all") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for males, U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "male", race == "all") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-male.csv"))
+```
+
+
+```{r table-hispanic}
+us_mlt |>
+    filter(sex == "all", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the Hispanic population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "all", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-hispanic.csv"))
+```
+
+```{r table-hispanic-female}
+us_mlt |>
+    filter(sex == "female", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the female Hispanic population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "female", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-hispanic-female.csv"))
+```
+
+
+```{r table-hispanic-male}
+us_mlt |>
+    filter(sex == "male", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the male Hispanic population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "male", race == "hispanic") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-hispanic-male.csv"))
+```
+
+
+```{r table-nhasian}
+us_mlt |>
+    filter(sex == "all", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the non-Hispanic Asian population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "all", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhasian.csv"))
+```
+
+
+```{r table-nhasian-female}
+us_mlt |>
+    filter(sex == "female", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the female non-Hispanic Asian population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "female", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhasian-female.csv"))
+```
+
+
+```{r table-nhasian-male}
+us_mlt |>
+    filter(sex == "male", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the male non-Hispanic Asian population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "male", race == "non-hispanic asian") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhasian-male.csv"))
+```
+
+```{r table-nhblack}
+us_mlt |>
+    filter(sex == "all", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the non-Hispanic black population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "all", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhblack.csv"))
+```
+
+```{r table-nhblack-female}
+us_mlt |>
+    filter(sex == "female", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the female non-Hispanic black population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "female", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhblack-female.csv"))
+```
+
+
+```{r table-nhblack-male}
+us_mlt |>
+    filter(sex == "male", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the male non-Hispanic black population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "male", race == "non-hispanic black") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhblack-male.csv"))
+```
+
+
+```{r table-nhwhite}
+us_mlt |>
+    filter(sex == "all", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the non-Hispanic white population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "all", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhwhite.csv"))
+```
+
+```{r table-nhwhite-female}
+us_mlt |>
+    filter(sex == "female", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the female non-Hispanic white population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "female", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhwhite-female.csv"))
+```
+
+
+```{r table-nhwhite-male}
+us_mlt |>
+    filter(sex == "male", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    create_table(paste("Multistate life table by parent mortality status",
+                       "for the male non-Hispanic white population,",
+                       "U.S., 2020."))
+us_mlt_num |>
+    filter(sex == "male", race == "non-hispanic white") |>
+    select(-c(race, sex)) |>
+    write.csv(here("data", "multistate_life_tables",  "snapshot","us2020-nhwhite-male.csv"))
+```

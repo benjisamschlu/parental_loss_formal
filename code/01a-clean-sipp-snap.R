@@ -106,114 +106,66 @@ tidy_race_and_sex <- function(df) {
 }
 
 get_parent_survival_weights <- function(df) {
-    max_age <- df |>
-        select("tbmomdodrage", "tbdaddodrage") |>
-        mutate(
-            across(everything(), function(x) {
-                x <- replace_na(x, 0)
-                if_else(x == 999, 0, x)
-            }),
-            max_age = pmax(.data$tbmomdodrage, .data$tbdaddodrage)
-        ) |>
-        pull(max_age) |> 
-        max()
-        
-    df_complete <- df |>
+    df |>
         filter(
             # consider complete cases only
             !is.na(.data$ebmom), !is.na(.data$ebdad),
             # TODO: missing info on age when dad dies 
             # -> assume alive?
             # -> any other imputation methods?
-            #  -> use EBMOMDODLT19 and EBDADDODLT19
+            # -> use EBMOMDODLT19 and EBDADDODLT19
             # -> sensitivity analysis?
             !.data$tbmomdodrage %in% 999, !.data$tbdaddodrage %in% 999
         ) |>
         mutate(
-            tbmomdodrage = if_else(.data$ebmom == 1, 9999, .data$tbmomdodrage),
-            tbdaddodrage = if_else(.data$ebdad == 1, 9999, .data$tbdaddodrage),
-            # age when mom died while dad is alive
-            age_lost_mom_first = if_else(
-                .data$tbmomdodrage < .data$tbdaddodrage, 
-                .data$tbmomdodrage, 9999
-            ),
-            # age when mom died while dad is dead
-            age_lost_mom_last = if_else(
-                .data$tbmomdodrage > .data$tbdaddodrage, 
-                .data$tbmomdodrage, 9999
-            ),
-            # age when dad died while mom is alive
-            age_lost_dad_first = if_else(
-                .data$tbdaddodrage < .data$tbmomdodrage, 
-                .data$tbdaddodrage, 9999
-            ),
-            # age when dad died while mom is dead
-            age_lost_dad_last = if_else(
-                .data$tbdaddodrage > .data$tbmomdodrage,
-                .data$tbdaddodrage, 9999
-            ),
-            # age when both died if in the same year
-            age_lost_both = if_else(
-                .data$tbmomdodrage == .data$tbdaddodrage, 
-                .data$tbmomdodrage, 9999
-            )
-        )
-    
-    lapply(seq(from = 0, to = max_age), function(age) {
-        df_complete |>
-            # lived at least `age` years
-            filter(.data$tage >= age) |>
-            mutate(
-                # incidence
-                i_lost_mom_first = .data$age_lost_mom_first == age,
-                i_lost_mom_last = .data$age_lost_mom_last == age,
-                i_lost_dad_first = .data$age_lost_dad_first == age,
-                i_lost_dad_last = .data$age_lost_dad_last == age,
-                i_lost_both = .data$age_lost_both == age,
-                # state (at the start of age)
-                s_lost_none = (
-                    .data$tbmomdodrage >= age & .data$tbdaddodrage >= age 
-                ),
-                s_lost_mom = (
-                    .data$tbmomdodrage < age & .data$tbdaddodrage >= age
-                ),
-                s_lost_dad = (
-                    .data$tbmomdodrage >= age & .data$tbdaddodrage < age
-                ),
-                s_lost_both = (
-                    .data$tbmomdodrage < age & .data$tbdaddodrage < age
-                )
-            ) |>
-            summarise(
-                .by = c("sex", "race"),
-                # weights
-                w_i_lost_mom_first = sum(.data$i_lost_mom_first * .data$w),
-                w_i_lost_mom_last = sum(.data$i_lost_mom_last * .data$w),
-                w_i_lost_dad_first = sum(.data$i_lost_dad_first * .data$w),
-                w_i_lost_dad_last = sum(.data$i_lost_dad_last * .data$w),
-                w_i_lost_both = sum(.data$i_lost_both * .data$w),
-                
-                w_s_lost_none = sum(.data$s_lost_none * .data$w),
-                w_s_lost_mom = sum(.data$s_lost_mom * .data$w),
-                w_s_lost_dad = sum(.data$s_lost_dad * .data$w),
-                w_s_lost_both = sum(.data$s_lost_both * .data$w),
-                w_s_total = sum(.data$w),
-                
-                # counts
-                n_i_lost_mom_first = sum(.data$i_lost_mom_first),
-                n_i_lost_mom_last = sum(.data$i_lost_mom_last),
-                n_i_lost_dad_first = sum(.data$i_lost_dad_first),
-                n_i_lost_dad_last = sum(.data$i_lost_dad_last),
-                n_i_lost_both = sum(.data$i_lost_both),
-                
-                n_s_lost_none = sum(.data$s_lost_none),
-                n_s_lost_mom = sum(.data$s_lost_mom),
-                n_s_lost_dad = sum(.data$s_lost_dad),
-                n_s_lost_both = sum(.data$s_lost_both)
-            ) |>
-            mutate(age = age)
-    }) |>
-        bind_rows()
+            i_lost_mom_first = (.data$ebdad == 1 & 
+                                    .data$tbmomdodrage == .data$tage),
+            i_lost_dad_first = (.data$ebmom == 1 &
+                                    .data$tbdaddodrage == .data$tage),
+            i_lost_mom_last = (.data$ebdad == 2 & 
+                                   .data$tbmomdodrage == .data$tage),
+            i_lost_dad_last = (.data$ebmom == 2 &
+                                   .data$tbdaddodrage == .data$tage),
+            i_lost_both = (.data$tbmomdodrage == .data$tage &
+                               .data$tbdaddodrage == .data$tage),
+            s_lost_none = (.data$ebmom == 1 & .data$ebdad == 1),
+            s_lost_mom = (.data$ebmom == 2 & .data$ebdad == 1),
+            s_lost_dad = (.data$ebmom == 1 & .data$ebdad == 2),
+            s_lost_both = (.data$ebmom == 2 & .data$ebdad == 2)
+        ) |>
+        rename(age = "tage") |>
+        summarise(
+            .by = c("sex", "race", "age"),
+            # weights
+            w_i_lost_mom_first = sum(.data$i_lost_mom_first * .data$w,
+                                     na.rm = TRUE),
+            w_i_lost_mom_last = sum(.data$i_lost_mom_last * .data$w,
+                                    na.rm = TRUE),
+            w_i_lost_dad_first = sum(.data$i_lost_dad_first * .data$w,
+                                     na.rm = TRUE),
+            w_i_lost_dad_last = sum(.data$i_lost_dad_last * .data$w,
+                                    na.rm = TRUE),
+            w_i_lost_both = sum(.data$i_lost_both * .data$w, na.rm = TRUE),
+
+            w_s_lost_none = sum(.data$s_lost_none * .data$w, na.rm = TRUE),
+            w_s_lost_mom = sum(.data$s_lost_mom * .data$w, na.rm = TRUE),
+            w_s_lost_dad = sum(.data$s_lost_dad * .data$w, na.rm = TRUE),
+            w_s_lost_both = sum(.data$s_lost_both * .data$w, na.rm = TRUE),
+            w_s_total = sum(.data$w, na.rm = TRUE),
+
+            # counts
+            n_i_lost_mom_first = sum(.data$i_lost_mom_first, na.rm = TRUE),
+            n_i_lost_mom_last = sum(.data$i_lost_mom_last, na.rm = TRUE),
+            n_i_lost_dad_first = sum(.data$i_lost_dad_first, na.rm = TRUE),
+            n_i_lost_dad_last = sum(.data$i_lost_dad_last, na.rm = TRUE),
+            n_i_lost_both = sum(.data$i_lost_both, na.rm = TRUE),
+
+            n_s_lost_none = sum(.data$s_lost_none, na.rm = TRUE),
+            n_s_lost_mom = sum(.data$s_lost_mom, na.rm = TRUE),
+            n_s_lost_dad = sum(.data$s_lost_dad, na.rm = TRUE),
+            n_s_lost_both = sum(.data$s_lost_both, na.rm = TRUE)
+        ) |>
+        arrange(.data$age)
 }
 
 ## Load data -------------------------------------------------------------------
@@ -271,7 +223,7 @@ test_that(
                         MONTHCODE == "12",
                         !is.na(EBMOM), !is.na(EBDAD),
                         !TBMOMDODRAGE %in% 999, !TBDADDODRAGE %in% 999,
-                        TAGE >= x
+                        TAGE == x
                     ) |>
                     nrow()
                 total_couns_after <- df_sipp_by_ps[[as.character(y)]] |>
@@ -286,7 +238,7 @@ test_that(
 
 ## Save data -------------------------------------------------------------------
 res <- sapply(seq(length(years)), function(i) {
-    f <- paste0("sipp_", years[i], ".csv")
+    f <- paste0("sipp_snap_", years[i], ".csv")
     df <- df_sipp_by_ps[[i]]
     write.csv(df, here("data", f), row.names = FALSE)
 })
