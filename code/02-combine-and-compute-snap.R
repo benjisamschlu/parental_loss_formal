@@ -36,6 +36,54 @@ for (p in packages) {
 }
 
 ## Functions -------------------------------------------------------------------
+sum_weights <- function(df) {
+    df |>
+        summarise(
+        .by = c("sex", "race", "age"),
+        # weights
+        w_i_lost_none_to_lost_mom = sum(
+            .data$i_lost_none_to_lost_mom * .data$w, na.rm = TRUE),
+        w_i_lost_dad_to_lost_both = sum(
+            .data$i_lost_dad_to_lost_both * .data$w, na.rm = TRUE),
+        w_i_lost_none_to_lost_dad = sum(
+            .data$i_lost_none_to_lost_dad * .data$w, na.rm = TRUE),
+        w_i_lost_mom_to_lost_both = sum(
+            .data$i_lost_mom_to_lost_both * .data$w, na.rm = TRUE),
+        w_i_lost_none_to_lost_both = sum(
+            .data$i_lost_none_to_lost_both * .data$w, na.rm = TRUE),
+        
+        w_s_lost_none = sum(.data$s_lost_none * .data$w, na.rm = TRUE),
+        w_s_lost_mom = sum(.data$s_lost_mom * .data$w, na.rm = TRUE),
+        w_s_lost_dad = sum(.data$s_lost_dad * .data$w, na.rm = TRUE),
+        w_s_lost_both = sum(.data$s_lost_both * .data$w, na.rm = TRUE),
+        w_s_lost_none0 = sum(.data$s_lost_none0 * .data$w, na.rm = TRUE),
+        w_s_lost_mom0 = sum(.data$s_lost_mom0 * .data$w, na.rm = TRUE),
+        w_s_lost_dad0 = sum(.data$s_lost_dad0 * .data$w, na.rm = TRUE),
+        w_s_total = sum(.data$w, na.rm = TRUE),
+        
+        # counts
+        n_i_lost_none_to_lost_mom = sum(
+            .data$i_lost_none_to_lost_mom, na.rm = TRUE),
+        n_i_lost_dad_to_lost_both = sum(
+            .data$i_lost_dad_to_lost_both, na.rm = TRUE),
+        n_i_lost_none_to_lost_dad = sum(
+            .data$i_lost_none_to_lost_dad, na.rm = TRUE),
+        n_i_lost_mom_to_lost_both = sum(
+            .data$i_lost_mom_to_lost_both, na.rm = TRUE),
+        n_i_lost_none_to_lost_both = sum(
+            .data$i_lost_none_to_lost_both, na.rm = TRUE),
+        
+        n_s_lost_none = sum(.data$s_lost_none, na.rm = TRUE),
+        n_s_lost_mom = sum(.data$s_lost_mom, na.rm = TRUE),
+        n_s_lost_dad = sum(.data$s_lost_dad, na.rm = TRUE),
+        n_s_lost_both = sum(.data$s_lost_both, na.rm = TRUE),
+        n_s_lost_none0 = sum(.data$s_lost_none0, na.rm = TRUE),
+        n_s_lost_mom0 = sum(.data$s_lost_mom0, na.rm = TRUE),
+        n_s_lost_dad0 = sum(.data$s_lost_dad0, na.rm = TRUE)
+    ) |>
+        arrange(.data$age)
+}
+
 compute_props_and_rates <- function(df, by) {
     df |>
         summarise(
@@ -46,12 +94,15 @@ compute_props_and_rates <- function(df, by) {
             w_s_lost_dad = sum(.data$w_s_lost_dad),
             w_s_lost_both = sum(.data$w_s_lost_both),
             w_s_total = sum(.data$w_s_total),
+            w_s_lost_none0 = sum(.data$w_s_lost_none0),
+            w_s_lost_mom0 = sum(.data$w_s_lost_mom0),
+            w_s_lost_dad0 = sum(.data$w_s_lost_dad0),
             # incidence
-            w_i_lost_mom_first = sum(.data$w_i_lost_mom_first),
-            w_i_lost_mom_last = sum(.data$w_i_lost_mom_last),
-            w_i_lost_dad_first = sum(.data$w_i_lost_dad_first),
-            w_i_lost_dad_last = sum(.data$w_i_lost_dad_last),
-            w_i_lost_both = sum(.data$w_i_lost_both)
+            w_i_lost_none_to_lost_mom = sum(.data$w_i_lost_none_to_lost_mom),
+            w_i_lost_dad_to_lost_both = sum(.data$w_i_lost_dad_to_lost_both),
+            w_i_lost_none_to_lost_dad = sum(.data$w_i_lost_none_to_lost_dad),
+            w_i_lost_mom_to_lost_both = sum(.data$w_i_lost_mom_to_lost_both),
+            w_i_lost_none_to_lost_both = sum(.data$w_i_lost_none_to_lost_both)
         ) |>
         mutate(
             # proportions
@@ -60,11 +111,11 @@ compute_props_and_rates <- function(df, by) {
             pr_lost_dad = .data$w_s_lost_dad / .data$w_s_total,
             pr_lost_both = .data$w_s_lost_both / .data$w_s_total,
             # transfer rates
-            mx_lost_none_to_lost_mom = .data$w_i_lost_mom_first / .data$w_s_lost_none,
-            mx_lost_none_to_lost_dad = .data$w_i_lost_dad_first / .data$w_s_lost_none,
-            mx_lost_none_to_lost_both = .data$w_i_lost_both / .data$w_s_lost_none,
-            mx_lost_dad_to_lost_both = .data$w_i_lost_mom_last / .data$w_s_lost_dad,
-            mx_lost_mom_to_lost_both = .data$w_i_lost_dad_last / .data$w_s_lost_mom
+            mx_lost_none_to_lost_mom = .data$w_i_lost_none_to_lost_mom / .data$w_s_lost_none0,
+            mx_lost_none_to_lost_dad = .data$w_i_lost_none_to_lost_dad / .data$w_s_lost_none0,
+            mx_lost_none_to_lost_both = .data$w_i_lost_none_to_lost_both / .data$w_s_lost_none0,
+            mx_lost_dad_to_lost_both = .data$w_i_lost_dad_to_lost_both / .data$w_s_lost_dad0,
+            mx_lost_mom_to_lost_both = .data$w_i_lost_mom_to_lost_both / .data$w_s_lost_mom0
         ) |>
         select(by, starts_with("pr_"), starts_with("mx_"))
 }
@@ -84,6 +135,7 @@ races <- c("all", "non-hispanic white", "non-hispanic black",
 age_cuts <- c(0, seq(5, 60, by = 5), Inf) # left closed breaks
 # age_cuts <- c(0, seq(70), Inf) # left closed breaks
 sipp2021 <- read_csv(here("data", "sipp_snap_2021.csv")) |>
+    sum_weights() |>
     mutate(x = cut(age, breaks = age_cuts, right = FALSE))
 uslt2020 <- read_csv(here("data", "uslt_2020.csv")) |>
     mutate(x = cut(x, breaks = age_cuts, right = FALSE))

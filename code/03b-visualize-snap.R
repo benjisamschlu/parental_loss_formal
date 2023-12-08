@@ -108,7 +108,8 @@ us_mlt <- read_csv(here("data", "multistate-lt_snap.csv")) |>
         state_from = str_extract(name, "(?<=^[a-zA-Z]{2}_)[a-z]+_[a-z]+"),
         state_from = if_else(is.na(state_from), "total", state_from),
         state_in = ifelse(is.na(state_to), state_from, NA),
-        state_from = ifelse(is.na(state_to), NA, state_from)
+        state_from = ifelse(is.na(state_to), NA, state_from),
+        value = ifelse(value == 0, NA, value)
     ) |>
     select(sex, race, x, quantity, state_in, state_from, state_to, value)
 df_ex <- us_mlt |>
@@ -507,47 +508,29 @@ mx_trans <- "identity"
 plt_mx_line_mom_first <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_mom") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
+    mutate(value = value * 1000) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans,
-                       limits = c(1e-5, 0.12),
-                       breaks = c(0, .05, 0.1),
-                       labels = c(0, 50, 100)) +
     labs(
         x = "Age", caption = "(a) Losing mother first",
         y = "(per 1 000)"
-        # y = expression(
-        #     paste({}["5"], italic(m)[italic(x)], "(1,2) (per 1 000)")
-        #     )
     )
 plt_mx_line_dad_first <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_dad") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
+    mutate(value = value * 1000) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans,
-                       limits = c(1e-5, 0.12),
-                       breaks = c(0, .05, 0.1),
-                       labels = c(0, 50, 100)) +
     labs(
         x = "Age", caption = "(b) Losing father first",
         y = "(per 1 000)"
-        # y = expression(
-        #     paste({}["5"], italic(m)[italic(x)], "(1,3) (per 1 000)")
-        #     )
     )
 plt_mx_line_both <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
+    mutate(value = value * 1000) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans,
-                       limits = c(1e-5, 0.035),
-                       breaks = c(.01, .02, .03),
-                       labels = c(10, 20, 30)) +
     labs(
         x = "Age", caption = "(c) Losing both at once",
         y = "(per 1 000)"
@@ -559,13 +542,9 @@ plt_mx_line_both <- df_mx |>
 plt_mx_line_dad_last <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_mom", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
+    mutate(value = value * 1000) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans,
-                       limits = c(1e-5, 0.12),
-                       breaks = c(0, .05, 0.1),
-                       labels = c(0, 50, 100)) +
     labs(
         x = "Age", caption = "(d) Losing father last",
         y = "(per 1 000)"
@@ -577,13 +556,9 @@ plt_mx_line_dad_last <- df_mx |>
 plt_mx_line_mom_last <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_dad", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
+    mutate(value = value * 1000) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans,
-                       limits = c(1e-5, 0.12),
-                       breaks = c(0, .05, 0.1),
-                       labels = c(0, 50, 100)) +
     labs(
         x = "Age", caption = "(e) Losing mother last",
         y = "(per 1 000)"
@@ -622,12 +597,8 @@ mx_trans <- "log10"
 plt_mx_line_mom_first <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_mom") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans, limits = c(0.00001, 0.12), 
-                       breaks = c(0.0001, 0.001, 0.01, 0.1),
-                       labels = c(0.1, 1, 10, 100)) +
     labs(
         x = "Age", caption = "(a) Losing mother first",
         y = "(per 1 000)"
@@ -638,12 +609,8 @@ plt_mx_line_mom_first <- df_mx |>
 plt_mx_line_dad_first <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_dad") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans, limits = c(0.00001, 0.12), 
-                       breaks = c(0.0001, 0.001, 0.01, 0.1),
-                       labels = c(0.1, 1, 10, 100)) +
     labs(
         x = "Age", caption = "(b) Losing father first",
         y = "(per 1 000)"
@@ -654,12 +621,8 @@ plt_mx_line_dad_first <- df_mx |>
 plt_mx_line_both <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_none", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans, limits = c(0.00001, 0.12), 
-                       breaks = c(0.0001, 0.001, 0.01, 0.1),
-                       labels = c(0.1, 1, 10, 100)) +
     labs(
         x = "Age", caption = "(c) Losing both at once",
         y = "(per 1 000)"
@@ -671,12 +634,8 @@ plt_mx_line_both <- df_mx |>
 plt_mx_line_dad_last <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_mom", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans, limits = c(0.00001, 0.12), 
-                       breaks = c(0.0001, 0.001, 0.01, 0.1),
-                       labels = c(0.1, 1, 10, 100)) +
     labs(
         x = "Age", caption = "(d) Losing father last",
         y = "(per 1 000)"
@@ -688,12 +647,8 @@ plt_mx_line_dad_last <- df_mx |>
 plt_mx_line_mom_last <- df_mx |>
     filter(race != "all", sex == "all", 
            state_from == "lost_dad", state_to == "lost_both") |>
-    mutate(value = ifelse(value == 0, 1e-10, value)) |>
     plot_line(my_theme_no_legend, size = .8, linewidth = .2) +
     scale_color_manual(values = colours_race) +
-    scale_y_continuous(trans = mx_trans, limits = c(0.00001, 0.12), 
-                       breaks = c(0.0001, 0.001, 0.01, 0.1),
-                       labels = c(0.1, 1, 10, 100)) +
     labs(
         x = "Age", caption = "(e) Losing mother last",
         y = "(per 1 000)"
