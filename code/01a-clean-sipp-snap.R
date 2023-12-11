@@ -80,7 +80,7 @@ rm(list = ls())
 
 ## Install/load packages
 packages <- c("tidyverse", "here", "utils", 
-              "bit64", "readxl", "data.table", 
+              "bit64", "readxl", "data.table",
               "testthat")
 for (p in packages) {
     if (!require(p,character.only = TRUE)) install.packages(p)
@@ -133,11 +133,9 @@ tidy_race_and_sex <- function(df) {
                 .data$erace == 3 ~ "non-hispanic asian",
                 .default = "non-hispanic other"
             ),
-            sex = if_else(.data$esex == 1, "male", "female"),
-            w = .data$wpfinwgt
+            sex = if_else(.data$esex == 1, "male", "female")
         ) 
 }
-
 get_parent_survival <- function(df) {
     df |>
         filter(
@@ -151,31 +149,39 @@ get_parent_survival <- function(df) {
             !.data$tbmomdodrage %in% 999, !.data$tbdaddodrage %in% 999
         ) |>
         mutate(
-            i_lost_none_to_lost_mom = 1 * (
-                .data$ebdad == 1 & .data$tbmomdodrage %in% .data$tage),
-            i_lost_none_to_lost_dad = 1 * (
-                .data$ebmom == 1 & .data$tbdaddodrage %in% .data$tage),
-            i_lost_dad_to_lost_both = 1 * (
-                .data$ebdad == 2 & .data$tbmomdodrage %in% .data$tage),
-            i_lost_mom_to_lost_both = 1 * (
-                .data$ebmom == 2 & .data$tbdaddodrage %in% .data$tage),
-            i_lost_none_to_lost_both = 1 * (
-                .data$tbmomdodrage %in% .data$tage &
-                    .data$tbdaddodrage %in% .data$tage),
-            s_lost_none = 1 * (.data$ebmom == 1 & .data$ebdad == 1),
-            s_lost_mom = 1 * (.data$ebmom == 2 & .data$ebdad == 1),
-            s_lost_dad = 1 * (.data$ebmom == 1 & .data$ebdad == 2),
-            s_lost_both = 1 * (.data$ebmom == 2 & .data$ebdad == 2),
-            s_lost_none0 = .data$s_lost_none + .data$i_lost_none_to_lost_mom + 
-                .data$i_lost_none_to_lost_dad + .data$i_lost_none_to_lost_both,
-            s_lost_mom0 = .data$s_lost_mom + .data$i_lost_mom_to_lost_both,
-            s_lost_dad0 = .data$s_lost_dad + .data$i_lost_dad_to_lost_both
+            tbmomdodrage = if_else(.data$ebmom == 1, 9999, .data$tbmomdodrage),
+            tbdaddodrage = if_else(.data$ebdad == 1, 9999, .data$tbdaddodrage),
+            i_lost_none_to_lost_mom = (
+                .data$tbdaddodrage > .data$tage & 
+                    .data$tbmomdodrage == .data$tage) * 1,
+            i_lost_none_to_lost_dad = (
+                .data$tbdaddodrage == .data$tage & 
+                    .data$tbmomdodrage > .data$tage) * 1,
+            i_lost_dad_to_lost_both = (
+                .data$tbdaddodrage < .data$tage & 
+                    .data$tbmomdodrage == .data$tage) * 1,
+            i_lost_mom_to_lost_both = (
+                .data$tbdaddodrage == .data$tage & 
+                    .data$tbmomdodrage < .data$tage) * 1,
+            i_lost_none_to_lost_both = (
+                .data$tbmomdodrage == .data$tage &
+                    .data$tbdaddodrage == .data$tage) * 1,
+            s_lost_none = (
+                .data$tbdaddodrage >= .data$tage & 
+                    .data$tbmomdodrage >= .data$tage) * 1,
+            s_lost_mom = (
+                .data$tbdaddodrage >= .data$tage & 
+                    .data$tbmomdodrage < .data$tage) * 1,
+            s_lost_dad = (
+                .data$tbdaddodrage < .data$tage & 
+                    .data$tbmomdodrage >= .data$tage) * 1,
+            s_lost_both = (
+                .data$tbdaddodrage < .data$tage & 
+                    .data$tbmomdodrage < .data$tage) * 1
+            
         ) |>
-        rename(age = "tage") |>
-        select("race", "sex", "age", "w", starts_with("s_"), starts_with("i_"))
-        
+        rename(age = "tage")
 }
-
 ## Load data -------------------------------------------------------------------
 
 years <- c(2021, 2022) # years
@@ -188,13 +194,17 @@ columns_sipp <- c(
     "EORIGIN",          # is hispanic/latino;spanish? 1 - Y; 2 - N
     "ERACE",            # race: 1 - white; 2 - black; 3 - asian; 4 - others
     "MONTHCODE",        # reference month
-    # "SSUID",            # sample unit ID
-    # "PNUM",             # person number
+    "PNUM",             # person number
+    "SPANEL",           # panel year
+    "SWAVE",            # wave number of interview
+    "SSUID",            # sample unit ID
     "WPFINWGT"          # final person weight
 )
 
 pu_data <- list.files(here("data_private"), "^pu.+zip", full.names = TRUE)
 pu_valid <- list.files(here("data_private"), "^pu.+validate", full.names = TRUE)
+rw_data <- list.files(here("data_private"), "^rw.+zip", full.names = TRUE)
+rw_valid <- list.files(here("data_private"), "^rw.+validate", full.names = TRUE)
 
 pu <- lapply(
     pu_data,
@@ -205,10 +215,22 @@ pu <- lapply(
         select = columns_sipp   
     )
 )
+rw <- lapply(
+    rw_data,
+    function(x) fread(
+        cmd = paste("unzip -p", x),
+        header = TRUE,
+        sep = "|"
+    )
+)
+
 valid_pu <- lapply(pu_valid, read_xlsx)
+valid_rw <- lapply(rw_valid, read_xlsx)
 
 names(pu) <- years
+names(rw) <- years
 names(valid_pu) <- years
+names(valid_rw) <- years
 
 ### Data check
 test_that(
@@ -217,11 +239,18 @@ test_that(
         for (y in years) {
             y <- as.character(y)
             pu_check <- join_validation(
-                pu[[y]] , 
+                pu[[y]] |> 
+                    select(-SSUID), 
                 valid_pu[[y]] |> 
                     select(-Label) 
             )
             expect_equal(pu_check$value.x, pu_check$value.y,
+                         tolerance = 1e-5)
+            rw_check <- join_validation(
+                rw[[y]] |> select(-ssuid), 
+                valid_rw[[y]]
+            )
+            expect_equal(rw_check$value.x, rw_check$value.y,
                          tolerance = 1e-5)
         }
     }
@@ -230,11 +259,20 @@ test_that(
 ## Clean data ------------------------------------------------------------------
 pu_tidy <- lapply(pu, tidy_race_and_sex) |>
     lapply(get_parent_survival)
-names(pu_tidy) <- years
+purw <- mapply(
+    function(x ,y) inner_join(
+        x, y, by = c("spanel", "swave", "ssuid", "pnum", "monthcode")
+    ) |> 
+        select("race", "sex", "age", 
+               starts_with("s_"), 
+               starts_with("i_"),
+               starts_with("repwgt")),
+    pu_tidy, rw, SIMPLIFY = FALSE
+)
 
 ## Save data -------------------------------------------------------------------
 res <- sapply(seq(length(years)), function(i) {
-    f <- paste0("sipp_snap_", years[i], ".csv")
-    df <- pu_tidy[[i]]
-    write.csv(df, here("data", f), row.names = FALSE)
+    f <- paste0("sipp_", years[i], "-snap.csv")
+    df <- purw[[i]]
+    write.csv(df, here("data_private", f), row.names = FALSE)
 })

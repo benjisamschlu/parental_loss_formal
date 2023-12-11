@@ -1,0 +1,1106 @@
+"x","race","name","value"
+"[0,5)","all","se_pr_lost_none",0.000295471693202313
+"[0,5)","all","se_pr_lost_mom",0.000136789420000345
+"[0,5)","all","se_pr_lost_dad",0.000257594938341393
+"[0,5)","all","se_pr_lost_both",7.86614002924567e-05
+"[0,5)","all","se_mx_lost_none_to_lost_mom",6.08288750580345e-05
+"[0,5)","all","se_mx_lost_none_to_lost_dad",0.000106260163936929
+"[0,5)","all","se_mx_lost_none_to_lost_both",3.02468351904879e-05
+"[0,5)","all","se_mx_lost_dad_to_lost_both",0.00129879705345084
+"[0,5)","all","se_mx_lost_mom_to_lost_both",0.00731546877402393
+"[0,5)","all","se_Lx_lost_mom",68.0085214074912
+"[0,5)","all","se_Lx_lost_dad",128.070218285945
+"[0,5)","all","se_Lx_lost_both",39.1086205769371
+"[0,5)","all","se_Lx_lost_none",146.901660760068
+"[0,5)","all","se_dx_lost_mom_to_dead",0.0851719058291648
+"[0,5)","all","se_dx_lost_dad_to_dead",0.160391438390683
+"[0,5)","all","se_dx_lost_both_to_dead",0.0489785056335677
+"[0,5)","all","se_dx_lost_none_to_dead",0.183975392457602
+"[5,10)","all","se_pr_lost_none",0.000724130314087074
+"[5,10)","all","se_pr_lost_mom",0.000341530265770962
+"[5,10)","all","se_pr_lost_dad",0.000629913257590746
+"[5,10)","all","se_pr_lost_both",0.000182530522097906
+"[5,10)","all","se_mx_lost_none_to_lost_mom",6.92383975972599e-05
+"[5,10)","all","se_mx_lost_none_to_lost_dad",0.000116513898874159
+"[5,10)","all","se_mx_lost_none_to_lost_both",6.64253555147481e-06
+"[5,10)","all","se_mx_lost_dad_to_lost_both",0.000932925794101144
+"[5,10)","all","se_mx_lost_mom_to_lost_both",0.0024033730576018
+"[5,10)","all","se_Lx_lost_mom",169.652560689859
+"[5,10)","all","se_Lx_lost_dad",312.904617462009
+"[5,10)","all","se_Lx_lost_both",90.670647908943
+"[5,10)","all","se_Lx_lost_none",359.706223343645
+"[5,10)","all","se_dx_lost_mom_to_dead",0.0185268170074348
+"[5,10)","all","se_dx_lost_dad_to_dead",0.0341705811272588
+"[5,10)","all","se_dx_lost_both_to_dead",0.00990163953272384
+"[5,10)","all","se_dx_lost_none_to_dead",0.0392815254259911
+"[10,15)","all","se_pr_lost_none",0.00106478438509052
+"[10,15)","all","se_pr_lost_mom",0.000501154147650606
+"[10,15)","all","se_pr_lost_dad",0.000930798132076755
+"[10,15)","all","se_pr_lost_both",0.000231855955919705
+"[10,15)","all","se_mx_lost_none_to_lost_mom",9.83682529762118e-05
+"[10,15)","all","se_mx_lost_none_to_lost_dad",0.000131234062829429
+"[10,15)","all","se_mx_lost_none_to_lost_both",1.53913196489753e-05
+"[10,15)","all","se_mx_lost_dad_to_lost_both",0.000837483628773577
+"[10,15)","all","se_mx_lost_mom_to_lost_both",0.00192335447001034
+"[10,15)","all","se_Lx_lost_mom",248.80321914336
+"[10,15)","all","se_Lx_lost_dad",462.10446969059
+"[10,15)","all","se_Lx_lost_both",115.107314747001
+"[10,15)","all","se_Lx_lost_none",528.623346621094
+"[10,15)","all","se_dx_lost_mom_to_dead",0.0408205241170072
+"[10,15)","all","se_dx_lost_dad_to_dead",0.0758163287216655
+"[10,15)","all","se_dx_lost_both_to_dead",0.0188853702691303
+"[10,15)","all","se_dx_lost_none_to_dead",0.0867299150865321
+"[15,20)","all","se_pr_lost_none",0.00132164979188408
+"[15,20)","all","se_pr_lost_mom",0.000693759129529907
+"[15,20)","all","se_pr_lost_dad",0.00112878016044148
+"[15,20)","all","se_pr_lost_both",0.000312112784930188
+"[15,20)","all","se_mx_lost_none_to_lost_mom",0.000120027014784417
+"[15,20)","all","se_mx_lost_none_to_lost_dad",0.000168507434891536
+"[15,20)","all","se_mx_lost_none_to_lost_both",2.11814819785468e-05
+"[15,20)","all","se_mx_lost_dad_to_lost_both",0.000829903189161341
+"[15,20)","all","se_mx_lost_mom_to_lost_both",0.00271871476973298
+"[15,20)","all","se_Lx_lost_mom",343.816509808215
+"[15,20)","all","se_Lx_lost_dad",559.406339440491
+"[15,20)","all","se_Lx_lost_both",154.678365752005
+"[15,20)","all","se_Lx_lost_none",654.98960560309
+"[15,20)","all","se_dx_lost_mom_to_dead",0.201155687733863
+"[15,20)","all","se_dx_lost_dad_to_dead",0.327290178693293
+"[15,20)","all","se_dx_lost_both_to_dead",0.0904972046215889
+"[15,20)","all","se_dx_lost_none_to_dead",0.383212791750798
+"[20,25)","all","se_pr_lost_none",0.00170668830008332
+"[20,25)","all","se_pr_lost_mom",0.000945197294572973
+"[20,25)","all","se_pr_lost_dad",0.00138649038323419
+"[20,25)","all","se_pr_lost_both",0.000481908424055082
+"[20,25)","all","se_mx_lost_none_to_lost_mom",0.000139190081638705
+"[20,25)","all","se_mx_lost_none_to_lost_dad",0.000225119397188795
+"[20,25)","all","se_mx_lost_none_to_lost_both",4.61272702457907e-05
+"[20,25)","all","se_mx_lost_dad_to_lost_both",0.000851752823508147
+"[20,25)","all","se_mx_lost_mom_to_lost_both",0.00209361470216734
+"[20,25)","all","se_Lx_lost_mom",466.452656949957
+"[20,25)","all","se_Lx_lost_dad",684.229765371192
+"[20,25)","all","se_Lx_lost_both",237.820681563224
+"[20,25)","all","se_Lx_lost_none",842.246689373918
+"[20,25)","all","se_dx_lost_mom_to_dead",0.507409955291146
+"[20,25)","all","se_dx_lost_dad_to_dead",0.744309180112817
+"[20,25)","all","se_dx_lost_both_to_dead",0.258702742071102
+"[20,25)","all","se_dx_lost_none_to_dead",0.91620092335584
+"[25,30)","all","se_pr_lost_none",0.00225850251267866
+"[25,30)","all","se_pr_lost_mom",0.00118184538134431
+"[25,30)","all","se_pr_lost_dad",0.0017633713618514
+"[25,30)","all","se_pr_lost_both",0.000757999818870577
+"[25,30)","all","se_mx_lost_none_to_lost_mom",0.000190306658168777
+"[25,30)","all","se_mx_lost_none_to_lost_dad",0.000242434456314643
+"[25,30)","all","se_mx_lost_none_to_lost_both",3.53798069876992e-05
+"[25,30)","all","se_mx_lost_dad_to_lost_both",0.000699545369208336
+"[25,30)","all","se_mx_lost_mom_to_lost_both",0.00152935412948283
+"[25,30)","all","se_Lx_lost_mom",579.589836812937
+"[25,30)","all","se_Lx_lost_dad",864.776506291826
+"[25,30)","all","se_Lx_lost_both",371.731360344035
+"[25,30)","all","se_Lx_lost_none",1107.59421107699
+"[25,30)","all","se_dx_lost_mom_to_dead",0.81518207162811
+"[25,30)","all","se_dx_lost_dad_to_dead",1.21629169305433
+"[25,30)","all","se_dx_lost_both_to_dead",0.522833081547268
+"[25,30)","all","se_dx_lost_none_to_dead",1.55781017223125
+"[30,35)","all","se_pr_lost_none",0.00265478267806774
+"[30,35)","all","se_pr_lost_mom",0.00138294612541157
+"[30,35)","all","se_pr_lost_dad",0.00198878966991997
+"[30,35)","all","se_pr_lost_both",0.00105615651102616
+"[30,35)","all","se_mx_lost_none_to_lost_mom",0.000254440895697391
+"[30,35)","all","se_mx_lost_none_to_lost_dad",0.000315129433466231
+"[30,35)","all","se_mx_lost_none_to_lost_both",4.89594871368908e-05
+"[30,35)","all","se_mx_lost_dad_to_lost_both",0.000868025457034527
+"[30,35)","all","se_mx_lost_mom_to_lost_both",0.00212486898382879
+"[30,35)","all","se_Lx_lost_mom",672.83860916026
+"[30,35)","all","se_Lx_lost_dad",967.596966239745
+"[30,35)","all","se_Lx_lost_both",513.847115861372
+"[30,35)","all","se_Lx_lost_none",1291.6195735407
+"[30,35)","all","se_dx_lost_mom_to_dead",1.20234116076278
+"[30,35)","all","se_dx_lost_dad_to_dead",1.72906495510298
+"[30,35)","all","se_dx_lost_both_to_dead",0.918228427037561
+"[30,35)","all","se_dx_lost_none_to_dead",2.30808303235308
+"[35,40)","all","se_pr_lost_none",0.00293139953392421
+"[35,40)","all","se_pr_lost_mom",0.00160985435880934
+"[35,40)","all","se_pr_lost_dad",0.00223643273499886
+"[35,40)","all","se_pr_lost_both",0.00147396544768405
+"[35,40)","all","se_mx_lost_none_to_lost_mom",0.000303517476687808
+"[35,40)","all","se_mx_lost_none_to_lost_dad",0.000439136948620826
+"[35,40)","all","se_mx_lost_none_to_lost_both",9.13937549373307e-05
+"[35,40)","all","se_mx_lost_dad_to_lost_both",0.000804702446111533
+"[35,40)","all","se_mx_lost_mom_to_lost_both",0.00178675288819472
+"[35,40)","all","se_Lx_lost_mom",775.475673683459
+"[35,40)","all","se_Lx_lost_dad",1077.30191388473
+"[35,40)","all","se_Lx_lost_both",710.017239928657
+"[35,40)","all","se_Lx_lost_none",1412.07123238561
+"[35,40)","all","se_dx_lost_mom_to_dead",1.70971664414579
+"[35,40)","all","se_dx_lost_dad_to_dead",2.37516285222723
+"[35,40)","all","se_dx_lost_both_to_dead",1.56539828898874
+"[35,40)","all","se_dx_lost_none_to_dead",3.11323974517684
+"[40,45)","all","se_pr_lost_none",0.00330542783043002
+"[40,45)","all","se_pr_lost_mom",0.00188097399553201
+"[40,45)","all","se_pr_lost_dad",0.00283127211143292
+"[40,45)","all","se_pr_lost_both",0.00207198708501295
+"[40,45)","all","se_mx_lost_none_to_lost_mom",0.000482502066423634
+"[40,45)","all","se_mx_lost_none_to_lost_dad",0.000671592297594859
+"[40,45)","all","se_mx_lost_none_to_lost_both",0.00012113551818385
+"[40,45)","all","se_mx_lost_dad_to_lost_both",0.00116044263023638
+"[40,45)","all","se_mx_lost_mom_to_lost_both",0.00222943719650242
+"[40,45)","all","se_Lx_lost_mom",894.965502014809
+"[40,45)","all","se_Lx_lost_dad",1347.11637298973
+"[40,45)","all","se_Lx_lost_both",985.849334499881
+"[40,45)","all","se_Lx_lost_none",1572.71917881981
+"[40,45)","all","se_dx_lost_mom_to_dead",2.48801897428916
+"[40,45)","all","se_dx_lost_dad_to_dead",3.74500591255034
+"[40,45)","all","se_dx_lost_both_to_dead",2.74067753952985
+"[40,45)","all","se_dx_lost_none_to_dead",4.372185463376
+"[45,50)","all","se_pr_lost_none",0.00378689887257263
+"[45,50)","all","se_pr_lost_mom",0.00229805926745186
+"[45,50)","all","se_pr_lost_dad",0.00353529023115647
+"[45,50)","all","se_pr_lost_both",0.00279284713087678
+"[45,50)","all","se_mx_lost_none_to_lost_mom",0.000589733162749912
+"[45,50)","all","se_mx_lost_none_to_lost_dad",0.000870383085057706
+"[45,50)","all","se_mx_lost_none_to_lost_both",0.00018745413702122
+"[45,50)","all","se_mx_lost_dad_to_lost_both",0.0011060265483616
+"[45,50)","all","se_mx_lost_mom_to_lost_both",0.00239559732366756
+"[45,50)","all","se_Lx_lost_mom",1075.76513440595
+"[45,50)","all","se_Lx_lost_dad",1654.93641724092
+"[45,50)","all","se_Lx_lost_both",1307.38471878244
+"[45,50)","all","se_Lx_lost_none",1772.71919498924
+"[45,50)","all","se_dx_lost_mom_to_dead",4.11455561480225
+"[45,50)","all","se_dx_lost_dad_to_dead",6.32975331688878
+"[45,50)","all","se_dx_lost_both_to_dead",5.0004475543293
+"[45,50)","all","se_dx_lost_none_to_dead",6.78024550520364
+"[50,55)","all","se_pr_lost_none",0.00361475585543602
+"[50,55)","all","se_pr_lost_mom",0.00231489367236747
+"[50,55)","all","se_pr_lost_dad",0.00357091965450953
+"[50,55)","all","se_pr_lost_both",0.00344629095439436
+"[50,55)","all","se_mx_lost_none_to_lost_mom",0.0009031984048069
+"[50,55)","all","se_mx_lost_none_to_lost_dad",0.00139172262857739
+"[50,55)","all","se_mx_lost_none_to_lost_both",0.000396204693667503
+"[50,55)","all","se_mx_lost_dad_to_lost_both",0.00128569616643327
+"[50,55)","all","se_mx_lost_mom_to_lost_both",0.00331804260085247
+"[50,55)","all","se_Lx_lost_mom",1058.81655935753
+"[50,55)","all","se_Lx_lost_dad",1633.3142672869
+"[50,55)","all","se_Lx_lost_both",1576.30995083456
+"[50,55)","all","se_Lx_lost_none",1653.36464627161
+"[50,55)","all","se_dx_lost_mom_to_dead",5.93892647593508
+"[50,55)","all","se_dx_lost_dad_to_dead",9.16129735579367
+"[50,55)","all","se_dx_lost_both_to_dead",8.84155883146722
+"[50,55)","all","se_dx_lost_none_to_dead",9.27376039346765
+"[55,60)","all","se_pr_lost_none",0.00337296900534581
+"[55,60)","all","se_pr_lost_mom",0.00246007011887706
+"[55,60)","all","se_pr_lost_dad",0.00358795819440819
+"[55,60)","all","se_pr_lost_both",0.00403592780923636
+"[55,60)","all","se_mx_lost_none_to_lost_mom",0.00159095880178053
+"[55,60)","all","se_mx_lost_none_to_lost_dad",0.00216352874850613
+"[55,60)","all","se_mx_lost_none_to_lost_both",0.00070241494007516
+"[55,60)","all","se_mx_lost_dad_to_lost_both",0.00163583450335949
+"[55,60)","all","se_mx_lost_mom_to_lost_both",0.00356495103176428
+"[55,60)","all","se_Lx_lost_mom",1086.75348379424
+"[55,60)","all","se_Lx_lost_dad",1585.00606855103
+"[55,60)","all","se_Lx_lost_both",1782.89983418511
+"[55,60)","all","se_Lx_lost_none",1490.03306416435
+"[55,60)","all","se_dx_lost_mom_to_dead",9.19925623284525
+"[55,60)","all","se_dx_lost_dad_to_dead",13.4169130098471
+"[55,60)","all","se_dx_lost_both_to_dead",15.0920633397956
+"[55,60)","all","se_dx_lost_none_to_dead",12.6129763162137
+"[60,Inf)","all","se_pr_lost_none",0.00153741761660806
+"[60,Inf)","all","se_pr_lost_mom",0.00142127612591043
+"[60,Inf)","all","se_pr_lost_dad",0.0027094747535029
+"[60,Inf)","all","se_pr_lost_both",0.00312647267667002
+"[60,Inf)","all","se_mx_lost_none_to_lost_mom",0.00250916107104243
+"[60,Inf)","all","se_mx_lost_none_to_lost_dad",0.00368854807315598
+"[60,Inf)","all","se_mx_lost_none_to_lost_both",0.00145010700717782
+"[60,Inf)","all","se_mx_lost_dad_to_lost_both",0.00194090868043241
+"[60,Inf)","all","se_mx_lost_mom_to_lost_both",0.00471573861780953
+"[60,Inf)","all","se_Lx_lost_mom",2726.46766089415
+"[60,Inf)","all","se_Lx_lost_dad",5197.64960429679
+"[60,Inf)","all","se_Lx_lost_both",5997.58659855742
+"[60,Inf)","all","se_Lx_lost_none",2949.2646337711
+"[60,Inf)","all","se_dx_lost_mom_to_dead",122.763444514862
+"[60,Inf)","all","se_dx_lost_dad_to_dead",234.032252777765
+"[60,Inf)","all","se_dx_lost_both_to_dead",270.050659384537
+"[60,Inf)","all","se_dx_lost_none_to_dead",132.795224539308
+"[0,5)","hispanic","se_pr_lost_none",0.000710194600142042
+"[0,5)","hispanic","se_pr_lost_mom",0.000287425691767931
+"[0,5)","hispanic","se_pr_lost_dad",0.000641043675075236
+"[0,5)","hispanic","se_pr_lost_both",0.000179316919129881
+"[0,5)","hispanic","se_mx_lost_none_to_lost_mom",0.000131081552116114
+"[0,5)","hispanic","se_mx_lost_none_to_lost_dad",0.0002908080180052
+"[0,5)","hispanic","se_mx_lost_none_to_lost_both",0.000101011737490727
+"[0,5)","hispanic","se_mx_lost_dad_to_lost_both",0
+"[0,5)","hispanic","se_mx_lost_mom_to_lost_both",0.0230720243948714
+"[0,5)","hispanic","se_Lx_lost_mom",143.007123744633
+"[0,5)","hispanic","se_Lx_lost_dad",318.947869981006
+"[0,5)","hispanic","se_Lx_lost_both",89.2181790910259
+"[0,5)","hispanic","se_Lx_lost_none",353.353544843464
+"[0,5)","hispanic","se_dx_lost_mom_to_dead",0.15533647148916
+"[0,5)","hispanic","se_dx_lost_dad_to_dead",0.346445935101134
+"[0,5)","hispanic","se_dx_lost_both_to_dead",0.0969101172710499
+"[0,5)","hispanic","se_dx_lost_none_to_dead",0.38381789247216
+"[5,10)","hispanic","se_pr_lost_none",0.00210054934381518
+"[5,10)","hispanic","se_pr_lost_mom",0.000797888461315691
+"[5,10)","hispanic","se_pr_lost_dad",0.00180874987321659
+"[5,10)","hispanic","se_pr_lost_both",0.000558955617548067
+"[5,10)","hispanic","se_mx_lost_none_to_lost_mom",0.000173865413890816
+"[5,10)","hispanic","se_mx_lost_none_to_lost_dad",0.000354225514918574
+"[5,10)","hispanic","se_mx_lost_none_to_lost_both",0
+"[5,10)","hispanic","se_mx_lost_dad_to_lost_both",0.00144261447289761
+"[5,10)","hispanic","se_mx_lost_mom_to_lost_both",0.00584330338917232
+"[5,10)","hispanic","se_Lx_lost_mom",396.693967024309
+"[5,10)","hispanic","se_Lx_lost_dad",899.273767385783
+"[5,10)","hispanic","se_Lx_lost_both",277.901401093121
+"[5,10)","hispanic","se_Lx_lost_none",1044.35054838907
+"[5,10)","hispanic","se_dx_lost_mom_to_dead",0.0355965992460396
+"[5,10)","hispanic","se_dx_lost_dad_to_dead",0.0806946678575182
+"[5,10)","hispanic","se_dx_lost_both_to_dead",0.0249369681087652
+"[5,10)","hispanic","se_dx_lost_none_to_dead",0.0937128644084202
+"[10,15)","hispanic","se_pr_lost_none",0.00318243546542922
+"[10,15)","hispanic","se_pr_lost_mom",0.00126390844863196
+"[10,15)","hispanic","se_pr_lost_dad",0.00279657517788505
+"[10,15)","hispanic","se_pr_lost_both",0.00063072468708625
+"[10,15)","hispanic","se_mx_lost_none_to_lost_mom",0.000184673767623353
+"[10,15)","hispanic","se_mx_lost_none_to_lost_dad",0.000320881287995285
+"[10,15)","hispanic","se_mx_lost_none_to_lost_both",3.48451181520581e-05
+"[10,15)","hispanic","se_mx_lost_dad_to_lost_both",0.00188744446688377
+"[10,15)","hispanic","se_mx_lost_mom_to_lost_both",0.00420017680923542
+"[10,15)","hispanic","se_Lx_lost_mom",628.089340394337
+"[10,15)","hispanic","se_Lx_lost_dad",1389.73598977221
+"[10,15)","hispanic","se_Lx_lost_both",313.433661363064
+"[10,15)","hispanic","se_Lx_lost_none",1581.48621800299
+"[10,15)","hispanic","se_dx_lost_mom_to_dead",0.0896106034812697
+"[10,15)","hispanic","se_dx_lost_dad_to_dead",0.198276061563056
+"[10,15)","hispanic","se_dx_lost_both_to_dead",0.044718128042826
+"[10,15)","hispanic","se_dx_lost_none_to_dead",0.22563340161701
+"[15,20)","hispanic","se_pr_lost_none",0.0036983923830469
+"[15,20)","hispanic","se_pr_lost_mom",0.00156004905361494
+"[15,20)","hispanic","se_pr_lost_dad",0.00329808736566887
+"[15,20)","hispanic","se_pr_lost_both",0.00085621598775803
+"[15,20)","hispanic","se_mx_lost_none_to_lost_mom",0.000299248302992438
+"[15,20)","hispanic","se_mx_lost_none_to_lost_dad",0.000414569169782286
+"[15,20)","hispanic","se_mx_lost_none_to_lost_both",5.46507539703508e-05
+"[15,20)","hispanic","se_mx_lost_dad_to_lost_both",0.00127859034121938
+"[15,20)","hispanic","se_mx_lost_mom_to_lost_both",0.00654448613053584
+"[15,20)","hispanic","se_Lx_lost_mom",774.019702993974
+"[15,20)","hispanic","se_Lx_lost_dad",1636.34893230305
+"[15,20)","hispanic","se_Lx_lost_both",424.812311515136
+"[15,20)","hispanic","se_Lx_lost_none",1834.96061694206
+"[15,20)","hispanic","se_dx_lost_mom_to_dead",0.412367912025329
+"[15,20)","hispanic","se_dx_lost_dad_to_dead",0.871783741355147
+"[15,20)","hispanic","se_dx_lost_both_to_dead",0.226323652000773
+"[15,20)","hispanic","se_dx_lost_none_to_dead",0.977596403980681
+"[20,25)","hispanic","se_pr_lost_none",0.00472886437852792
+"[20,25)","hispanic","se_pr_lost_mom",0.00226384007273818
+"[20,25)","hispanic","se_pr_lost_dad",0.00405756274237803
+"[20,25)","hispanic","se_pr_lost_both",0.00130354341744868
+"[20,25)","hispanic","se_mx_lost_none_to_lost_mom",0.000335607753195075
+"[20,25)","hispanic","se_mx_lost_none_to_lost_dad",0.000620232053857249
+"[20,25)","hispanic","se_mx_lost_none_to_lost_both",6.56981255293212e-05
+"[20,25)","hispanic","se_mx_lost_dad_to_lost_both",0.0014123938783316
+"[20,25)","hispanic","se_mx_lost_mom_to_lost_both",0.00693897942155484
+"[20,25)","hispanic","se_Lx_lost_mom",1118.95696976008
+"[20,25)","hispanic","se_Lx_lost_dad",2005.5471963314
+"[20,25)","hispanic","se_Lx_lost_both",644.307435805234
+"[20,25)","hispanic","se_Lx_lost_none",2337.35404683596
+"[20,25)","hispanic","se_dx_lost_mom_to_dead",1.08170130961882
+"[20,25)","hispanic","se_dx_lost_dad_to_dead",1.93877252423673
+"[20,25)","hispanic","se_dx_lost_both_to_dead",0.622855226735932
+"[20,25)","hispanic","se_dx_lost_none_to_dead",2.25953186926161
+"[25,30)","hispanic","se_pr_lost_none",0.00606276325559515
+"[25,30)","hispanic","se_pr_lost_mom",0.00295744160554761
+"[25,30)","hispanic","se_pr_lost_dad",0.00523835224146917
+"[25,30)","hispanic","se_pr_lost_both",0.00206036003067658
+"[25,30)","hispanic","se_mx_lost_none_to_lost_mom",0.000581705393587033
+"[25,30)","hispanic","se_mx_lost_none_to_lost_dad",0.000655041373822655
+"[25,30)","hispanic","se_mx_lost_none_to_lost_both",0
+"[25,30)","hispanic","se_mx_lost_dad_to_lost_both",0.00184052798110887
+"[25,30)","hispanic","se_mx_lost_mom_to_lost_both",0.00381254925714079
+"[25,30)","hispanic","se_Lx_lost_mom",1453.73189992773
+"[25,30)","hispanic","se_Lx_lost_dad",2574.91466347029
+"[25,30)","hispanic","se_Lx_lost_both",1012.77100325909
+"[25,30)","hispanic","se_Lx_lost_none",2980.15430966942
+"[25,30)","hispanic","se_dx_lost_mom_to_dead",1.77316140288944
+"[25,30)","hispanic","se_dx_lost_dad_to_dead",3.14070242059526
+"[25,30)","hispanic","se_dx_lost_both_to_dead",1.23530786731302
+"[25,30)","hispanic","se_dx_lost_none_to_dead",3.63498565094646
+"[30,35)","hispanic","se_pr_lost_none",0.00751505641321508
+"[30,35)","hispanic","se_pr_lost_mom",0.00420593116140563
+"[30,35)","hispanic","se_pr_lost_dad",0.00585671176609137
+"[30,35)","hispanic","se_pr_lost_both",0.00304582054779768
+"[30,35)","hispanic","se_mx_lost_none_to_lost_mom",0.000726064920275945
+"[30,35)","hispanic","se_mx_lost_none_to_lost_dad",0.000905740944720265
+"[30,35)","hispanic","se_mx_lost_none_to_lost_both",0.000139573570577092
+"[30,35)","hispanic","se_mx_lost_dad_to_lost_both",0.00230163504516388
+"[30,35)","hispanic","se_mx_lost_mom_to_lost_both",0.00598716502644275
+"[30,35)","hispanic","se_Lx_lost_mom",2053.69710592509
+"[30,35)","hispanic","se_Lx_lost_dad",2859.75008688433
+"[30,35)","hispanic","se_Lx_lost_both",1487.2313892291
+"[30,35)","hispanic","se_Lx_lost_none",3669.49648351487
+"[30,35)","hispanic","se_dx_lost_mom_to_dead",2.99174385966612
+"[30,35)","hispanic","se_dx_lost_dad_to_dead",4.16596962518578
+"[30,35)","hispanic","se_dx_lost_both_to_dead",2.16653924465879
+"[30,35)","hispanic","se_dx_lost_none_to_dead",5.3455758110332
+"[35,40)","hispanic","se_pr_lost_none",0.00908828984462239
+"[35,40)","hispanic","se_pr_lost_mom",0.0055880435984812
+"[35,40)","hispanic","se_pr_lost_dad",0.0070396081230635
+"[35,40)","hispanic","se_pr_lost_both",0.00452735849483245
+"[35,40)","hispanic","se_mx_lost_none_to_lost_mom",0.000772472895776658
+"[35,40)","hispanic","se_mx_lost_none_to_lost_dad",0.00131550644654523
+"[35,40)","hispanic","se_mx_lost_none_to_lost_both",0.000190560442086734
+"[35,40)","hispanic","se_mx_lost_dad_to_lost_both",0.0022734392995378
+"[35,40)","hispanic","se_mx_lost_mom_to_lost_both",0.00590749737320352
+"[35,40)","hispanic","se_Lx_lost_mom",2706.55346249129
+"[35,40)","hispanic","se_Lx_lost_dad",3409.61472548959
+"[35,40)","hispanic","se_Lx_lost_both",2192.81356599626
+"[35,40)","hispanic","se_Lx_lost_none",4401.88805144125
+"[35,40)","hispanic","se_dx_lost_mom_to_dead",4.87927057899945
+"[35,40)","hispanic","se_dx_lost_dad_to_dead",6.14672240780027
+"[35,40)","hispanic","se_dx_lost_both_to_dead",3.95312003478698
+"[35,40)","hispanic","se_dx_lost_none_to_dead",7.9355546303071
+"[40,45)","hispanic","se_pr_lost_none",0.00985552822965078
+"[40,45)","hispanic","se_pr_lost_mom",0.00577744958521622
+"[40,45)","hispanic","se_pr_lost_dad",0.00938813838819658
+"[40,45)","hispanic","se_pr_lost_both",0.00648806038008121
+"[40,45)","hispanic","se_mx_lost_none_to_lost_mom",0.0011367558694523
+"[40,45)","hispanic","se_mx_lost_none_to_lost_dad",0.00193868853311334
+"[40,45)","hispanic","se_mx_lost_none_to_lost_both",0.000192777227610009
+"[40,45)","hispanic","se_mx_lost_dad_to_lost_both",0.00302138559666892
+"[40,45)","hispanic","se_mx_lost_mom_to_lost_both",0.00638453735937805
+"[40,45)","hispanic","se_Lx_lost_mom",2769.86031215939
+"[40,45)","hispanic","se_Lx_lost_dad",4500.91888176166
+"[40,45)","hispanic","se_Lx_lost_both",3110.54569747633
+"[40,45)","hispanic","se_Lx_lost_none",4724.9977859659
+"[40,45)","hispanic","se_dx_lost_mom_to_dead",6.47466484182338
+"[40,45)","hispanic","se_dx_lost_dad_to_dead",10.5210869702386
+"[40,45)","hispanic","se_dx_lost_both_to_dead",7.27103124223401
+"[40,45)","hispanic","se_dx_lost_none_to_dead",11.0448808223966
+"[45,50)","hispanic","se_pr_lost_none",0.0118649568316635
+"[45,50)","hispanic","se_pr_lost_mom",0.00703396702416241
+"[45,50)","hispanic","se_pr_lost_dad",0.0107691758504114
+"[45,50)","hispanic","se_pr_lost_both",0.0086464216273069
+"[45,50)","hispanic","se_mx_lost_none_to_lost_mom",0.00190608944124259
+"[45,50)","hispanic","se_mx_lost_none_to_lost_dad",0.00267296605549888
+"[45,50)","hispanic","se_mx_lost_none_to_lost_both",0.000490764105992473
+"[45,50)","hispanic","se_mx_lost_dad_to_lost_both",0.00319796957301999
+"[45,50)","hispanic","se_mx_lost_mom_to_lost_both",0.00750463251083503
+"[45,50)","hispanic","se_Lx_lost_mom",3325.11953224341
+"[45,50)","hispanic","se_Lx_lost_dad",5090.83947129122
+"[45,50)","hispanic","se_Lx_lost_both",4087.36426233013
+"[45,50)","hispanic","se_Lx_lost_none",5608.84058379376
+"[45,50)","hispanic","se_dx_lost_mom_to_dead",11.2666038746812
+"[45,50)","hispanic","se_dx_lost_dad_to_dead",17.2494465707017
+"[45,50)","hispanic","se_dx_lost_both_to_dead",13.8493409300483
+"[45,50)","hispanic","se_dx_lost_none_to_dead",19.0046055310392
+"[50,55)","hispanic","se_pr_lost_none",0.0129724354887731
+"[50,55)","hispanic","se_pr_lost_mom",0.00812518837471984
+"[50,55)","hispanic","se_pr_lost_dad",0.011253976485343
+"[50,55)","hispanic","se_pr_lost_both",0.0108783548678758
+"[50,55)","hispanic","se_mx_lost_none_to_lost_mom",0.00316508793797861
+"[50,55)","hispanic","se_mx_lost_none_to_lost_dad",0.00479975019079709
+"[50,55)","hispanic","se_mx_lost_none_to_lost_both",0.00154156895584384
+"[50,55)","hispanic","se_mx_lost_dad_to_lost_both",0.00445208147024467
+"[50,55)","hispanic","se_mx_lost_mom_to_lost_both",0.00971492707608797
+"[50,55)","hispanic","se_Lx_lost_mom",3761.51603039305
+"[50,55)","hispanic","se_Lx_lost_dad",5209.97311114573
+"[50,55)","hispanic","se_Lx_lost_both",5036.0809291674
+"[50,55)","hispanic","se_Lx_lost_none",6005.52526216874
+"[50,55)","hispanic","se_dx_lost_mom_to_dead",19.2593821144461
+"[50,55)","hispanic","se_dx_lost_dad_to_dead",26.6756441133817
+"[50,55)","hispanic","se_dx_lost_both_to_dead",25.7852967235593
+"[50,55)","hispanic","se_dx_lost_none_to_dead",30.7489599638848
+"[55,60)","hispanic","se_pr_lost_none",0.0138716863510254
+"[55,60)","hispanic","se_pr_lost_mom",0.00878366779260866
+"[55,60)","hispanic","se_pr_lost_dad",0.0130765808037893
+"[55,60)","hispanic","se_pr_lost_both",0.0149262326764375
+"[55,60)","hispanic","se_mx_lost_none_to_lost_mom",0.00472341067431464
+"[55,60)","hispanic","se_mx_lost_none_to_lost_dad",0.00638197058890899
+"[55,60)","hispanic","se_mx_lost_none_to_lost_both",0.00225939005155538
+"[55,60)","hispanic","se_mx_lost_dad_to_lost_both",0.00499983589076292
+"[55,60)","hispanic","se_mx_lost_mom_to_lost_both",0.0133205056354924
+"[55,60)","hispanic","se_Lx_lost_mom",3937.49154300157
+"[55,60)","hispanic","se_Lx_lost_dad",5861.89363509673
+"[55,60)","hispanic","se_Lx_lost_both",6691.04482546596
+"[55,60)","hispanic","se_Lx_lost_none",6218.31892826075
+"[55,60)","hispanic","se_dx_lost_mom_to_dead",31.2445555105423
+"[55,60)","hispanic","se_dx_lost_dad_to_dead",46.514959861744
+"[55,60)","hispanic","se_dx_lost_both_to_dead",53.0943925059028
+"[55,60)","hispanic","se_dx_lost_none_to_dead",49.3432452652818
+"[60,Inf)","hispanic","se_pr_lost_none",0.00995924427003543
+"[60,Inf)","hispanic","se_pr_lost_mom",0.00749399112645908
+"[60,Inf)","hispanic","se_pr_lost_dad",0.0115828810321346
+"[60,Inf)","hispanic","se_pr_lost_both",0.0165702924346519
+"[60,Inf)","hispanic","se_mx_lost_none_to_lost_mom",0.00859413759565445
+"[60,Inf)","hispanic","se_mx_lost_none_to_lost_dad",0.0111631609664906
+"[60,Inf)","hispanic","se_mx_lost_none_to_lost_both",0.00523046657783044
+"[60,Inf)","hispanic","se_mx_lost_dad_to_lost_both",0.00742615496677981
+"[60,Inf)","hispanic","se_mx_lost_mom_to_lost_both",0.015353268868035
+"[60,Inf)","hispanic","se_Lx_lost_mom",14863.1856877434
+"[60,Inf)","hispanic","se_Lx_lost_dad",22972.8736896706
+"[60,Inf)","hispanic","se_Lx_lost_both",32864.6417109932
+"[60,Inf)","hispanic","se_Lx_lost_none",19752.6384001836
+"[60,Inf)","hispanic","se_dx_lost_mom_to_dead",657.732555555049
+"[60,Inf)","hispanic","se_dx_lost_dad_to_dead",1016.60621335105
+"[60,Inf)","hispanic","se_dx_lost_both_to_dead",1454.34129897186
+"[60,Inf)","hispanic","se_dx_lost_none_to_dead",874.102874501601
+"[0,5)","non-hispanic asian","se_pr_lost_none",0.000748342540136781
+"[0,5)","non-hispanic asian","se_pr_lost_mom",0.000497600311691751
+"[0,5)","non-hispanic asian","se_pr_lost_dad",0.000472227642143249
+"[0,5)","non-hispanic asian","se_pr_lost_both",0.000176902857609564
+"[0,5)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.000285384237753359
+"[0,5)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.000403457657773657
+"[0,5)","non-hispanic asian","se_mx_lost_none_to_lost_both",4.31703514526029e-05
+"[0,5)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.0243770983760369
+"[0,5)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0803859410750431
+"[0,5)","non-hispanic asian","se_Lx_lost_mom",247.979305819204
+"[0,5)","non-hispanic asian","se_Lx_lost_dad",235.334826236732
+"[0,5)","non-hispanic asian","se_Lx_lost_both",88.1596068103512
+"[0,5)","non-hispanic asian","se_Lx_lost_none",372.936791352043
+"[0,5)","non-hispanic asian","se_dx_lost_mom_to_dead",0.180209903544026
+"[0,5)","non-hispanic asian","se_dx_lost_dad_to_dead",0.171020989822399
+"[0,5)","non-hispanic asian","se_dx_lost_both_to_dead",0.0640667743918749
+"[0,5)","non-hispanic asian","se_dx_lost_none_to_dead",0.27101819232678
+"[5,10)","non-hispanic asian","se_pr_lost_none",0.00301331675896861
+"[5,10)","non-hispanic asian","se_pr_lost_mom",0.00139449502404046
+"[5,10)","non-hispanic asian","se_pr_lost_dad",0.00235926990365912
+"[5,10)","non-hispanic asian","se_pr_lost_both",0.000806498227766853
+"[5,10)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.000274380980752103
+"[5,10)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.000332799157713237
+"[5,10)","non-hispanic asian","se_mx_lost_none_to_lost_both",0
+"[5,10)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0
+"[5,10)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0169629758662743
+"[5,10)","non-hispanic asian","se_Lx_lost_mom",694.605434201828
+"[5,10)","non-hispanic asian","se_Lx_lost_dad",1175.16496479295
+"[5,10)","non-hispanic asian","se_Lx_lost_both",401.721083276342
+"[5,10)","non-hispanic asian","se_Lx_lost_none",1500.94920359523
+"[5,10)","non-hispanic asian","se_dx_lost_mom_to_dead",0.044001558057165
+"[5,10)","non-hispanic asian","se_dx_lost_dad_to_dead",0.0744438308123838
+"[5,10)","non-hispanic asian","se_dx_lost_both_to_dead",0.025448049638257
+"[5,10)","non-hispanic asian","se_dx_lost_none_to_dead",0.0950814667880371
+"[10,15)","non-hispanic asian","se_pr_lost_none",0.00395571164547195
+"[10,15)","non-hispanic asian","se_pr_lost_mom",0.00205195154690667
+"[10,15)","non-hispanic asian","se_pr_lost_dad",0.00286829852364631
+"[10,15)","non-hispanic asian","se_pr_lost_both",0.0010723962115464
+"[10,15)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.000380733635449173
+"[10,15)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.000565662789094221
+"[10,15)","non-hispanic asian","se_mx_lost_none_to_lost_both",0
+"[10,15)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.0046055332495367
+"[10,15)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.00628811394661525
+"[10,15)","non-hispanic asian","se_Lx_lost_mom",1021.75460453479
+"[10,15)","non-hispanic asian","se_Lx_lost_dad",1428.24874599695
+"[10,15)","non-hispanic asian","se_Lx_lost_both",533.992027582237
+"[10,15)","non-hispanic asian","se_Lx_lost_none",1969.71833670529
+"[10,15)","non-hispanic asian","se_dx_lost_mom_to_dead",0.0958991025582327
+"[10,15)","non-hispanic asian","se_dx_lost_dad_to_dead",0.134051534843233
+"[10,15)","non-hispanic asian","se_dx_lost_both_to_dead",0.0501190364018017
+"[10,15)","non-hispanic asian","se_dx_lost_none_to_dead",0.184872394941188
+"[15,20)","non-hispanic asian","se_pr_lost_none",0.00524340068767925
+"[15,20)","non-hispanic asian","se_pr_lost_mom",0.00295548990832543
+"[15,20)","non-hispanic asian","se_pr_lost_dad",0.00392938334718286
+"[15,20)","non-hispanic asian","se_pr_lost_both",0.00131431561852466
+"[15,20)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.000427118934027893
+"[15,20)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.000683981072334572
+"[15,20)","non-hispanic asian","se_mx_lost_none_to_lost_both",0
+"[15,20)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00191595438335497
+"[15,20)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0102784824154285
+"[15,20)","non-hispanic asian","se_Lx_lost_mom",1470.21242633605
+"[15,20)","non-hispanic asian","se_Lx_lost_dad",1954.67702616499
+"[15,20)","non-hispanic asian","se_Lx_lost_both",653.808070546706
+"[15,20)","non-hispanic asian","se_Lx_lost_none",2608.33671790572
+"[15,20)","non-hispanic asian","se_dx_lost_mom_to_dead",0.47154009782275
+"[15,20)","non-hispanic asian","se_dx_lost_dad_to_dead",0.62692205535681
+"[15,20)","non-hispanic asian","se_dx_lost_both_to_dead",0.209695358317172
+"[15,20)","non-hispanic asian","se_dx_lost_none_to_dead",0.836569824253956
+"[20,25)","non-hispanic asian","se_pr_lost_none",0.00722819465804646
+"[20,25)","non-hispanic asian","se_pr_lost_mom",0.00371273438642065
+"[20,25)","non-hispanic asian","se_pr_lost_dad",0.0056562546603471
+"[20,25)","non-hispanic asian","se_pr_lost_both",0.00191293676725445
+"[20,25)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.000405615724953041
+"[20,25)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.000915727295672679
+"[20,25)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.000219569027290374
+"[20,25)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00113320938911357
+"[20,25)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.00964955006647581
+"[20,25)","non-hispanic asian","se_Lx_lost_mom",1842.8181201761
+"[20,25)","non-hispanic asian","se_Lx_lost_dad",2807.48566839091
+"[20,25)","non-hispanic asian","se_Lx_lost_both",949.48740484668
+"[20,25)","non-hispanic asian","se_Lx_lost_none",3587.71910555383
+"[20,25)","non-hispanic asian","se_dx_lost_mom_to_dead",0.98266948632977
+"[20,25)","non-hispanic asian","se_dx_lost_dad_to_dead",1.4970715066402
+"[20,25)","non-hispanic asian","se_dx_lost_both_to_dead",0.506307318222004
+"[20,25)","non-hispanic asian","se_dx_lost_none_to_dead",1.91312536595483
+"[25,30)","non-hispanic asian","se_pr_lost_none",0.00885302281602612
+"[25,30)","non-hispanic asian","se_pr_lost_mom",0.00409726539131969
+"[25,30)","non-hispanic asian","se_pr_lost_dad",0.0070523353581583
+"[25,30)","non-hispanic asian","se_pr_lost_both",0.00332848587962533
+"[25,30)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.00055345222566817
+"[25,30)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00128127065072096
+"[25,30)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.000254349992889792
+"[25,30)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00312044342275286
+"[25,30)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.00893376978635779
+"[25,30)","non-hispanic asian","se_Lx_lost_mom",2028.38871554917
+"[25,30)","non-hispanic asian","se_Lx_lost_dad",3491.32313690552
+"[25,30)","non-hispanic asian","se_Lx_lost_both",1647.79738515356
+"[25,30)","non-hispanic asian","se_Lx_lost_none",4382.76993639965
+"[25,30)","non-hispanic asian","se_dx_lost_mom_to_dead",1.0093766870197
+"[25,30)","non-hispanic asian","se_dx_lost_dad_to_dead",1.73736924990278
+"[25,30)","non-hispanic asian","se_dx_lost_both_to_dead",0.819984972680995
+"[25,30)","non-hispanic asian","se_dx_lost_none_to_dead",2.18097535470409
+"[30,35)","non-hispanic asian","se_pr_lost_none",0.0106937993126133
+"[30,35)","non-hispanic asian","se_pr_lost_mom",0.00493174958085783
+"[30,35)","non-hispanic asian","se_pr_lost_dad",0.0088450460851264
+"[30,35)","non-hispanic asian","se_pr_lost_both",0.00464527205372351
+"[30,35)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.0008386978983949
+"[30,35)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00158235677029173
+"[30,35)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.000166997540007678
+"[30,35)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00255403207111065
+"[30,35)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0095391697540286
+"[30,35)","non-hispanic asian","se_Lx_lost_mom",2435.16748283947
+"[30,35)","non-hispanic asian","se_Lx_lost_dad",4367.4497777257
+"[30,35)","non-hispanic asian","se_Lx_lost_both",2293.71245816637
+"[30,35)","non-hispanic asian","se_Lx_lost_none",5280.31521615848
+"[30,35)","non-hispanic asian","se_dx_lost_mom_to_dead",1.36299535859111
+"[30,35)","non-hispanic asian","se_dx_lost_dad_to_dead",2.44451924472101
+"[30,35)","non-hispanic asian","se_dx_lost_both_to_dead",1.28382111557189
+"[30,35)","non-hispanic asian","se_dx_lost_none_to_dead",2.95546207077719
+"[35,40)","non-hispanic asian","se_pr_lost_none",0.0132084293702406
+"[35,40)","non-hispanic asian","se_pr_lost_mom",0.00627120331314878
+"[35,40)","non-hispanic asian","se_pr_lost_dad",0.0117438883600353
+"[35,40)","non-hispanic asian","se_pr_lost_both",0.0063113557315151
+"[35,40)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.00112315702827043
+"[35,40)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00158812321237416
+"[35,40)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.000373354788567254
+"[35,40)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00350402382347664
+"[35,40)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0102428469542515
+"[35,40)","non-hispanic asian","se_Lx_lost_mom",3086.86029662377
+"[35,40)","non-hispanic asian","se_Lx_lost_dad",5780.66774371135
+"[35,40)","non-hispanic asian","se_Lx_lost_both",3106.62443117328
+"[35,40)","non-hispanic asian","se_Lx_lost_none",6501.55546994743
+"[35,40)","non-hispanic asian","se_dx_lost_mom_to_dead",2.18535199098151
+"[35,40)","non-hispanic asian","se_dx_lost_dad_to_dead",4.09244104008828
+"[35,40)","non-hispanic asian","se_dx_lost_both_to_dead",2.19934406922199
+"[35,40)","non-hispanic asian","se_dx_lost_none_to_dead",4.60279566466498
+"[40,45)","non-hispanic asian","se_pr_lost_none",0.0177592695274596
+"[40,45)","non-hispanic asian","se_pr_lost_mom",0.00721806828031913
+"[40,45)","non-hispanic asian","se_pr_lost_dad",0.0153070823317021
+"[40,45)","non-hispanic asian","se_pr_lost_both",0.0100226675268024
+"[40,45)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.00191795473081685
+"[40,45)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00272492482278418
+"[40,45)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.000960613398006918
+"[40,45)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00577215600632583
+"[40,45)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.01384454888545
+"[40,45)","non-hispanic asian","se_Lx_lost_mom",3538.29949583225
+"[40,45)","non-hispanic asian","se_Lx_lost_dad",7503.53690122333
+"[40,45)","non-hispanic asian","se_Lx_lost_both",4913.11498862841
+"[40,45)","non-hispanic asian","se_Lx_lost_none",8705.5998883653
+"[40,45)","non-hispanic asian","se_dx_lost_mom_to_dead",3.47908996720903
+"[40,45)","non-hispanic asian","se_dx_lost_dad_to_dead",7.37797351026344
+"[40,45)","non-hispanic asian","se_dx_lost_both_to_dead",4.83089944331038
+"[40,45)","non-hispanic asian","se_dx_lost_none_to_dead",8.55992130282453
+"[45,50)","non-hispanic asian","se_pr_lost_none",0.019819316147509
+"[45,50)","non-hispanic asian","se_pr_lost_mom",0.0093439004585376
+"[45,50)","non-hispanic asian","se_pr_lost_dad",0.0174957393774471
+"[45,50)","non-hispanic asian","se_pr_lost_both",0.0155053270406783
+"[45,50)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.00208859556022884
+"[45,50)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00488477417445382
+"[45,50)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.00112031674292611
+"[45,50)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00456835409767298
+"[45,50)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0162145879211614
+"[45,50)","non-hispanic asian","se_Lx_lost_mom",4551.67539656806
+"[45,50)","non-hispanic asian","se_Lx_lost_dad",8522.66425808613
+"[45,50)","non-hispanic asian","se_Lx_lost_both",7553.0787084008
+"[45,50)","non-hispanic asian","se_Lx_lost_none",9654.54352662693
+"[45,50)","non-hispanic asian","se_dx_lost_mom_to_dead",7.1970139320635
+"[45,50)","non-hispanic asian","se_dx_lost_dad_to_dead",13.4758584608195
+"[45,50)","non-hispanic asian","se_dx_lost_both_to_dead",11.9427700699658
+"[45,50)","non-hispanic asian","se_dx_lost_none_to_dead",15.2655622853154
+"[50,55)","non-hispanic asian","se_pr_lost_none",0.0202519001757361
+"[50,55)","non-hispanic asian","se_pr_lost_mom",0.0109822737189431
+"[50,55)","non-hispanic asian","se_pr_lost_dad",0.0204631300244248
+"[50,55)","non-hispanic asian","se_pr_lost_both",0.0196075979944706
+"[50,55)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.00444681261849668
+"[50,55)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.00584553814369899
+"[50,55)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.00113007832492621
+"[50,55)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.00844961457655786
+"[50,55)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0206212420353251
+"[50,55)","non-hispanic asian","se_Lx_lost_mom",5295.58143149027
+"[50,55)","non-hispanic asian","se_Lx_lost_dad",9867.1890867735
+"[50,55)","non-hispanic asian","se_Lx_lost_both",9454.65706946857
+"[50,55)","non-hispanic asian","se_Lx_lost_none",9765.33541847867
+"[50,55)","non-hispanic asian","se_dx_lost_mom_to_dead",13.4788874296755
+"[50,55)","non-hispanic asian","se_dx_lost_dad_to_dead",25.1150383897532
+"[50,55)","non-hispanic asian","se_dx_lost_both_to_dead",24.0650172175124
+"[50,55)","non-hispanic asian","se_dx_lost_none_to_dead",24.8557894013264
+"[55,60)","non-hispanic asian","se_pr_lost_none",0.0210363973346646
+"[55,60)","non-hispanic asian","se_pr_lost_mom",0.0113552361205082
+"[55,60)","non-hispanic asian","se_pr_lost_dad",0.0238761993449509
+"[55,60)","non-hispanic asian","se_pr_lost_both",0.0263811829130949
+"[55,60)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.0086006410001646
+"[55,60)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.0113832234697255
+"[55,60)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.00317427383351917
+"[55,60)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.0116131144926421
+"[55,60)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0301389978555616
+"[55,60)","non-hispanic asian","se_Lx_lost_mom",5390.76980338989
+"[55,60)","non-hispanic asian","se_Lx_lost_dad",11334.9553529775
+"[55,60)","non-hispanic asian","se_Lx_lost_both",12524.1679447571
+"[55,60)","non-hispanic asian","se_Lx_lost_none",9986.79149604033
+"[55,60)","non-hispanic asian","se_dx_lost_mom_to_dead",20.3617330652391
+"[55,60)","non-hispanic asian","se_dx_lost_dad_to_dead",42.8137990716275
+"[55,60)","non-hispanic asian","se_dx_lost_both_to_dead",47.3056305233082
+"[55,60)","non-hispanic asian","se_dx_lost_none_to_dead",37.7215852349513
+"[60,Inf)","non-hispanic asian","se_pr_lost_none",0.0118507834990707
+"[60,Inf)","non-hispanic asian","se_pr_lost_mom",0.0114424346445204
+"[60,Inf)","non-hispanic asian","se_pr_lost_dad",0.01559171905478
+"[60,Inf)","non-hispanic asian","se_pr_lost_both",0.0205827758366444
+"[60,Inf)","non-hispanic asian","se_mx_lost_none_to_lost_mom",0.0183663147736002
+"[60,Inf)","non-hispanic asian","se_mx_lost_none_to_lost_dad",0.0167425316841172
+"[60,Inf)","non-hispanic asian","se_mx_lost_none_to_lost_both",0.0122227730204303
+"[60,Inf)","non-hispanic asian","se_mx_lost_dad_to_lost_both",0.0129751952515066
+"[60,Inf)","non-hispanic asian","se_mx_lost_mom_to_lost_both",0.0316470696541406
+"[60,Inf)","non-hispanic asian","se_Lx_lost_mom",28159.2401734528
+"[60,Inf)","non-hispanic asian","se_Lx_lost_dad",38370.4146207034
+"[60,Inf)","non-hispanic asian","se_Lx_lost_both",50653.1473612541
+"[60,Inf)","non-hispanic asian","se_Lx_lost_none",29164.1655959757
+"[60,Inf)","non-hispanic asian","se_dx_lost_mom_to_dead",1075.49048789346
+"[60,Inf)","non-hispanic asian","se_dx_lost_dad_to_dead",1465.48755175572
+"[60,Inf)","non-hispanic asian","se_dx_lost_both_to_dead",1934.60398197295
+"[60,Inf)","non-hispanic asian","se_dx_lost_none_to_dead",1113.87176971457
+"[0,5)","non-hispanic black","se_pr_lost_none",0.00128007164305004
+"[0,5)","non-hispanic black","se_pr_lost_mom",0.000568699350161421
+"[0,5)","non-hispanic black","se_pr_lost_dad",0.0010993919838416
+"[0,5)","non-hispanic black","se_pr_lost_both",0.000209147921126846
+"[0,5)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000210720681062733
+"[0,5)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.000410361798222199
+"[0,5)","non-hispanic black","se_mx_lost_none_to_lost_both",7.49427927709066e-05
+"[0,5)","non-hispanic black","se_mx_lost_dad_to_lost_both",0
+"[0,5)","non-hispanic black","se_mx_lost_mom_to_lost_both",0
+"[0,5)","non-hispanic black","se_Lx_lost_mom",281.25220964042
+"[0,5)","non-hispanic black","se_Lx_lost_dad",543.708067590809
+"[0,5)","non-hispanic black","se_Lx_lost_both",103.434820071324
+"[0,5)","non-hispanic black","se_Lx_lost_none",633.063811315552
+"[0,5)","non-hispanic black","se_dx_lost_mom_to_dead",0.686122575921352
+"[0,5)","non-hispanic black","se_dx_lost_dad_to_dead",1.32639092991152
+"[0,5)","non-hispanic black","se_dx_lost_both_to_dead",0.252332115996643
+"[0,5)","non-hispanic black","se_dx_lost_none_to_dead",1.54437674817824
+"[5,10)","non-hispanic black","se_pr_lost_none",0.00320373146436922
+"[5,10)","non-hispanic black","se_pr_lost_mom",0.00132707596764218
+"[5,10)","non-hispanic black","se_pr_lost_dad",0.00273362960692613
+"[5,10)","non-hispanic black","se_pr_lost_both",0.000520029661625351
+"[5,10)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000321831866986464
+"[5,10)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.000573175995690437
+"[5,10)","non-hispanic black","se_mx_lost_none_to_lost_both",3.40218506123591e-05
+"[5,10)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00266166633659642
+"[5,10)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00396440748475662
+"[5,10)","non-hispanic black","se_Lx_lost_mom",655.156182377242
+"[5,10)","non-hispanic black","se_Lx_lost_dad",1349.5492202222
+"[5,10)","non-hispanic black","se_Lx_lost_both",256.730327532582
+"[5,10)","non-hispanic black","se_Lx_lost_none",1581.63098928481
+"[5,10)","non-hispanic black","se_dx_lost_mom_to_dead",0.138683973257196
+"[5,10)","non-hispanic black","se_dx_lost_dad_to_dead",0.285673634777359
+"[5,10)","non-hispanic black","se_dx_lost_both_to_dead",0.0543448765890429
+"[5,10)","non-hispanic black","se_dx_lost_none_to_dead",0.334800885225296
+"[10,15)","non-hispanic black","se_pr_lost_none",0.00463946652365306
+"[10,15)","non-hispanic black","se_pr_lost_mom",0.00226858897446168
+"[10,15)","non-hispanic black","se_pr_lost_dad",0.00403880743896134
+"[10,15)","non-hispanic black","se_pr_lost_both",0.000778652023790376
+"[10,15)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000594603758152809
+"[10,15)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.000644828725929742
+"[10,15)","non-hispanic black","se_mx_lost_none_to_lost_both",7.18541733321626e-05
+"[10,15)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.0024444474657621
+"[10,15)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.007065170624486
+"[10,15)","non-hispanic black","se_Lx_lost_mom",1118.86210943509
+"[10,15)","non-hispanic black","se_Lx_lost_dad",1991.92919547302
+"[10,15)","non-hispanic black","se_Lx_lost_both",384.029128088632
+"[10,15)","non-hispanic black","se_Lx_lost_none",2288.17267462023
+"[10,15)","non-hispanic black","se_dx_lost_mom_to_dead",0.313851146413834
+"[10,15)","non-hispanic black","se_dx_lost_dad_to_dead",0.558754520599539
+"[10,15)","non-hispanic black","se_dx_lost_both_to_dead",0.107723714200828
+"[10,15)","non-hispanic black","se_dx_lost_none_to_dead",0.641853550197491
+"[15,20)","non-hispanic black","se_pr_lost_none",0.00611122565558412
+"[15,20)","non-hispanic black","se_pr_lost_mom",0.00358133689693539
+"[15,20)","non-hispanic black","se_pr_lost_dad",0.00492259832290578
+"[15,20)","non-hispanic black","se_pr_lost_both",0.00149943484246917
+"[15,20)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000508301097134887
+"[15,20)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.000720098549698226
+"[15,20)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000139285538742018
+"[15,20)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00304799769261966
+"[15,20)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00779820791155541
+"[15,20)","non-hispanic black","se_Lx_lost_mom",1760.27912614553
+"[15,20)","non-hispanic black","se_Lx_lost_dad",2419.52860721507
+"[15,20)","non-hispanic black","se_Lx_lost_both",736.994013736152
+"[15,20)","non-hispanic black","se_Lx_lost_none",3003.7562134674
+"[15,20)","non-hispanic black","se_dx_lost_mom_to_dead",2.07985520047614
+"[15,20)","non-hispanic black","se_dx_lost_dad_to_dead",2.85879045071458
+"[15,20)","non-hispanic black","se_dx_lost_both_to_dead",0.870794187933915
+"[15,20)","non-hispanic black","se_dx_lost_none_to_dead",3.54908371561647
+"[20,25)","non-hispanic black","se_pr_lost_none",0.00708343628026807
+"[20,25)","non-hispanic black","se_pr_lost_mom",0.0041082334431573
+"[20,25)","non-hispanic black","se_pr_lost_dad",0.00551679336080189
+"[20,25)","non-hispanic black","se_pr_lost_both",0.0024282791206152
+"[20,25)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000625005784102367
+"[20,25)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.00102653521678889
+"[20,25)","non-hispanic black","se_mx_lost_none_to_lost_both",0.00034748379352956
+"[20,25)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00324425425529773
+"[20,25)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.0052406143751677
+"[20,25)","non-hispanic black","se_Lx_lost_mom",2002.1967710373
+"[20,25)","non-hispanic black","se_Lx_lost_dad",2688.67531660729
+"[20,25)","non-hispanic black","se_Lx_lost_both",1183.45091186847
+"[20,25)","non-hispanic black","se_Lx_lost_none",3452.19750640597
+"[20,25)","non-hispanic black","se_dx_lost_mom_to_dead",4.24612141914667
+"[20,25)","non-hispanic black","se_dx_lost_dad_to_dead",5.70195797741821
+"[20,25)","non-hispanic black","se_dx_lost_both_to_dead",2.50978142512435
+"[20,25)","non-hispanic black","se_dx_lost_none_to_dead",7.32118340570533
+"[25,30)","non-hispanic black","se_pr_lost_none",0.00892166473077574
+"[25,30)","non-hispanic black","se_pr_lost_mom",0.00517230010253554
+"[25,30)","non-hispanic black","se_pr_lost_dad",0.00680389168474136
+"[25,30)","non-hispanic black","se_pr_lost_both",0.00398272018185031
+"[25,30)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00063260709059091
+"[25,30)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.000961178305399269
+"[25,30)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000229082885992538
+"[25,30)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00234850145867733
+"[25,30)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00443321912793997
+"[25,30)","non-hispanic black","se_Lx_lost_mom",2492.82026004573
+"[25,30)","non-hispanic black","se_Lx_lost_dad",3279.17535770313
+"[25,30)","non-hispanic black","se_Lx_lost_both",1919.49526566382
+"[25,30)","non-hispanic black","se_Lx_lost_none",4299.84845297564
+"[25,30)","non-hispanic black","se_dx_lost_mom_to_dead",5.73375850337077
+"[25,30)","non-hispanic black","se_dx_lost_dad_to_dead",7.54246099994763
+"[25,30)","non-hispanic black","se_dx_lost_both_to_dead",4.41504848066261
+"[25,30)","non-hispanic black","se_dx_lost_none_to_dead",9.89012044935903
+"[30,35)","non-hispanic black","se_pr_lost_none",0.0103414350899904
+"[30,35)","non-hispanic black","se_pr_lost_mom",0.00525343315429223
+"[30,35)","non-hispanic black","se_pr_lost_dad",0.00822624971519312
+"[30,35)","non-hispanic black","se_pr_lost_both",0.00517604504168593
+"[30,35)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.000841701236072366
+"[30,35)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.00166706476783653
+"[30,35)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000322402267492187
+"[30,35)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.0019665668825964
+"[30,35)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00675649344665821
+"[30,35)","non-hispanic black","se_Lx_lost_mom",2499.98981503277
+"[30,35)","non-hispanic black","se_Lx_lost_dad",3914.6858634903
+"[30,35)","non-hispanic black","se_Lx_lost_both",2463.16256556786
+"[30,35)","non-hispanic black","se_Lx_lost_none",4921.25466118766
+"[30,35)","non-hispanic black","se_dx_lost_mom_to_dead",7.09567434866256
+"[30,35)","non-hispanic black","se_dx_lost_dad_to_dead",11.1109796918416
+"[30,35)","non-hispanic black","se_dx_lost_both_to_dead",6.99114825508064
+"[30,35)","non-hispanic black","se_dx_lost_none_to_dead",13.9679050901124
+"[35,40)","non-hispanic black","se_pr_lost_none",0.0114971337148721
+"[35,40)","non-hispanic black","se_pr_lost_mom",0.00575427050640296
+"[35,40)","non-hispanic black","se_pr_lost_dad",0.00990692106989561
+"[35,40)","non-hispanic black","se_pr_lost_both",0.00649738231527567
+"[35,40)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00116259011665403
+"[35,40)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.0019348413618635
+"[35,40)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000279235649746123
+"[35,40)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00197800411006111
+"[35,40)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00666168248587545
+"[35,40)","non-hispanic black","se_Lx_lost_mom",2694.99101315943
+"[35,40)","non-hispanic black","se_Lx_lost_dad",4639.8693321316
+"[35,40)","non-hispanic black","se_Lx_lost_both",3043.02464217568
+"[35,40)","non-hispanic black","se_Lx_lost_none",5384.6394611089
+"[35,40)","non-hispanic black","se_dx_lost_mom_to_dead",9.6566865341394
+"[35,40)","non-hispanic black","se_dx_lost_dad_to_dead",16.6255707276865
+"[35,40)","non-hispanic black","se_dx_lost_both_to_dead",10.903759953805
+"[35,40)","non-hispanic black","se_dx_lost_none_to_dead",19.2942295990543
+"[40,45)","non-hispanic black","se_pr_lost_none",0.0111051752042037
+"[40,45)","non-hispanic black","se_pr_lost_mom",0.00650861420500052
+"[40,45)","non-hispanic black","se_pr_lost_dad",0.0107106778571636
+"[40,45)","non-hispanic black","se_pr_lost_both",0.00804444411141473
+"[40,45)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00163320072354109
+"[40,45)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.00242490854673402
+"[40,45)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000804694252129658
+"[40,45)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00275756973641921
+"[40,45)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00659263195906547
+"[40,45)","non-hispanic black","se_Lx_lost_mom",2986.53701906911
+"[40,45)","non-hispanic black","se_Lx_lost_dad",4914.69226969496
+"[40,45)","non-hispanic black","se_Lx_lost_both",3691.26658607516
+"[40,45)","non-hispanic black","se_Lx_lost_none",5095.71097717262
+"[40,45)","non-hispanic black","se_dx_lost_mom_to_dead",13.9334684050003
+"[40,45)","non-hispanic black","se_dx_lost_dad_to_dead",22.9291346542352
+"[40,45)","non-hispanic black","se_dx_lost_both_to_dead",17.2213322731699
+"[40,45)","non-hispanic black","se_dx_lost_none_to_dead",23.773664095943
+"[45,50)","non-hispanic black","se_pr_lost_none",0.0120297044008871
+"[45,50)","non-hispanic black","se_pr_lost_mom",0.00736872799878337
+"[45,50)","non-hispanic black","se_pr_lost_dad",0.0129241030593621
+"[45,50)","non-hispanic black","se_pr_lost_both",0.0100454226292431
+"[45,50)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00258884525894029
+"[45,50)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.00305158575576437
+"[45,50)","non-hispanic black","se_mx_lost_none_to_lost_both",0.000592638979028158
+"[45,50)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00329356725437563
+"[45,50)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.00885192726580664
+"[45,50)","non-hispanic black","se_Lx_lost_mom",3290.85653866403
+"[45,50)","non-hispanic black","se_Lx_lost_dad",5771.87393350546
+"[45,50)","non-hispanic black","se_Lx_lost_both",4486.26204530094
+"[45,50)","non-hispanic black","se_Lx_lost_none",5372.43760285236
+"[45,50)","non-hispanic black","se_dx_lost_mom_to_dead",20.6841130408896
+"[45,50)","non-hispanic black","se_dx_lost_dad_to_dead",36.2781213631565
+"[45,50)","non-hispanic black","se_dx_lost_both_to_dead",28.1976288500648
+"[45,50)","non-hispanic black","se_dx_lost_none_to_dead",33.7675329741467
+"[50,55)","non-hispanic black","se_pr_lost_none",0.0131925651909319
+"[50,55)","non-hispanic black","se_pr_lost_mom",0.00713042424286795
+"[50,55)","non-hispanic black","se_pr_lost_dad",0.0136332323244117
+"[50,55)","non-hispanic black","se_pr_lost_both",0.012872422114777
+"[50,55)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00358654807457576
+"[50,55)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.00561181573960023
+"[50,55)","non-hispanic black","se_mx_lost_none_to_lost_both",0.00184146016913564
+"[50,55)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00547458371091173
+"[50,55)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.013484066508081
+"[50,55)","non-hispanic black","se_Lx_lost_mom",3067.53842363975
+"[50,55)","non-hispanic black","se_Lx_lost_dad",5865.07374163189
+"[50,55)","non-hispanic black","se_Lx_lost_both",5537.76999761049
+"[50,55)","non-hispanic black","se_Lx_lost_none",5675.49689207256
+"[50,55)","non-hispanic black","se_dx_lost_mom_to_dead",27.3725166473591
+"[50,55)","non-hispanic black","se_dx_lost_dad_to_dead",52.3357188922572
+"[50,55)","non-hispanic black","se_dx_lost_both_to_dead",49.4150946181076
+"[50,55)","non-hispanic black","se_dx_lost_none_to_dead",50.6440708168732
+"[55,60)","non-hispanic black","se_pr_lost_none",0.0100004092383446
+"[55,60)","non-hispanic black","se_pr_lost_mom",0.00789947418038252
+"[55,60)","non-hispanic black","se_pr_lost_dad",0.0133476270844452
+"[55,60)","non-hispanic black","se_pr_lost_both",0.0142906265709027
+"[55,60)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.00793269567925208
+"[55,60)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.0113486887120586
+"[55,60)","non-hispanic black","se_mx_lost_none_to_lost_both",0.0050600234942954
+"[55,60)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00595419818664769
+"[55,60)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.0139567105867757
+"[55,60)","non-hispanic black","se_Lx_lost_mom",3216.70445790304
+"[55,60)","non-hispanic black","se_Lx_lost_dad",5435.21892274645
+"[55,60)","non-hispanic black","se_Lx_lost_both",5819.21291812163
+"[55,60)","non-hispanic black","se_Lx_lost_none",4072.21547197716
+"[55,60)","non-hispanic black","se_dx_lost_mom_to_dead",42.9735397221629
+"[55,60)","non-hispanic black","se_dx_lost_dad_to_dead",72.6117675192208
+"[55,60)","non-hispanic black","se_dx_lost_both_to_dead",77.7417324971301
+"[55,60)","non-hispanic black","se_dx_lost_none_to_dead",54.4027328691233
+"[60,Inf)","non-hispanic black","se_pr_lost_none",0.0047106080375498
+"[60,Inf)","non-hispanic black","se_pr_lost_mom",0.00611821825714933
+"[60,Inf)","non-hispanic black","se_pr_lost_dad",0.011648147841829
+"[60,Inf)","non-hispanic black","se_pr_lost_both",0.0133695194800828
+"[60,Inf)","non-hispanic black","se_mx_lost_none_to_lost_mom",0.0106913535346652
+"[60,Inf)","non-hispanic black","se_mx_lost_none_to_lost_dad",0.0142442987022215
+"[60,Inf)","non-hispanic black","se_mx_lost_none_to_lost_both",0.00446749602501474
+"[60,Inf)","non-hispanic black","se_mx_lost_dad_to_lost_both",0.00694960083834126
+"[60,Inf)","non-hispanic black","se_mx_lost_mom_to_lost_both",0.0165226310927463
+"[60,Inf)","non-hispanic black","se_Lx_lost_mom",9331.42948453212
+"[60,Inf)","non-hispanic black","se_Lx_lost_dad",17765.6084897625
+"[60,Inf)","non-hispanic black","se_Lx_lost_both",20391.0228479817
+"[60,Inf)","non-hispanic black","se_Lx_lost_none",7184.56009317768
+"[60,Inf)","non-hispanic black","se_dx_lost_mom_to_dead",480.722360981792
+"[60,Inf)","non-hispanic black","se_dx_lost_dad_to_dead",915.221539382938
+"[60,Inf)","non-hispanic black","se_dx_lost_both_to_dead",1050.47363456628
+"[60,Inf)","non-hispanic black","se_dx_lost_none_to_dead",370.123215990965
+"[0,5)","non-hispanic white","se_pr_lost_none",0.000319364970457011
+"[0,5)","non-hispanic white","se_pr_lost_mom",0.000169228025164475
+"[0,5)","non-hispanic white","se_pr_lost_dad",0.000269060646744037
+"[0,5)","non-hispanic white","se_pr_lost_both",0.000116505367715942
+"[0,5)","non-hispanic white","se_mx_lost_none_to_lost_mom",8.6406072332184e-05
+"[0,5)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000116219862389923
+"[0,5)","non-hispanic white","se_mx_lost_none_to_lost_both",3.84997686535203e-05
+"[0,5)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00165682561995349
+"[0,5)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00334073052026246
+"[0,5)","non-hispanic white","se_Lx_lost_mom",84.2200021442724
+"[0,5)","non-hispanic white","se_Lx_lost_dad",133.903874513092
+"[0,5)","non-hispanic white","se_Lx_lost_both",57.9814265947935
+"[0,5)","non-hispanic white","se_Lx_lost_none",158.938913755884
+"[0,5)","non-hispanic white","se_dx_lost_mom_to_dead",0.0879878836848361
+"[0,5)","non-hispanic white","se_dx_lost_dad_to_dead",0.13989454091231
+"[0,5)","non-hispanic white","se_dx_lost_both_to_dead",0.0605754320733
+"[0,5)","non-hispanic white","se_dx_lost_none_to_dead",0.166049611737014
+"[5,10)","non-hispanic white","se_pr_lost_none",0.000810220754692878
+"[5,10)","non-hispanic white","se_pr_lost_mom",0.000460371788063778
+"[5,10)","non-hispanic white","se_pr_lost_dad",0.000671717159578856
+"[5,10)","non-hispanic white","se_pr_lost_both",0.000227692292483007
+"[5,10)","non-hispanic white","se_mx_lost_none_to_lost_mom",8.26757609331347e-05
+"[5,10)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.00012563802237656
+"[5,10)","non-hispanic white","se_mx_lost_none_to_lost_both",7.43213836106008e-06
+"[5,10)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00137491685986676
+"[5,10)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00331340557543961
+"[5,10)","non-hispanic white","se_Lx_lost_mom",228.929050277238
+"[5,10)","non-hispanic white","se_Lx_lost_dad",334.024749961455
+"[5,10)","non-hispanic white","se_Lx_lost_both",113.224532052256
+"[5,10)","non-hispanic white","se_Lx_lost_none",402.89842404733
+"[5,10)","non-hispanic white","se_dx_lost_mom_to_dead",0.0225141682553301
+"[5,10)","non-hispanic white","se_dx_lost_dad_to_dead",0.032849869481263
+"[5,10)","non-hispanic white","se_dx_lost_both_to_dead",0.0111351362449127
+"[5,10)","non-hispanic white","se_dx_lost_none_to_dead",0.039623293320895
+"[10,15)","non-hispanic white","se_pr_lost_none",0.00114930234757943
+"[10,15)","non-hispanic white","se_pr_lost_mom",0.000616995483841186
+"[10,15)","non-hispanic white","se_pr_lost_dad",0.000953604473526014
+"[10,15)","non-hispanic white","se_pr_lost_both",0.000268587689586326
+"[10,15)","non-hispanic white","se_mx_lost_none_to_lost_mom",9.91800204799427e-05
+"[10,15)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000157165499746748
+"[10,15)","non-hispanic white","se_mx_lost_none_to_lost_both",1.83884271843588e-05
+"[10,15)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00104742040252369
+"[10,15)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00175522106315146
+"[10,15)","non-hispanic white","se_Lx_lost_mom",306.651040695516
+"[10,15)","non-hispanic white","se_Lx_lost_dad",473.948046423499
+"[10,15)","non-hispanic white","se_Lx_lost_both",133.489947149842
+"[10,15)","non-hispanic white","se_Lx_lost_none",571.211249010939
+"[10,15)","non-hispanic white","se_dx_lost_mom_to_dead",0.0468243117562931
+"[10,15)","non-hispanic white","se_dx_lost_dad_to_dead",0.0723698541237155
+"[10,15)","non-hispanic white","se_dx_lost_both_to_dead",0.0203833480802751
+"[10,15)","non-hispanic white","se_dx_lost_none_to_dead",0.0872215321419612
+"[15,20)","non-hispanic white","se_pr_lost_none",0.0015439167963936
+"[15,20)","non-hispanic white","se_pr_lost_mom",0.000812547900085661
+"[15,20)","non-hispanic white","se_pr_lost_dad",0.0012521620132166
+"[15,20)","non-hispanic white","se_pr_lost_both",0.000294139326246297
+"[15,20)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000135006336682313
+"[15,20)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000203687267608028
+"[15,20)","non-hispanic white","se_mx_lost_none_to_lost_both",1.84028610976657e-05
+"[15,20)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.000910854476431096
+"[15,20)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00336094569422799
+"[15,20)","non-hispanic white","se_Lx_lost_mom",403.226616104169
+"[15,20)","non-hispanic white","se_Lx_lost_dad",621.384968628045
+"[15,20)","non-hispanic white","se_Lx_lost_both",145.966539539332
+"[15,20)","non-hispanic white","se_Lx_lost_none",766.168179488923
+"[15,20)","non-hispanic white","se_dx_lost_mom_to_dead",0.198301276021856
+"[15,20)","non-hispanic white","se_dx_lost_dad_to_dead",0.30558853820282
+"[15,20)","non-hispanic white","se_dx_lost_both_to_dead",0.0717843264584163
+"[15,20)","non-hispanic white","se_dx_lost_none_to_dead",0.376790919974256
+"[20,25)","non-hispanic white","se_pr_lost_none",0.00199420230889306
+"[20,25)","non-hispanic white","se_pr_lost_mom",0.00109763278747512
+"[20,25)","non-hispanic white","se_pr_lost_dad",0.00162550643970808
+"[20,25)","non-hispanic white","se_pr_lost_both",0.000490156303950931
+"[20,25)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000157196715414941
+"[20,25)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000249886444597655
+"[20,25)","non-hispanic white","se_mx_lost_none_to_lost_both",3.34741232370409e-05
+"[20,25)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.000934692812155433
+"[20,25)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00276618531707548
+"[20,25)","non-hispanic white","se_Lx_lost_mom",542.75771800838
+"[20,25)","non-hispanic white","se_Lx_lost_dad",803.780805284925
+"[20,25)","non-hispanic white","se_Lx_lost_both",242.37260405804
+"[20,25)","non-hispanic white","se_Lx_lost_none",986.093625092604
+"[20,25)","non-hispanic white","se_dx_lost_mom_to_dead",0.510200759143392
+"[20,25)","non-hispanic white","se_dx_lost_dad_to_dead",0.755566551031383
+"[20,25)","non-hispanic white","se_dx_lost_both_to_dead",0.227834045436943
+"[20,25)","non-hispanic white","se_dx_lost_none_to_dead",0.926943458224463
+"[25,30)","non-hispanic white","se_pr_lost_none",0.00250554797536301
+"[25,30)","non-hispanic white","se_pr_lost_mom",0.00126653433339743
+"[25,30)","non-hispanic white","se_pr_lost_dad",0.00208731326028646
+"[25,30)","non-hispanic white","se_pr_lost_both",0.000776239877601077
+"[25,30)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.00020782395232504
+"[25,30)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.00027462868235541
+"[25,30)","non-hispanic white","se_mx_lost_none_to_lost_both",3.87769524622125e-05
+"[25,30)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.000795046687872446
+"[25,30)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00208569011872846
+"[25,30)","non-hispanic white","se_Lx_lost_mom",622.698986535259
+"[25,30)","non-hispanic white","se_Lx_lost_dad",1026.23972954243
+"[25,30)","non-hispanic white","se_Lx_lost_both",381.642859845606
+"[25,30)","non-hispanic white","se_Lx_lost_none",1231.86726473402
+"[25,30)","non-hispanic white","se_dx_lost_mom_to_dead",0.839480508285933
+"[25,30)","non-hispanic white","se_dx_lost_dad_to_dead",1.38350674789595
+"[25,30)","non-hispanic white","se_dx_lost_both_to_dead",0.514504999838708
+"[25,30)","non-hispanic white","se_dx_lost_none_to_dead",1.66071983398219
+"[30,35)","non-hispanic white","se_pr_lost_none",0.0030118359166191
+"[30,35)","non-hispanic white","se_pr_lost_mom",0.00154206204511408
+"[30,35)","non-hispanic white","se_pr_lost_dad",0.00246781005920532
+"[30,35)","non-hispanic white","se_pr_lost_both",0.00106597686018576
+"[30,35)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000279678594139489
+"[30,35)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000352244133024502
+"[30,35)","non-hispanic white","se_mx_lost_none_to_lost_both",4.8062300766148e-05
+"[30,35)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00101017492472988
+"[30,35)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00241579096346067
+"[30,35)","non-hispanic white","se_Lx_lost_mom",752.230033439971
+"[30,35)","non-hispanic white","se_Lx_lost_dad",1203.81721944411
+"[30,35)","non-hispanic white","se_Lx_lost_both",519.991923622278
+"[30,35)","non-hispanic white","se_Lx_lost_none",1469.19732539458
+"[30,35)","non-hispanic white","se_dx_lost_mom_to_dead",1.35209219440175
+"[30,35)","non-hispanic white","se_dx_lost_dad_to_dead",2.16379537314324
+"[30,35)","non-hispanic white","se_dx_lost_both_to_dead",0.934656939801299
+"[30,35)","non-hispanic white","se_dx_lost_none_to_dead",2.64080154659294
+"[35,40)","non-hispanic white","se_pr_lost_none",0.00332878267622044
+"[35,40)","non-hispanic white","se_pr_lost_mom",0.00181722388702318
+"[35,40)","non-hispanic white","se_pr_lost_dad",0.00271719045718303
+"[35,40)","non-hispanic white","se_pr_lost_both",0.00147402534850375
+"[35,40)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000375067007816172
+"[35,40)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000532407255237796
+"[35,40)","non-hispanic white","se_mx_lost_none_to_lost_both",0.000104007299082427
+"[35,40)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.000955221882285501
+"[35,40)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00208292380314671
+"[35,40)","non-hispanic white","se_Lx_lost_mom",877.576187218771
+"[35,40)","non-hispanic white","se_Lx_lost_dad",1312.18924557946
+"[35,40)","non-hispanic white","se_Lx_lost_both",711.838290505172
+"[35,40)","non-hispanic white","se_Lx_lost_none",1607.54017704598
+"[35,40)","non-hispanic white","se_dx_lost_mom_to_dead",1.95458414607981
+"[35,40)","non-hispanic white","se_dx_lost_dad_to_dead",2.92257735957306
+"[35,40)","non-hispanic white","se_dx_lost_both_to_dead",1.58544392778414
+"[35,40)","non-hispanic white","se_dx_lost_none_to_dead",3.58039859103095
+"[40,45)","non-hispanic white","se_pr_lost_none",0.0038426242207496
+"[40,45)","non-hispanic white","se_pr_lost_mom",0.00234686414508285
+"[40,45)","non-hispanic white","se_pr_lost_dad",0.00335338008510372
+"[40,45)","non-hispanic white","se_pr_lost_both",0.00218236941112413
+"[40,45)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000588234624708311
+"[40,45)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000754339025760801
+"[40,45)","non-hispanic white","se_mx_lost_none_to_lost_both",0.000118028270014332
+"[40,45)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00132219444583176
+"[40,45)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00250348266350151
+"[40,45)","non-hispanic white","se_Lx_lost_mom",1119.46941515171
+"[40,45)","non-hispanic white","se_Lx_lost_dad",1599.58404516846
+"[40,45)","non-hispanic white","se_Lx_lost_both",1041.00436040786
+"[40,45)","non-hispanic white","se_Lx_lost_none",1832.95667031399
+"[40,45)","non-hispanic white","se_dx_lost_mom_to_dead",3.07327202696097
+"[40,45)","non-hispanic white","se_dx_lost_dad_to_dead",4.39132756487422
+"[40,45)","non-hispanic white","se_dx_lost_both_to_dead",2.85786242793628
+"[40,45)","non-hispanic white","se_dx_lost_none_to_dead",5.03200389868991
+"[45,50)","non-hispanic white","se_pr_lost_none",0.00438042050545734
+"[45,50)","non-hispanic white","se_pr_lost_mom",0.00278422916629214
+"[45,50)","non-hispanic white","se_pr_lost_dad",0.00402420097908022
+"[45,50)","non-hispanic white","se_pr_lost_both",0.00296619369694034
+"[45,50)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.00068060025706639
+"[45,50)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.000997777400311515
+"[45,50)","non-hispanic white","se_mx_lost_none_to_lost_both",0.000221150182418661
+"[45,50)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.0013132334372498
+"[45,50)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00285038544789363
+"[45,50)","non-hispanic white","se_Lx_lost_mom",1307.11878800239
+"[45,50)","non-hispanic white","se_Lx_lost_dad",1889.25134832147
+"[45,50)","non-hispanic white","se_Lx_lost_both",1392.54611547955
+"[45,50)","non-hispanic white","se_Lx_lost_none",2056.48658930593
+"[45,50)","non-hispanic white","se_dx_lost_mom_to_dead",4.85949951035299
+"[45,50)","non-hispanic white","se_dx_lost_dad_to_dead",7.02370441490822
+"[45,50)","non-hispanic white","se_dx_lost_both_to_dead",5.17709425373545
+"[45,50)","non-hispanic white","se_dx_lost_none_to_dead",7.645437939923
+"[50,55)","non-hispanic white","se_pr_lost_none",0.00414599528155189
+"[50,55)","non-hispanic white","se_pr_lost_mom",0.00268396772847958
+"[50,55)","non-hispanic white","se_pr_lost_dad",0.00419337311612963
+"[50,55)","non-hispanic white","se_pr_lost_both",0.00374767582732873
+"[50,55)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.000965615428431748
+"[50,55)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.00156277082957106
+"[50,55)","non-hispanic white","se_mx_lost_none_to_lost_both",0.000428919773529601
+"[50,55)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00147121552317243
+"[50,55)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00390992539629642
+"[50,55)","non-hispanic white","se_Lx_lost_mom",1232.14458180155
+"[50,55)","non-hispanic white","se_Lx_lost_dad",1925.07603935996
+"[50,55)","non-hispanic white","se_Lx_lost_both",1720.46720830268
+"[50,55)","non-hispanic white","se_Lx_lost_none",1903.32602293725
+"[50,55)","non-hispanic white","se_dx_lost_mom_to_dead",6.64832132807693
+"[50,55)","non-hispanic white","se_dx_lost_dad_to_dead",10.3871934184328
+"[50,55)","non-hispanic white","se_dx_lost_both_to_dead",9.28317910426675
+"[50,55)","non-hispanic white","se_dx_lost_none_to_dead",10.2698361697747
+"[55,60)","non-hispanic white","se_pr_lost_none",0.00374156275123373
+"[55,60)","non-hispanic white","se_pr_lost_mom",0.00273087616812367
+"[55,60)","non-hispanic white","se_pr_lost_dad",0.0043409422381876
+"[55,60)","non-hispanic white","se_pr_lost_both",0.00441005430246167
+"[55,60)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.00181152315315494
+"[55,60)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.002461776635714
+"[55,60)","non-hispanic white","se_mx_lost_none_to_lost_both",0.000707610092807334
+"[55,60)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00191834331259485
+"[55,60)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00410090604463068
+"[55,60)","non-hispanic white","se_Lx_lost_mom",1212.54801897219
+"[55,60)","non-hispanic white","se_Lx_lost_dad",1927.44034783663
+"[55,60)","non-hispanic white","se_Lx_lost_both",1958.12709138099
+"[55,60)","non-hispanic white","se_Lx_lost_none",1661.30729574082
+"[55,60)","non-hispanic white","se_dx_lost_mom_to_dead",9.81211891160335
+"[55,60)","non-hispanic white","se_dx_lost_dad_to_dead",15.5971339626006
+"[55,60)","non-hispanic white","se_dx_lost_both_to_dead",15.8454556553962
+"[55,60)","non-hispanic white","se_dx_lost_none_to_dead",13.4435457231133
+"[60,Inf)","non-hispanic white","se_pr_lost_none",0.00161086968612425
+"[60,Inf)","non-hispanic white","se_pr_lost_mom",0.00146671690026271
+"[60,Inf)","non-hispanic white","se_pr_lost_dad",0.00292677380678451
+"[60,Inf)","non-hispanic white","se_pr_lost_both",0.00330615117004653
+"[60,Inf)","non-hispanic white","se_mx_lost_none_to_lost_mom",0.00274000416769947
+"[60,Inf)","non-hispanic white","se_mx_lost_none_to_lost_dad",0.00423584511269665
+"[60,Inf)","non-hispanic white","se_mx_lost_none_to_lost_both",0.00167099331481369
+"[60,Inf)","non-hispanic white","se_mx_lost_dad_to_lost_both",0.00212203187234752
+"[60,Inf)","non-hispanic white","se_mx_lost_mom_to_lost_both",0.00478542000262849
+"[60,Inf)","non-hispanic white","se_Lx_lost_mom",2853.26178588223
+"[60,Inf)","non-hispanic white","se_Lx_lost_dad",5693.56762530214
+"[60,Inf)","non-hispanic white","se_Lx_lost_both",6431.58525694626
+"[60,Inf)","non-hispanic white","se_Lx_lost_none",3133.68784162176
+"[60,Inf)","non-hispanic white","se_dx_lost_mom_to_dead",127.466821121373
+"[60,Inf)","non-hispanic white","se_dx_lost_dad_to_dead",254.354847363726
+"[60,Inf)","non-hispanic white","se_dx_lost_both_to_dead",287.325099831504
+"[60,Inf)","non-hispanic white","se_dx_lost_none_to_dead",139.994594794853
