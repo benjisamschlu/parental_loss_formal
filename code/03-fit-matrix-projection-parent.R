@@ -15,6 +15,8 @@ for(p in packages){
     if(!require(p,character.only = TRUE)) install.packages(p)
     library(p,character.only = TRUE)
 }
+options(mc.cores = max(8, parallel::detectCores()))
+rstan::rstan_options(auto_write = TRUE)
 
 ## Functions -------------------------------------------------------------------
 get_summary_post <- function(
@@ -88,9 +90,6 @@ stan_model <- rstan::stan_model(
     file = "code/03-fit-matrix-projection-parent.stan",
     model_name = "Matrix projection of age distribution of parent"
 )
-
-options(mc.cores = max(8, parallel::detectCores()))
-rstan::rstan_options(auto_write = TRUE)
 
 stan_fit <- rstan::sampling(
     stan_model, stan_data,

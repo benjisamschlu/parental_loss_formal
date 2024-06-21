@@ -3,6 +3,9 @@
 code/secrets.R
 data_private/**
 !data_private/README.md
+data/stan*.rds
+code/*.rds
+code/OLD
 
 # General OS
 .DS_Store

@@ -15,6 +15,8 @@ for(p in packages){
     if(!require(p,character.only = TRUE)) install.packages(p)
     library(p,character.only = TRUE)
 }
+options(mc.cores = max(8, parallel::detectCores()))
+rstan::rstan_options(auto_write = TRUE)
 
 ## Functions -------------------------------------------------------------------
 get_summary_post <- function(
