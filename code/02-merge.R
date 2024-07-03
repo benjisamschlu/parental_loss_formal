@@ -141,7 +141,7 @@ compute_ex <- function(Lx, lx) {
 races <- c("all", "non-hispanic white", "non-hispanic black", 
            "hispanic", "non-hispanic asian", "non-hispanic other")
 years <- 2020 # only take the snapshot of 2020 for now
-age_cuts <- c(0, seq(5, 60, by = 5), Inf) # left closed age breaks
+age_cuts <- c(0, seq(1, 60, by = 1), Inf) # left closed age breaks
 sipp2021 <- read_csv(here("data_private", "sipp_2021-by-year.csv"))
 
 tmp <- lapply(years, function(y) {
