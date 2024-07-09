@@ -8,7 +8,7 @@
 ##------------------------------------------------------------------------------
 ##
 rm(list = ls())
-
+source("code/utils.R")
 ## Load packages ---------------------------------------------------------------
 packages <- c("dplyr", "tidyr", "readr", "stringr", "here", "utils", "testthat")
 for(p in packages){
@@ -20,21 +20,21 @@ rstan::rstan_options(auto_write = TRUE)
 
 ## Functions -------------------------------------------------------------------
 get_summary_post <- function(
-        stan_summary, par_regex, race, x, state) {
+        stan_summary, par_regex, race, par_name) {
     params <- rownames(stan_summary)
     sel <- str_detect(params, par_regex)
     stan_summary[sel, ] |>
         as_tibble() |>
         mutate(
-            ind = str_extract(params[sel], "(\\d+,?)+"),
+            age = str_extract(params[sel], "\\[\\d+\\]") |>
+                str_remove_all("\\[|\\]") |>
+                as.numeric(),
             race = race,
-            x = x,
-            state = state
-        ) |>
-        select(ind, race, x, state, everything())
+            name = par_name
+        ) 
 }
 
-get_stan_data <- function(fx, mort, pop, sipp_est, sipp_se,
+get_stan_data <- function(fx, mort, pop, sipp_pr, sipp_mx,
                           select_race = "hispanic", MAX_AGE = NULL) {
     ### the function formats input data for stan ###
     sexes <- c(mom = "female", dad = "male")
@@ -105,63 +105,57 @@ get_stan_data <- function(fx, mort, pop, sipp_est, sipp_se,
         pop_parents, MIN_AGE_F
     )
     # sipp data
-    df_p_a <- sipp_est |>
-        filter(quantity == "pr", race == select_race) |>
-        left_join(
-            sipp_se, 
-            by = c("race", "x", "quantity", "state"),
-            suffix = c("", "_se")
+    df_p_a <- sipp_pr |>
+        mutate(
+            x = str_extract(x, "(?<=\\[)\\d+") |>
+                as.numeric()
         ) |>
-        rename(se = "value_se") |>
-        mutate(x = as.numeric(str_extract(x, "(?<=\\[)\\d+"))) |>
-        filter(x < MAX_AGE) 
+        filter(x < MAX_AGE, race == select_race)
     p_a_sipp <- df_p_a |>
-        pivot_wider(
-            values_from = "value", 
-            names_from = "state", 
-            id_cols = "x"
+        select(
+            "pr_lost_none",
+            "pr_lost_mom",
+            "pr_lost_dad",
+            "pr_lost_both"
         ) |>
-        select(-"x") |>
-        mutate(across(everything(), ~ replace_na(.x, -1))) |>
+        mutate(across(everything(), ~ replace_na(.x, 0))) |>
         as.matrix()
     p_a_sipp_se <- df_p_a |>
-        pivot_wider(
-            values_from = "se", 
-            names_from = "state", 
-            id_cols = "x"
+        select(
+            "se_pr_lost_none",
+            "se_pr_lost_mom",
+            "se_pr_lost_dad",
+            "se_pr_lost_both"
         ) |>
-        select(-"x") |>
-        mutate(across(everything(), ~ replace_na(.x, -1))) |>
+        mutate(across(everything(), ~ replace_na(.x, 0))) |>
         as.matrix()
-        
-    df_m_a <- sipp_est |>
-        filter(quantity == "mx", race == select_race)  |>
-        left_join(
-            sipp_se, 
-            by = c("race", "x", "quantity", "state"),
-            suffix = c("", "_se")
+    
+    df_m_a <- sipp_mx |>
+        mutate(
+            x = str_extract(x, "(?<=\\[)\\d+") |>
+                as.numeric()
         ) |>
-        rename(se = "value_se", transition = "state") |>
-        mutate(x = as.numeric(str_extract(x, "(?<=\\[)\\d+"))) |>
-        filter(x < MAX_AGE) 
+        filter(x < MAX_AGE, race == select_race)
     
     m_a_sipp <- df_m_a |>
-        pivot_wider(
-            values_from = "value", 
-            names_from = "transition", 
-            id_cols = "x"
+        select(
+            "mx_lost_none_to_lost_mom",
+            "mx_lost_none_to_lost_dad",
+            "mx_lost_none_to_lost_both",
+            "mx_lost_mom_to_lost_both",
+            "mx_lost_dad_to_lost_both"
         ) |>
-        select(-"x") |>
-        mutate(across(everything(), ~ replace_na(.x, -1))) |>
+        mutate(across(everything(), ~ replace_na(.x, 0))) |>
         as.matrix()
     m_a_sipp_se <- df_m_a |>
-        pivot_wider(
-            values_from = "se", 
-            names_from = "transition", 
-            id_cols = "x"
+        select(
+            "se_mx_lost_none_to_lost_mom",
+            "se_mx_lost_none_to_lost_dad",
+            "se_mx_lost_none_to_lost_both",
+            "se_mx_lost_mom_to_lost_both",
+            "se_mx_lost_dad_to_lost_both"
         ) |>
-        select(-"x") |>
-        mutate(across(everything(), ~ replace_na(.x, -1))) |>
+        mutate(across(everything(), ~ replace_na(.x, 0))) |>
         as.matrix()
     # stan data
     list(
@@ -209,65 +203,63 @@ pop_deaths <- readRDS("data_private/national_year_age-sex-race_drug-opioid-morta
     )
 pop_est <- pop_deaths |> select("age", "year", "sex", "race_eth", "pop")
 mort_est <- pop_deaths |> select("age", "year", "sex", "race_eth", "n_deaths")
-# SIPP + lifetable data
-sipp_est <- read_csv(here("data", "multistate-lt.csv")) |>
-    mutate(
-        quantity = str_remove(name, "_.+"),
-        state = str_remove(name, "^[a-z]+_"),
-        value = ifelse(value == 0, NA, value)
-    ) |>
-    select(race, x, quantity, state, value)
+# SIPP estimates
+sipp_pr <- read_csv(here("data", "sipp_pr-life.csv")) |>
+    filter(sex == "all")
+sipp_mx <- read_csv(here("data", "sipp_mx-life.csv")) |>
+    filter(sex == "all")
 
-sipp_se <- read_csv(here("data", "se-multistate-lt.csv")) |>
-    mutate(
-        name = str_remove(name, "^se_"),
-        quantity = str_remove(name, "_.+"),
-        state = str_remove(name, "^[a-z]+_"),
-        value = ifelse(value == 0, NA, value)
-    ) |>
-    select(race, x, quantity, state, value)
-
-# testing with non-hispanic white
-stan_data_white <- get_stan_data(
-    fx, mort_est, pop_est, sipp_est, sipp_se, 
-    select_race = "non-hispanic white", MAX_AGE = 60)
-
+## Fit stan models -------------------------------------------------------------
+stan_fit <- list()
+races <- c("non-hispanic white", "non-hispanic black", "hispanic")
 stan_model <- rstan::stan_model(
-    file = "code/03-fit-matrix-projection-parent.stan",
-    model_name = "Matrix projection of age distribution of parent"
+    file = here("code", "03-fit-parent-matrix-projection.stan"),
+    model_name = "Matrix projection of age distribution of parents + SIPP"
+)
+for (r in races) {
+    stan_data <- get_stan_data(
+        fx, mort_est, pop_est, sipp_pr, sipp_mx,
+        select_race = r, MAX_AGE = 60
+    )
+    stan_fit[[r]] <- rstan::sampling(
+        stan_model, stan_data,
+        warmup = 1000, iter = 2000, chains = 4,
+        control = list(adapt_delta = .9, max_treedepth = 10),
+        algorithm = "NUTS"
+    )
+}
+
+# # quick diagnostics
+# rstan::check_hmc_diagnostics(stan_fit$hispanic)
+
+## Extract and save posteriors -------------------------------------------------
+params <- c(
+    theta_lost_none_to_lost_mom = "theta_1_2", 
+    theta_lost_none_to_lost_dad = "theta_1_3", 
+    theta_lost_none_to_lost_both = "theta_1_4", 
+    theta_lost_mom_to_lost_both = "theta_2_4", 
+    theta_lost_dad_to_lost_both = "theta_3_4", 
+    phi_lost_none = "phi_1", 
+    phi_lost_mom = "phi_2", 
+    phi_lost_dad = "phi_3", 
+    phi_lost_both = "phi_4"
 )
 
-stan_fit <- rstan::sampling(
-    stan_model, stan_data_white,
-    # warmup = 0, iter = 1, chains = 1,
-    warmup = 1000, iter = 2000, chains = 4,
-    control = list(adapt_delta = .8, max_treedepth = 8),
-    algorithm = "NUTS"
-)
+for (r in races) {
+    stan_fit_summary <- rstan::summary(stan_fit[[r]])$summary
+    param_post_list <- list()
+    for (p in seq(length(params))) {
+        param_post_list[[params[p]]] <- get_summary_post(
+            stan_fit_summary, params[p], r, names(params)[p]
+        )
+    }
+    param_posts <- bind_rows(param_post_list)
+    write_csv(
+        param_posts,
+        here(
+            "data", "posteriors", 
+            paste0("parent-matrix-projection-posterior-", r, "-life.csv")
+        )
+    )
+}
 
-# quick diagnostics
-rstan::check_hmc_diagnostics(stan_fit)
-post <- as.array(stan_fit)
-np <- bayesplot::nuts_params(stan_fit)
-lp <- bayesplot::log_posterior(stan_fit)
-# bayesplot::mcmc_nuts_acceptance(np, lp)
-# bayesplot::mcmc_nuts_divergence(np, lp)
-# bayesplot::mcmc_nuts_treedepth(np, lp)
-bayesplot::mcmc_trace(post, np = np, regex_pars = "phi_sipp\\[\\d+,1")
-bayesplot::mcmc_trace(post, np = np, regex_pars = "theta_sipp\\[\\d+,3")
-bayesplot::mcmc_trace(post, np = np, regex_pars = "phi_mom\\[\\d+")
-bayesplot::mcmc_trace(post, np = np, regex_pars = "phi_dad\\[\\d+")
-
-bayesplot::mcmc_pairs(
-    post, np = np, regex_pars = "phi_sipp\\[2,"
-)
-bayesplot::mcmc_pairs(
-    post, np = np, regex_pars = "theta_sipp\\[[1-5],1"
-)
-bayesplot::mcmc_pairs(
-    post, np = np, pars = c("phi_sipp[1,2]", "phi_sigma_mom")
-)
-
-bayesplot::mcmc_parcoord(
-    post, np = np, regex_pars = "theta_sipp\\[\\d+,1"
-)

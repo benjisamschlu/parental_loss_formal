@@ -4,7 +4,7 @@
 ## 
 ## 
 ##  Author: Michael Jongho Moon
-##  Date: August 2023
+##  Date: July 2024
 ##------------------------------------------------------------------------------
 ##
 ##  Notes on data
@@ -34,6 +34,7 @@ for (p in packages) {
     if (!require(p,character.only = TRUE)) install.packages(p)
     library(p,character.only = TRUE)
     }
+source("code/utils.R")
 
 ## Functions -------------------------------------------------------------------
 count_samples <- function(df, by) {
@@ -84,7 +85,7 @@ compute_props <- function(svy, by) {
         full_join(pr_lost_mom, by = by) |>
         full_join(pr_lost_dad, by = by) |>
         full_join(pr_lost_both, by = by)
-    }
+}
 
 compute_rates <- function(svy, by) {
     compute_rates_s_i <- function(svy, var, denom, by) {
@@ -124,25 +125,11 @@ compute_rates <- function(svy, by) {
         full_join(mx_lost_none_to_lost_both, by = by) |>
         full_join(mx_lost_dad_to_lost_both, by = by) |>
         full_join(mx_lost_mom_to_lost_both, by = by)
-    }
-
-aggregate_lt <- function(df, by) {
-    df |>
-        summarise(
-            .by = by,
-            lx = max(lx), dx = sum(dx), Lx = sum(Lx)
-        )
-    }
-compute_ex <- function(Lx, lx) {
-    rev(cumsum(rev(Lx))) / lx
-    }
+}
 
 ## Load data -------------------------------------------------------------------
-races <- c("all", "non-hispanic white", "non-hispanic black", 
-           "hispanic", "non-hispanic asian", "non-hispanic other")
 years <- 2020 # only take the snapshot of 2020 for now
-age_cuts <- c(0, seq(1, 60, by = 1), Inf) # left closed age breaks
-sipp2021 <- read_csv(here("data_private", "sipp_2021-by-year.csv"))
+sipp2021 <- read_csv(here("data_private", "sipp_2021.csv"))
 
 tmp <- lapply(years, function(y) {
     d <- sipp2021 |>
@@ -190,10 +177,11 @@ tmp <- lapply(years, function(y) {
 
 sipp <- bind_rows(tmp)|>
     select(-"year") |> # only 2020 for now
-    mutate(x = cut(age, breaks = age_cuts, right = FALSE))
-uslt2020 <- read_csv(here("data", "uslt_2020.csv")) |>
-    filter(sex == "all") |>
-    mutate(x = cut(x, breaks = age_cuts, right = FALSE))
+    filter(
+        sex %in% SEXES,
+        race %in% RACES
+    ) |>
+    mutate(x = cut(age, breaks = AGES, right = FALSE))
 
 ## Estimate proportions and rates from SIPP ------------------------------------
 svy <- sipp |>
@@ -241,209 +229,20 @@ n_all <- count_samples(sipp, by = by_all) |>
 
 df_sipp_n <- bind_rows(n_all, n_by_s, n_by_r, n_by_s_r)
 
-
-## Compute US life table -------------------------------------------------------
-df_lt <- uslt2020 |>
-    filter(race %in% races) |>
-    aggregate_lt(by_s_r) |>
-    select(all_of(by_s_r), everything())
-
-## Join life table and rates ---------------------------------------------------
-multistate_lt <- left_join(df_lt, df_pr, by = by_s_r) |>
-    left_join(df_mx, by = by_s_r) |>
-    select(-starts_with("se_")) |>
-    # compute Lx_i
-    # assume proportions from SIPP
-    mutate(
-        Lx_lost_mom = Lx * pr_lost_mom,
-        Lx_lost_dad = Lx * pr_lost_dad,
-        Lx_lost_both = Lx * pr_lost_both,
-        Lx_lost_none = Lx * pr_lost_none
-    ) |>
-    # compute dx_i
-    # assume constant mortality rates
-    mutate(
-        dx_lost_mom_to_dead = dx * pr_lost_mom,
-        dx_lost_dad_to_dead = dx * pr_lost_dad,
-        dx_lost_both_to_dead = dx * pr_lost_both,
-        dx_lost_none_to_dead = dx * pr_lost_none
-    ) |>
-    # compute dx_ij = mx_ij * Lx_i
-    # assume observed mx_ij conditional on the subject being alive
-    mutate(
-        dx_lost_none_to_lost_mom = (Lx - dx) * pr_lost_none * mx_lost_none_to_lost_mom,
-        dx_lost_none_to_lost_dad = (Lx - dx) * pr_lost_none * mx_lost_none_to_lost_dad,
-        dx_lost_none_to_lost_both = (Lx - dx) * pr_lost_none * mx_lost_none_to_lost_both,
-        dx_lost_mom_to_lost_both = (Lx- dx) * pr_lost_mom * mx_lost_mom_to_lost_both,
-        dx_lost_dad_to_lost_both = (Lx - dx) * pr_lost_dad * mx_lost_dad_to_lost_both
-    ) |>
-    group_by(sex, race) |>
-    # compute ex_i - # years to live in state i above age x for anyone
-    mutate(
-        ex_lost_none = compute_ex(Lx_lost_none, lx),
-        ex_lost_mom = compute_ex(Lx_lost_mom, lx),
-        ex_lost_dad = compute_ex(Lx_lost_dad, lx),
-        ex_lost_both = compute_ex(Lx_lost_both, lx),
-        ex = compute_ex(Lx, lx)
-    ) |>
-    # compute lx_i
-    mutate(
-        lx_lost_mom = replace_na(lag(cumsum(
-            dx_lost_none_to_lost_mom 
-            - replace_na(dx_lost_mom_to_lost_both, 0)
-            - replace_na(dx_lost_mom_to_dead, 0)
-        )), 0),
-        lx_lost_dad = replace_na(lag(cumsum(
-            dx_lost_none_to_lost_dad
-            - replace_na(dx_lost_dad_to_lost_both, 0)
-            - replace_na(dx_lost_dad_to_dead, 0)
-        )), 0),
-        lx_lost_both = replace_na(lag(cumsum(
-            replace_na(dx_lost_mom_to_lost_both, 0)
-            + replace_na(dx_lost_dad_to_lost_both, 0)
-            + replace_na(dx_lost_none_to_lost_both, 0)
-            - replace_na(dx_lost_both_to_dead, 0)
-        )), 0),
-        # lx_lost_none = lx - lx_lost_mom - lx_lost_dad - lx_lost_both,
-        lx_lost_none = 100000 - replace_na(lag(cumsum(
-            replace_na(dx_lost_none_to_dead, 0)
-            + replace_na(dx_lost_none_to_lost_mom, 0)
-            + replace_na(dx_lost_none_to_lost_dad, 0)
-            + replace_na(dx_lost_none_to_lost_both, 0)
-        )), 0)
-    ) |>
-    pivot_longer(-by_s_r)
-
-# transform standard errors
-se_multistate_lt <- left_join(df_lt, df_pr, by = by_s_r) |>
-    left_join(df_mx, by = by_s_r) |>
-    mutate(
-        se_Lx_lost_mom = sqrt(Lx^2 * se_pr_lost_mom^2),
-        se_Lx_lost_dad = sqrt(Lx^2 * se_pr_lost_dad^2),
-        se_Lx_lost_both = sqrt(Lx^2 * se_pr_lost_both^2),
-        se_Lx_lost_none = sqrt(Lx^2 * se_pr_lost_none^2)
-    ) |>
-    mutate(
-        se_dx_lost_mom_to_dead = sqrt(dx^2 * se_pr_lost_mom^2),
-        se_dx_lost_dad_to_dead = sqrt(dx^2 * se_pr_lost_dad^2),
-        se_dx_lost_both_to_dead = sqrt(dx^2 * se_pr_lost_both^2),
-        se_dx_lost_none_to_dead = sqrt(dx^2 * se_pr_lost_none^2)
-    ) |>
-    select(all_of(by_s_r), starts_with("se_")) |>
-    pivot_longer(-by_s_r)
-
 ### Data check
 test_that(
     "pr data check.", {
-        pr_summed <- multistate_lt |>
-            filter(str_detect(name, "^pr_")) |>
-            ungroup() |>
+        pr_summed <- df_pr |>
             summarise(
-                .by = c("x", "race"),
-                check = sum(value)
+                .by = c("x", "sex", "race"),
+                check = pr_lost_none + pr_lost_mom + pr_lost_dad + pr_lost_both
             ) |>
             pull(check)
         expect_equal(pr_summed, rep(1, length(pr_summed)), tolerance = 1e-4)
     }
 )
-test_that(
-    "Lx data check.", {
-        Lx <- multistate_lt |> filter(name == "Lx") |> pull(value)
-        Lx_summed <- multistate_lt |>
-            filter(str_detect(name, "^Lx_")) |>
-            ungroup() |>
-            summarise(
-                .by = c("x", "race"),
-                check = sum(value)
-            ) |>
-            pull(check)
-        expect_equal(Lx, Lx_summed, tolerance = 1e-4)
-    }
-)
-test_that(
-    "dx data check.", {
-        dx <- multistate_lt |> filter(name == "dx") |> pull(value)
-        dx_summed <- multistate_lt |> 
-            filter(str_detect(name, "^dx_.*_to_dead")) |>
-            ungroup() |>
-            summarise(
-                .by = c("x", "race"),
-                check = sum(value)
-            ) |>
-            pull(check)
-        expect_equal(dx, dx_summed, tolerance = 1e-4)
-    }
-)
-test_that(
-    "lx data check.", {
-        lx_orig <- uslt2020 |>
-            filter(race %in% races) |>
-            group_by(race, sex, x) |>
-            summarise(lx = max(lx)) |>
-            arrange(x, race, sex) |>
-            pull(lx)
-        lx_new <- multistate_lt |>
-            ungroup() |>
-            arrange(x, race) |>
-            filter(name == "lx") |>
-            pull(value)
-        lx_summed <- multistate_lt |>
-            ungroup() |>
-            arrange(x, race) |>
-            filter(str_detect(name, "^lx_")) |>
-            summarise(
-                .by = c("x", "race"),
-                check = sum(value)
-            ) |>
-            pull(check)
-        expect_equal(lx_orig, lx_new, tolerance = 1e-4)
-        expect_equal(lx_orig, lx_summed, tolerance = 1e-4)
-    }
-)
-test_that(
-    "ex data check.", {
-        ex_orig <- uslt2020 |>
-            filter(race %in% races) |>
-            group_by(race, x) |>
-            summarise(ex = max(ex)) |>
-            arrange(x, race) |>
-            pull(ex)
-        ex_new <- multistate_lt |>
-            ungroup() |>
-            arrange(x, race) |>
-            filter(name == "ex") |>
-            pull(value)
-        ex_summed <- multistate_lt |>
-            ungroup() |>
-            arrange(x, race) |>
-            filter(str_detect(name, "^ex_")) |>
-            summarise(
-                .by = c("x", "race"),
-                check = sum(value)
-            ) |>
-            pull(check)
-        expect_equal(ex_orig, ex_new, tolerance = 1e-4)
-        expect_equal(ex_orig, ex_summed, tolerance = 1e-4)
-    }
-)
-test_that(
-    "est and se match", {
-        nms <- str_remove(unique(se_multistate_lt$name), "se_")
-        est_nrow <- multistate_lt |>
-            filter(name %in% nms) |>
-            nrow()
-        se_nrow <- se_multistate_lt |>
-            nrow()
-        expect_equal(est_nrow, se_nrow)
-    }
-)
 
 ## Save data -------------------------------------------------------------------
-write.csv(
-    multistate_lt, here("data", "multistate-lt.csv"), row.names = FALSE
-)
-write.csv(
-    se_multistate_lt, here("data", "se-multistate-lt.csv"), 
-    row.names = FALSE
-)
+write.csv(df_pr, here("data", "sipp_pr.csv"), row.names = FALSE)
+write.csv(df_mx, here("data", "sipp_mx.csv"), row.names = FALSE)
 write.csv(df_sipp_n, here("data", "sipp_n.csv"), row.names = FALSE)

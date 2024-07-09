@@ -17,10 +17,10 @@ data {
   array[N_TIME, MAX_AGE - MIN_AGE_F_MOM + 1] int <lower=0> n_pop_mom;
   array[N_TIME, MAX_AGE - MIN_AGE_F_DAD + 1] int <lower=0> n_pop_dad;
   // sipp estimates
-  array[MAX_AGE] vector<lower=-1, upper=1>[4] p_a_sipp;
-  array[MAX_AGE] vector<lower=-1>[4]p_a_sipp_se;
-  array[MAX_AGE] vector<lower=-1, upper=1>[5] m_a_sipp;
-  array[MAX_AGE] vector<lower=-1>[5] m_a_sipp_se;
+  array[MAX_AGE] vector<lower=0, upper=1>[4] p_a_sipp;
+  array[MAX_AGE] vector<lower=0>[4]p_a_sipp_se;
+  array[MAX_AGE] vector<lower=0, upper=1>[5] m_a_sipp;
+  array[MAX_AGE] vector<lower=0>[5] m_a_sipp_se;
 }
 
 transformed data {
@@ -121,10 +121,17 @@ parameters {
   // sipp incidence
   array[N_AGE_C - 1] vector<lower=0, upper=1>[5] theta_sipp;
   // standard deviations
-  real<lower=0> phi_sigma_mom;
-  real<lower=0> phi_sigma_dad;
-  real<lower=0> theta_sigma_mom;
-  real<lower=0> theta_sigma_dad;
+  real<lower=0> phi_mom_sigma;
+  real<lower=0> phi_dad_sigma;
+  real<lower=0> theta_mom_sigma;
+  real<lower=0> theta_dad_sigma;
+  // random walk sd
+  array[4] real<lower=0> phi_rw_sigma;
+  array[5] real<lower=0> theta_rw_sigma;
+  real<lower=0> phi_mom_rw_sigma;
+  real<lower=0> phi_dad_rw_sigma;
+  real<lower=0> theta_mom_rw_sigma;
+  real<lower=0> theta_dad_rw_sigma;
 }
 
 transformed parameters {
@@ -150,14 +157,14 @@ transformed parameters {
 }
 
 model {
-  p_a_loss_mom ~ normal(phi_mom, phi_sigma_mom);
-  p_a_loss_dad ~ normal(phi_dad, phi_sigma_dad);
-  m_a_loss_mom ~ normal(theta_mom, theta_sigma_mom);
-  m_a_loss_dad ~ normal(theta_dad, theta_sigma_dad);
+  p_a_loss_mom ~ normal(phi_mom, phi_mom_sigma);
+  p_a_loss_dad ~ normal(phi_dad, phi_dad_sigma);
+  m_a_loss_mom ~ normal(theta_mom, theta_mom_sigma);
+  m_a_loss_dad ~ normal(theta_dad, theta_dad_sigma);
 
   for (a in 2:(N_AGE_C - 1)) {
     for (state in 1:4) {
-      if (p_a_sipp_se[a, state] >= 0) { # only sample non-missing survey estimates
+      if (p_a_sipp_se[a, state] > 0) { # only sample non-missing survey estimates
         p_a_sipp[a, state] ~ normal(phi_sipp[a - 1, state], p_a_sipp_se[a, state]);
       }
     }
@@ -165,8 +172,8 @@ model {
 
   for (a in 1:(N_AGE_C - 1)) {
     for (trans in 1:5) {
-      if (m_a_sipp_se[a, trans] >= 0) { # only sample non-missing survey estimates
-        m_a_sipp[a, trans] ~ normal(theta_sipp[a - 1, trans], m_a_sipp_se[a, trans]);
+      if (m_a_sipp_se[a, trans] > 0) { # only sample non-missing survey estimates
+        m_a_sipp[a, trans] ~ normal(theta_sipp[a, trans], m_a_sipp_se[a, trans]);
       }
     }    
   }
@@ -179,21 +186,45 @@ model {
   theta_sipp[1] ~ exponential(5);
   for (a in 2:(N_AGE_C - 1)) {
     if (a < (N_AGE_C - 1)) {
-      phi_sipp[a] ~ normal(phi_sipp[a - 1], 1); 
-      phi_mom[a] ~ normal(phi_mom[a - 1], 1); 
-      phi_dad[a] ~ normal(phi_dad[a - 1], 1); 
+      phi_sipp[a] ~ normal(phi_sipp[a - 1], phi_rw_sigma); 
+      phi_mom[a] ~ normal(phi_mom[a - 1], phi_mom_rw_sigma); 
+      phi_dad[a] ~ normal(phi_dad[a - 1], phi_dad_rw_sigma); 
     }
-    theta_sipp[a] ~ normal(theta_sipp[a - 1], 1);
-    theta_mom[a] ~ normal(theta_mom[a - 1], 1);
-    theta_dad[a] ~ normal(theta_dad[a - 1], 1);
+    theta_sipp[a] ~ normal(theta_sipp[a - 1], theta_rw_sigma);
+    theta_mom[a] ~ normal(theta_mom[a - 1], theta_mom_rw_sigma);
+    theta_dad[a] ~ normal(theta_dad[a - 1], theta_dad_rw_sigma);
   }
 
-  phi_sigma_mom ~ lognormal(0, 1);
-  phi_sigma_dad ~ lognormal(0, 1);
-  theta_sigma_mom ~ lognormal(0, 1);
-  theta_sigma_dad ~ lognormal(0, 1);
+  phi_mom_sigma ~ exponential(1);
+  phi_dad_sigma ~ exponential(1);
+  theta_mom_sigma ~ exponential(1);
+  theta_dad_sigma ~ exponential(1);
+
+  phi_rw_sigma ~ lognormal(0, .1);
+  theta_rw_sigma ~ lognormal(0, .1);
+  phi_mom_rw_sigma ~ lognormal(0, .1);
+  phi_dad_rw_sigma ~ lognormal(0, .1);
+  theta_mom_rw_sigma ~ lognormal(0, .1);
+  theta_dad_rw_sigma ~ lognormal(0, .1);
 }
 
 generated quantities {
-  
+  // create arrays for easier access 
+  // append constants at births for phis
+  array[N_AGE_C - 1] real<lower=0, upper=1> phi_1, phi_2, phi_3, phi_4;
+  array[N_AGE_C - 1] real<lower=0, upper=1> theta_1_2, theta_1_3, theta_1_4, theta_2_4, theta_3_4;
+  phi_1[1] = 1; // assume both parents are alive at birth
+  phi_2[1] = 0;
+  phi_3[1] = 0;
+  phi_4[1] = 0;
+  phi_1[2:] = phi_sipp[,1];
+  phi_2[2:] = phi_sipp[,2];
+  phi_3[2:] = phi_sipp[,3];
+  phi_4[2:] = phi_sipp[,4];
+  theta_1_2 = theta_sipp[,1];
+  theta_1_3 = theta_sipp[,2];
+  theta_1_4 = theta_sipp[,3];
+  theta_2_4 = theta_sipp[,4];
+  theta_3_4 = theta_sipp[,5];
+  // sample life table
 }
