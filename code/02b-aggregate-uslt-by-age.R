@@ -49,5 +49,6 @@ df_lt <- uslt2020 |>
 
 ## Save data -------------------------------------------------------------------
 write.csv(
-    df_lt, here("data", "uslt-age-group.csv"), row.names = FALSE
+    df_lt, here("data", "uslt-age-group.csv"), 
+    row.names = FALSE
 )

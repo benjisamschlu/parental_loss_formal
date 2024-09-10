@@ -1,11 +1,13 @@
 ## Project specific ignores
 **README.html
 code/secrets.R
+data_raw
 data_private/**
 !data_private/README.md
-data/stan*.rds
+data/**
 code/*.rds
 code/OLD
+tmp*
 
 # General OS
 .DS_Store
