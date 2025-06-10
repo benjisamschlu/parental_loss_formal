@@ -1,3 +1,11 @@
+# stan parameters
+NWARMUP <- 2500
+NITER <- NWARMUP * 2
+NCHAINS <- 4
+ADAPT_DELTA <- .95
+MAX_TREEDEPTH <- 14
+
+# helper functions for fitting stan models
 # helper functions for fitting stan models
 get_stan_data <- function(sipp_pr, sipp_mx, select_race,
                           projected_mom_dist = NULL,
@@ -59,22 +67,13 @@ get_stan_data <- function(sipp_pr, sipp_mx, select_race,
         as.matrix() |>
         array(dim = c(N_RACE, N_AGE_C, 5))
     
-    # design matrix for the log-linear models
-    n_state <- 4
+    # design matrix for the linear models
     covars <- data.frame(
-        age = rep(unique(df_p_a$age), n_state * N_RACE),
-        states = factor(rep(1:n_state, each = N_AGE_C)),
-        race = rep(select_race, each = N_AGE_C * n_state)
+        age = rep(unique(df_p_a$age), N_RACE),
+        race = rep(select_race, each = N_AGE_C)
     )
-    ll_X_phi <- model.matrix(~ 1 + age * states * race, data = covars)
+    ll_X <- model.matrix(~ 1 + age * race, data = covars)
     
-    n_transition <- 4
-    covars <- data.frame(
-        age = rep(unique(df_p_a$age), n_transition * N_RACE),
-        transitions = factor(rep(1:n_transition, each = N_AGE_C)),
-        race = rep(select_race, each = N_AGE_C * n_transition)
-    )
-    ll_X_theta <- model.matrix(~ 1 + age * transitions * race, data = covars)
     
     stopifnot(
         expres = {
@@ -88,8 +87,7 @@ get_stan_data <- function(sipp_pr, sipp_mx, select_race,
     stan_data <- list(
         N_RACE = N_RACE,
         N_AGE_C = N_AGE_C,
-        ll_X_phi = ll_X_phi,
-        ll_X_theta = ll_X_theta,
+        ll_X = ll_X,
         p_a_sipp = p_a_sipp,
         p_a_sipp_se = p_a_sipp_se,
         m_a_sipp = m_a_sipp,
@@ -164,36 +162,36 @@ get_stan_data <- function(sipp_pr, sipp_mx, select_race,
     return(stan_data)
 }
 
-compute_lt_single <- function(phis, thetas, lt) {
+compute_lt_single <- function(p_a, m_a, lt) {
     compute_ex <- function(Lx, lx) {
         rev(cumsum(rev(Lx))) / lx
     }
-    colnames(phis) <- paste0("phi_", 1:4)
-    colnames(thetas) <- paste0("theta_", c(1,1,1,2,3), "_", c(2:4,4,4))
+    colnames(p_a) <- paste0("p_a_", 1:4)
+    colnames(m_a) <- paste0("m_a_", c(1,1,1,2,3), "_", c(2:4,4,4))
     
     # restrict the last age interval - all children eventually lose both parents
-    phis <- rbind(phis, c(0, 0, 0, 1))
-    thetas <- rbind(thetas, c(0, 0, 0, 0, 0))
+    p_a <- rbind(p_a, c(0, 0, 0, 1))
+    m_a <- rbind(m_a, c(0, 0, 0, 0, 0))
     
-    bind_cols(lt, phis, thetas) |>
+    bind_cols(lt, p_a, m_a) |>
         mutate( # compute Lx_i
-            Lx_1 = Lx * phi_1,
-            Lx_2 = Lx * phi_2,
-            Lx_3 = Lx * phi_3,
-            Lx_4 = Lx * phi_4
+            Lx_1 = Lx * p_a_1,
+            Lx_2 = Lx * p_a_2,
+            Lx_3 = Lx * p_a_3,
+            Lx_4 = Lx * p_a_4
         ) |>
         mutate( # compute dx_i
-            dx_1 = dx * phi_1,
-            dx_2 = dx * phi_2,
-            dx_3 = dx * phi_3,
-            dx_4 = dx * phi_4
+            dx_1 = dx * p_a_1,
+            dx_2 = dx * p_a_2,
+            dx_3 = dx * p_a_3,
+            dx_4 = dx * p_a_4
         ) |>
         mutate( # compute dx_ij = mx_ij * Lx_i;
-            dx_1_2 = theta_1_2 * Lx_1,
-            dx_1_3 = theta_1_3 * Lx_1,
-            dx_1_4 = theta_1_4 * Lx_1,
-            dx_2_4 = theta_2_4 * Lx_2,
-            dx_3_4 = theta_3_4 * Lx_3
+            dx_1_2 = m_a_1_2 * Lx_1,
+            dx_1_3 = m_a_1_3 * Lx_1,
+            dx_1_4 = m_a_1_4 * Lx_1,
+            dx_2_4 = m_a_2_4 * Lx_2,
+            dx_3_4 = m_a_3_4 * Lx_3
         ) |>
         mutate( # compute ex_i
             ex_1 = compute_ex(Lx_1, lx),
@@ -223,40 +221,40 @@ compute_lt <- function(fit, lt, select_race) {
     n_sim <- nrow(extracted[[1]])
     select_race <- sort(select_race)
     samps <- lapply(seq(n_sim), function(i){
-        phis <- lapply(
+        p_a <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["phi_msm"]][i,j,,] }
+            function(j) { extracted[["p_a"]][i,j,,] }
         )
-        thetas <- lapply(
+        m_a <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["theta_msm"]][i,j,,] }
+            function(j) { extracted[["m_a_msm"]][i,j,,] }
         )
-        phi_mom <- lapply(
+        p_a_mom <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["phi_mom"]][i,j,] }
+            function(j) { extracted[["p_a_mom"]][i,j,] }
         )
-        phi_dad <- lapply(
+        p_a_dad <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["phi_dad"]][i,j,] }
+            function(j) { extracted[["p_a_dad"]][i,j,] }
         )
-        theta_mom <- lapply(
+        m_a_mom <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["theta_mom"]][i,j,] }
+            function(j) { extracted[["m_a_mom"]][i,j,] }
         )
-        theta_dad <- lapply(
+        m_a_dad <- lapply(
             seq(length(select_race)),
-            function(j) { extracted[["theta_dad"]][i,j,] }
+            function(j) { extracted[["m_a_dad"]][i,j,] }
         )
         lapply(
             seq(length(select_race)),
             function(j) { 
                 lt <- filter(lt, race == select_race[j])
-                compute_lt_single(phis[[j]], thetas[[j]], lt) |>
+                compute_lt_single(p_a[[j]], m_a[[j]], lt) |>
                     mutate(
-                        unc_phi_mom = c(phi_mom[[j]], 1),
-                        unc_phi_dad = c(phi_dad[[j]], 1),
-                        unc_theta_mom = c(theta_mom[[j]], -1),
-                        unc_theta_dad = c(theta_dad[[j]], -1),
+                        unc_p_a_mom = c(p_a_mom[[j]], 1),
+                        unc_p_a_dad = c(p_a_dad[[j]], 1),
+                        unc_m_a_mom = c(m_a_mom[[j]], -1),
+                        unc_m_a_dad = c(m_a_dad[[j]], -1),
                         race = select_race[j]
                     )
             }
@@ -265,7 +263,7 @@ compute_lt <- function(fit, lt, select_race) {
     }) |> 
         bind_rows()
     cols <- colnames(samps)
-    cols <- cols[grep("^(lx)|(dx)|(Lx)|(ex)|(phi)|(theta)", cols)]
+    cols <- cols[grep("^(lx)|(dx)|(Lx)|(ex)|(p_a)|(m_a)", cols)]
     samps |>
         summarise(
             .by = c("race", "age"),
@@ -357,4 +355,16 @@ extract_sigmas <- function(fit) {
             },
             `2.5%`:`97.5%`
         )
+}
+
+extract_diagnostics <- function(fit, period) {
+    sims <- as.matrix(fit)
+    data.frame(
+        period = period,
+        num_divergent = rstan::get_num_divergent(fit),
+        num_max_treedepth = rstan::get_num_max_treedepth(fit),
+        rhat = rstan::Rhat(sims),
+        bulk_ess = rstan::ess_bulk(sims),
+        tail_ss = rstan::ess_tail(sims)
+    )
 }

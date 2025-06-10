@@ -7,7 +7,7 @@
 ##  Date: July 2024
 ##------------------------------------------------------------------------------
 ## Note on data
-## - Missing age-specific population coutns for dads in `us_fx_dad.csv` for
+## - Missing age-specific population counts for dads in `us_fx_dad.csv` for
 ##   the following years: 1992, 2001, 2002, 2003, 2011, 2013, 2014
 
 ##  Checks ---------------------------------------------------------------------
@@ -113,7 +113,8 @@ project_matrix_parentship <- function(fx, n_qx, MAX_AGE = 85, sim = FALSE) {
            summarise(
                .by = "x",
                m_lost = sum(i_lost) / sum(p_alive),
-               p_lost = 1 - mean(p_alive)
+               p_alive = last(p_alive),
+               p_lost = 1 - p_live
            ) |>
            mutate(race = r)
    }

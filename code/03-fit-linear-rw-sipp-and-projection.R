@@ -60,8 +60,8 @@ uslt2020 <- read_csv(here("data", "uslt-age-group.csv")) |>
 
 ## Fit stan models -------------------------------------------------------------
 stan_model <- rstan::stan_model(
-    file = here("code", "stan", "03-fit-sipp-and-projection.stan"),
-    model_name = "SIPP and projection"
+    file = here("code", "stan", "03-fit-linear-rw-sipp-and-projection.stan"),
+    model_name = "SIPP and projection with linear models"
 )
 stan_data <- lapply(
     seq(length(PERIODS)),
@@ -96,8 +96,9 @@ quick_diagnostics <- mapply(
 
 write_csv(
     bind_rows(quick_diagnostics), 
-    here("data", "posteriors", "sipp-and-projection", "diagnostics.csv")
+    here("data", "posteriors", "linear-rw-sipp-and-projection", "diagnostics.csv")
 )
+
 ## Extract and save posteriors -------------------------------------------------
 o <- lapply(
     seq(length(PERIODS)),
@@ -105,7 +106,7 @@ o <- lapply(
         saveRDS(
             stan_fit[[ind]], 
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-rw-sipp-and-projection",
                 paste0("fitted_", PERIODS[ind], ".rds")
             )
         )
@@ -119,7 +120,7 @@ o <- lapply(
         write_csv(
             lt_post[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-rw-sipp-and-projection",
                 paste0("lt_post_", PERIODS[ind], ".csv")
             )
         )
@@ -134,7 +135,7 @@ o <- lapply(
         write_csv(
             sig_post[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-rw-sipp-and-projection",
                 paste0("sig_post_", PERIODS[ind], ".csv")
             )
         )
@@ -148,7 +149,7 @@ o <- lapply(
         write_csv(
             post_pred[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-rw-sipp-and-projection",
                 paste0("lt_post_pred_", PERIODS[ind], ".csv")
             )
         )

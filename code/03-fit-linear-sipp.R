@@ -26,13 +26,6 @@ races <- c(
     "non-hispanic black",
     "hispanic"
 )
-# projection data
-projected_mom_dist <- read_csv(here("data", "projected-mom.csv")) |>
-    filter(race %in% races) |>
-    mutate(age = str_extract(x, "(?<=\\[)\\d+") |> as.numeric())
-projected_dad_dist <- read_csv(here("data", "projected-dad.csv")) |>
-    filter(race %in% races) |>
-    mutate(age = str_extract(x, "(?<=\\[)\\d+") |> as.numeric())
 
 # SIPP estimates
 sipp_pr <- lapply(
@@ -43,7 +36,7 @@ sipp_pr <- lapply(
         select(-"sex") |>
         mutate(age = str_extract(x, "(?<=\\[)\\d+") |> as.numeric())
 )
-
+    
 sipp_mx <- lapply(
     PERIODS,
     function(prd)
@@ -60,17 +53,16 @@ uslt2020 <- read_csv(here("data", "uslt-age-group.csv")) |>
 
 ## Fit stan models -------------------------------------------------------------
 stan_model <- rstan::stan_model(
-    file = here("code", "stan", "03-fit-sipp-and-projection.stan"),
-    model_name = "SIPP and projection"
+    file = here("code", "stan", "03-fit-linear-sipp.stan"),
+    model_name = "SIPP with linear models"
 )
+
 stan_data <- lapply(
     seq(length(PERIODS)),
     function(ind) {
         get_stan_data(
             sipp_pr[[ind]], sipp_mx[[ind]], 
-            select_race = races,
-            projected_mom_dist = projected_mom_dist, 
-            projected_dad_dist = projected_dad_dist
+            select_race = races
         )
     }
 )
@@ -96,8 +88,9 @@ quick_diagnostics <- mapply(
 
 write_csv(
     bind_rows(quick_diagnostics), 
-    here("data", "posteriors", "sipp-and-projection", "diagnostics.csv")
+    here("data", "posteriors", "linear-sipp", "diagnostics.csv")
 )
+
 ## Extract and save posteriors -------------------------------------------------
 o <- lapply(
     seq(length(PERIODS)),
@@ -105,7 +98,7 @@ o <- lapply(
         saveRDS(
             stan_fit[[ind]], 
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-sipp",
                 paste0("fitted_", PERIODS[ind], ".rds")
             )
         )
@@ -119,7 +112,7 @@ o <- lapply(
         write_csv(
             lt_post[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-sipp",
                 paste0("lt_post_", PERIODS[ind], ".csv")
             )
         )
@@ -134,7 +127,7 @@ o <- lapply(
         write_csv(
             sig_post[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-sipp",
                 paste0("sig_post_", PERIODS[ind], ".csv")
             )
         )
@@ -148,9 +141,8 @@ o <- lapply(
         write_csv(
             post_pred[[ind]],
             here(
-                "data", "posteriors", "sipp-and-projection",
+                "data", "posteriors", "linear-sipp",
                 paste0("lt_post_pred_", PERIODS[ind], ".csv")
             )
         )
 )
-

@@ -53,8 +53,8 @@ uslt2020 <- read_csv(here("data", "uslt-age-group.csv")) |>
 
 ## Fit stan models -------------------------------------------------------------
 stan_model <- rstan::stan_model(
-    file = here("code", "03-fit-sipp.stan"),
-    model_name = "SIPP with race"
+    file = here("code", "stan", "03-fit-sipp.stan"),
+    model_name = "SIPP"
 )
 
 stan_data <- lapply(
@@ -72,28 +72,24 @@ stan_fit <- lapply(
     function(stndt)
         rstan::sampling(
             stan_model, stndt,
-            warmup = 5000, iter = 10000, chains = 4,
+            warmup = NWARMUP, iter = NITER, chains = NCHAINS,
             control = list(
-                adapt_delta = .9,
-                max_treedepth = 14
+                adapt_delta = ADAPT_DELTA,
+                max_treedepth = MAX_TREEDEPTH
             ),
             algorithm = "NUTS"
         )
 )
 
 # quick diagnostics
-o <- lapply(
-    seq(length(PERIODS)),
-    function(ind) {
-        cat("Period:", PERIODS[ind], "-------------------")
-        rstan::check_hmc_diagnostics(stan_fit[[ind]])
-        sims <- as.matrix(stan_fit[[ind]])
-        cat("   Bulk ESS:", rstan::ess_bulk(sims))
-        cat("\n   Tail ESS:", rstan::ess_tail(sims))
-        cat("\n")
-    }
+quick_diagnostics <- mapply(
+    extract_diagnostics, stan_fit, PERIODS, SIMPLIFY = FALSE
 )
 
+write_csv(
+    bind_rows(quick_diagnostics), 
+    here("data", "posteriors", "sipp", "diagnostics.csv")
+)
 
 ## Extract and save posteriors -------------------------------------------------
 o <- lapply(
@@ -102,7 +98,7 @@ o <- lapply(
         saveRDS(
             stan_fit[[ind]], 
             here(
-                "data", "posteriors", "loglin",
+                "data", "posteriors", "sipp",
                 paste0("fitted_", PERIODS[ind], ".rds")
             )
         )
@@ -116,7 +112,7 @@ o <- lapply(
         write_csv(
             lt_post[[ind]],
             here(
-                "data", "posteriors", "loglin",
+                "data", "posteriors", "sipp",
                 paste0("lt_post_", PERIODS[ind], ".csv")
             )
         )
@@ -131,7 +127,7 @@ o <- lapply(
         write_csv(
             sig_post[[ind]],
             here(
-                "data", "posteriors", "loglin",
+                "data", "posteriors", "sipp",
                 paste0("sig_post_", PERIODS[ind], ".csv")
             )
         )
@@ -145,7 +141,7 @@ o <- lapply(
         write_csv(
             post_pred[[ind]],
             here(
-                "data", "posteriors", "loglin",
+                "data", "posteriors", "sipp",
                 paste0("lt_post_pred_", PERIODS[ind], ".csv")
             )
         )

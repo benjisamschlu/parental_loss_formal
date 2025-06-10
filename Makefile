@@ -26,10 +26,10 @@ prep-data:
 	$(MAKE) estimate-sipp aggregate-uslt project-matrix-model
 
 fit-sipp:
-	$(MAKE) SCRIPT="03-fit-sipp.R" rscript
-fit-sipp-and-matrix:
-	$(MAKE) SCRIPT="03-fit-sipp-and-projection.R" rscript
-fit-sipp-and-matrix-sim:
-	$(MAKE) SCRIPT="03-fit-sipp-and-projection-sim.R" rscript
+	$(MAKE) SCRIPT="03-fit-linear-rw-sipp.R" rscript
+	$(MAKE) SCRIPT="03-fit-linear-sipp.R" rscript
+fit-sipp-and-projection:
+	$(MAKE) SCRIPT="03-fit-linear-rw-sipp-and-projection.R" rscript
+	$(MAKE) SCRIPT="03-fit-linear-sipp-and-projection.R" rscript
 fit:
-	$(MAKE) fit-sipp-and-matrix-sim fit-sipp-and-matrix fit-sipp
+	$(MAKE) fit-sipp-and-projection fit-sipp 
